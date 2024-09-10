@@ -1,0 +1,28 @@
+{
+  "name": "peer-connect",
+  "version": "1.0.0",
+  "description": "A web app for connecting developers, students, and professionals to form teams for hackathons and networking events, with real-time chat and a profile rating system.",
+  "main": "server.js",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/peer-connect.git"
+  },
+  "keywords": [
+    "networking",
+    "hackathons",
+    "real-time chat",
+    "team-building"
+  ],
+  "contributors": [
+    {
+      "name": "Samarth Vaidya",
+      "email": "v.samarth1212@gmail.com"
+    },
+    {
+      "name": "Ishika Verma",
+      "email": "email@email.com"
+    }
+  ],
+  "license": "MIT"
+}
