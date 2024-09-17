@@ -20,4 +20,4 @@ Peer Connect is a web application designed to help developers, students, and pro
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/peer-connect.git
+   git clone https://github.com/samar12-rad/peer-connect.git

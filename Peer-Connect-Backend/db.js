@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 mongoose.connect(process.env.DB_URI);
 
+
+
 const userSchema = mongoose.Schema({
     username: String,
     firstName: String,
@@ -13,7 +15,7 @@ const userSchema = mongoose.Schema({
     bio: String,
     profilePicture: String,
     projects: Array,
-    skills: Array,    
+    skills: Array
 })
 
 const User = mongoose.model("User", userSchema);

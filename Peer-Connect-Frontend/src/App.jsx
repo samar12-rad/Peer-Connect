@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import './App.css'
+{/* import navbar */}
 
 function App() {
   return (
       <div>
-        {/* import navbar */}
         {/* add navbar like <Navbar /> */}
       </div>
   )
