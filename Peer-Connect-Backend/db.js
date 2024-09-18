@@ -1,13 +1,10 @@
-const mongoose = require("mongoose");
-require('dotenv').config();
-mongoose.connect(process.env.DB_URI);
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
     username: String,
-    firstName: String,
-    lastName: String,
+    name: String,
+    city: String,
     password: String,
     email: String,
     github: String,
@@ -15,10 +12,14 @@ const userSchema = mongoose.Schema({
     bio: String,
     profilePicture: String,
     projects: Array,
-    skills: Array
-})
+    skills: [Array],
+    chats: Array,
+    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    friendRequests: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    rating: Number,  // New field for user rating
+    isNewOrIncomplete: Boolean  // New field for determining if the profile is new/incomplete
+});
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
-
