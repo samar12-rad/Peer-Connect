@@ -19,7 +19,20 @@ async function getData (req, res) {
 }
 
 async function createUser (req, res) {
-        const { username, firstName, lastName, password, email, github, linkedin, bio, profilePicture, projects, skills } = req.body;
+    const {
+        username,
+        firstName,
+        lastName,
+        password,
+        email,
+        github,
+        linkedin,
+        bio,
+        profilePicture,
+        rating,
+        projects = [], // Default to empty array if not provided
+        skills = []    // Default to empty array if not provided
+    } = req.body;
     
         // Basic validation
         if (!username || !password || !email) {
@@ -33,16 +46,17 @@ async function createUser (req, res) {
             // Create a new user with hashed password
             await User.create({
                 username,
-                firstName,
-                lastName,
-                password: hashedPassword,
-                email,
-                github,
-                linkedin,
-                bio,
-                profilePicture,
-                projects,
-                skills
+            firstName,
+            lastName,
+            password: hashedPassword,
+            email,
+            github,
+            linkedin,
+            bio,
+            profilePicture,
+            projects,
+            rating,
+            skills
             });
     
             res.status(201).json({ message: "User created successfully" });
