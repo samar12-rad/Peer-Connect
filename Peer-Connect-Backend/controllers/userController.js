@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require("../db");
+const { User } = require('../db');
 
 
 
@@ -11,8 +11,9 @@ async function getData (req, res) {
         if (!userData) {
             return res.status(404).json({ error: 'User not found' });
         }
-
+        req.userId = userData._id; // Store user ID in the request object for
         res.status(200).json({ data: userData });
+        
     } catch (error) {
         res.status(500).json({ error: 'Error fetching user data' });
     }
