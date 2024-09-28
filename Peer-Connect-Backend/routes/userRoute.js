@@ -4,7 +4,7 @@ const User = require("../db");
 const router = express.Router();
 require('dotenv').config();
 const checkSession = require("../middlewares/sessionAuth");
-const userController = require("../controllers/user");
+const userController = require("../controllers/userController");
 
 // Signup Route
 router.post("/signup", userController.createUser);

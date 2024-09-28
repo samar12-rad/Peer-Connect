@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 require('dotenv').config();
 mongoose.connect(process.env.DB_URI);
-
+console.log("Connected to MongoDB");
 const userSchema = new Schema({
     username: String,
     name: String,
@@ -22,6 +22,38 @@ const userSchema = new Schema({
     isNewOrIncomplete: Boolean  // New field for determining if the profile is new/incomplete
 });
 
-const User = mongoose.model('User', userSchema);
+const messageSchema = new Schema({ 
+    senderId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    recieverId: { type: Schema.Types.ObjectId, ref: 'User',  required: true  },
+    message: {
+        type: String,
+        required: true 
+    }
+}, {timestamps: true});
 
-module.exports = User;
+const conversationSchema = new Schema({
+    participants: [
+        {
+             type: Schema.Types.ObjectId, 
+             ref: 'User' 
+        }
+    ],
+    messages: [
+        { 
+            type: Schema.Types.ObjectId,
+            ref: 'Message',
+            default: [] 
+        }
+    ]
+}, timestamps = true);
+
+const User = mongoose.model('User', userSchema);
+const Message = mongoose.model('Message', messageSchema);
+const Conversation = mongoose.model('Conversation', conversationSchema);
+
+module.exports = {
+    User,
+    Message,
+    Conversation
+};
+
