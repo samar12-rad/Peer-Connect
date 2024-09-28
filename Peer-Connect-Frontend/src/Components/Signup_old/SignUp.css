@@ -7,10 +7,14 @@ body {
   .signup-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: fit-content;
     background-color: #f9f9f9;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
   }
   
   
