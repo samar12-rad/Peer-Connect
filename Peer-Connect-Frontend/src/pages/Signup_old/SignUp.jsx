@@ -1,24 +1,24 @@
-import { useState } from "react";
-import "./Signup.css"; // Import your CSS file for styling
-import MyDropzone from "../../Components/DropzoneComponent";
+import { useState } from 'react';
+import './Signup.css'; // Import your CSS file for styling
+import MyDropzone from '../../Components/DropzoneComponent';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    name: "",
-    city: "",
-    password: "",
-    email: "",
-    github: "",
-    linkedin: "",
-    bio: "",
-    profilePicture: "",
+    username: '',
+    name: '',
+    city: '',
+    password: '',
+    email: '',
+    github: '',
+    linkedin: '',
+    bio: '',
+    profilePicture: '',
     projects: [],
     skills: [],
     chats: [],
     friends: [],
     friendRequests: [],
-    rating: "",
+    rating: '',
     isNewOrIncomplete: false,
   });
 
@@ -35,22 +35,22 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("localhost:3000/api/v1/user/signup", {
-        method: "POST",
+      const response = await fetch('localhost:3000/api/v1/user/signup', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Form Data Submitted:", result);
+        console.log('Form Data Submitted:', result);
       } else {
-        console.error("Server responded with an error:", response.statusText);
+        console.error('Server responded with an error:', response.statusText);
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error);
     }
   };
 
@@ -165,7 +165,7 @@ const SignUp = () => {
               setFormData({
                 ...formData,
                 projects: e.target.value
-                  .split(",")
+                  .split(',')
                   .map((project) => project.trim()),
               })
             }
@@ -182,7 +182,7 @@ const SignUp = () => {
             onChange={(e) =>
               setFormData({
                 ...formData,
-                skills: e.target.value.split(",").map((skill) => skill.trim()),
+                skills: e.target.value.split(',').map((skill) => skill.trim()),
               })
             }
             placeholder="Enter your skills"
