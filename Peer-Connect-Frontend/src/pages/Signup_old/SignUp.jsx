@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Signup.css'; // Import your CSS file for styling
+import './SignUp.css'; // Import your CSS file for styling
 import MyDropzone from '../../Components/DropzoneComponent';
 
 const SignUp = () => {
