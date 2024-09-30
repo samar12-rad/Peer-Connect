@@ -2,7 +2,6 @@ const User = require("../models/db");
 
 const fetchUser = async (req, res) => {
   const skills = req.body.skills; // Get the full array of skills from the request body
-
   const numSkills = skills.length; // Calculate the number of skills
 
   // Fetch users whose skills match any of the skills in the input array
