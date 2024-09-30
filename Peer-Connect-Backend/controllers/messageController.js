@@ -52,6 +52,49 @@ async function sendMessage(req, res) {
   }
 }
 
+async function getMessages(req, res) {
+  try {
+    const senderId = req.session.userId;
+
+    const recieverId = req.body.Id;
+    if (!recieverId) {
+      return res.status(400).json({
+        error: "Reciever is required to find conversation",
+      });
+    }
+    const reciever = User.findOne({
+      _id: recieverId,
+    });
+    if (!reciever) {
+      res.status(400).json({
+        error: "Reciever is invalid",
+      });
+    }
+
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, recieverId] },
+    });
+    if (!conversation) {
+      return res.status(400).json({
+        error: "conversation not found",
+      });
+    }
+
+    var messages = [];
+
+    for (const message of conversation.messages) {
+      const messageData = await Message.findOne({ _id: message._id });
+      messages.push({
+        sender: messageData.senderId,
+        message: messageData.message,
+      });
+    }
+
+    res.json(messages);
+  } catch (error) {}
+}
+
 module.exports = {
   sendMessage,
+  getMessages,
 };
