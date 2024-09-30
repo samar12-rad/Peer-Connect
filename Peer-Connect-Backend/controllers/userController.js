@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { User } = require("../models/db");
+const User = require("../models/userModel");
 
 async function getData(req, res) {
   try {
@@ -93,12 +93,10 @@ async function loginUser(req, res) {
     req.session.userId = user._id; // Store user ID in the session
     req.session.sessionID = req.sessionID; // Optionally store the session ID
 
-    res
-      .status(200)
-      .json({
-        message: "Login successful",
-        user: { username: user.username, email: user.email },
-      });
+    res.status(200).json({
+      message: "Login successful",
+      user: { username: user.username, email: user.email },
+    });
   } catch (error) {
     console.error(error); // Log error details for debugging
     res.status(500).json({ error: "Error logging in" });
