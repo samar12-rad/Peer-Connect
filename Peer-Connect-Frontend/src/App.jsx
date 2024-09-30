@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import SignUp from "./pages/Signup_old/SignUp";
 import Sidebar from "./Components/Sidebar";
 import { Dashboard } from "./pages/dashboard/Dashboard";
+import Profile from "./pages/profile/Profile";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
       </div>
