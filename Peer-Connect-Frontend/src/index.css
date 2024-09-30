@@ -3,3 +3,67 @@
 @tailwind utilities;
 
 /* ---------------------Dont change anything here ------------------- */
+.pc-button {
+  width: 180px;
+  height: 50px;
+  background: linear-gradient(
+    144deg,
+    #db9e39,
+    #d4cb50,
+    #3db8d2,
+    #a83dd2,
+    #d23d8a
+  );
+  background-size: 1000% 1000%;
+  -webkit-animation: AnimationName 11s ease infinite;
+  -moz-animation: AnimationName 11s ease infinite;
+  animation: AnimationName 11s ease infinite;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: large;
+  font-weight: 500;
+  letter-spacing: 2px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  cursor: pointer;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 77%;
+  }
+  50% {
+    background-position: 100% 24%;
+  }
+  100% {
+    background-position: 0% 77%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 77%;
+  }
+  50% {
+    background-position: 100% 24%;
+  }
+  100% {
+    background-position: 0% 77%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 77%;
+  }
+  50% {
+    background-position: 100% 24%;
+  }
+  100% {
+    background-position: 0% 77%;
+  }
+}

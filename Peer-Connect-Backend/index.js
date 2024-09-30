@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 const cookieParser = require("cookie-parser"); // Add this line
 require("dotenv").config();
@@ -22,6 +23,15 @@ app.use(cookieParser()); // Add this line to use cookie-parser
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+mongoose
+  .connect(process.env.DB_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Database connection failed:", error);
+  });
 
 // Configure session store
 app.use(
