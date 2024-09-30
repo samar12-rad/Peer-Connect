@@ -56,6 +56,7 @@ const SignUp = () => {
 
   return (
     <div className="signup-container">
+      <button className="pc-button">Edit Profile</button>
       <h1 className="signup-heading">Peer Connect</h1>
       <h2 className="sub-heading">Signup</h2>
       <form className="signup-form" onSubmit={handleSubmit}>
