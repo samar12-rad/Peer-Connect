@@ -1,4 +1,4 @@
-const { User, Conversation, Message } = require("../db");
+const { User, Conversation, Message } = require("../models/db");
 
 async function sendMessage(req, res) {
   try {

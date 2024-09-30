@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "A web app for connecting developers, students, and professionals to form teams for hackathons and networking events, with real-time chat and a profile rating system.",
   "main": "server.js",
-  
   "repository": {
     "type": "git",
     "url": "https://github.com/samar-12rad/peer-connect.git"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd Peer-Connect-Backend && npm start",
+    "start:frontend": "cd Peer-Connect-Frontend && npm run dev"
   },
   "keywords": [
     "networking",
@@ -24,5 +28,8 @@
       "email": "ishikaverma174@gmail.com"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
 }

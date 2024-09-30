@@ -1,8 +1,6 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const User = require("../db");
+const express = require("express");
 const router = express.Router();
-require('dotenv').config();
+require("dotenv").config();
 const checkSession = require("../middlewares/sessionAuth");
 const userController = require("../controllers/userController");
 
