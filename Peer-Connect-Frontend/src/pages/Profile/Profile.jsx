@@ -1,18 +1,29 @@
-
+import photu from "../../assets/user-profile-icon-free-vector.jpg";
 const Profile = () => {
+
+
   return (
     <div className="h-fit w-full flex flex-col gap-7">
       <div className=" text-white  justify-evenly flex text-2xl"><h1>PROFILE</h1>
-       <button type="submit" className="text-white rounded-md px-2 bg-blue-800 hover:bg-blue-950 text-2xl">edit profile</button>
+       <button type="submit" className="pc-button">edit profile</button>
        </div>
       <div className="grid h-full w-full grid-cols-6 grid-rows-8 gap-3 px-10 ">
-        <div className="col-span-2 row-span-5 rounded-xl bg-graydark"><p className="text-center bg-graydark text-xl font-bold mt-5">
-          <img src="user-profile-icon-free-vector.jpeg" alt="Profile" className="w-40 h-40 mx-auto mt-10 rounded-full" />
-        </p>
+        <div className="col-span-2 row-span-5 flex flex-col items-center rounded-xl bg-graydark">
+          <img src={photu} alt="Profile" className="w-40 h-40 rounded-full" /> 
         <div className="flex justify-between ">
+
+          
         <p className="pb-2 pt-50 pl-10">Name:
         <input type="text" placeholder="Enter your skills" className="justify-center ml-20 mr-10 text-black bg-graydark mb-2 border-2 text-sm"/>
         </p></div>
+  
+  
+  
+  
+  
+  
+  
+  
         <div className="flex justify-between ">
         <p className="pb-2 pt-2 pl-10">UserName:
         <input type="text" placeholder="Enter your skills" className="justify-center mr-10 ml-20 text-black bg-graydark mb-2 border-2 text-sm"/>
