@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   FaHome,
   FaInfoCircle,
@@ -7,14 +7,14 @@ import {
   FaPhone,
   FaSignOutAlt,
   FaComments,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const sidebarVariants = {
-    open: { width: "320px", transition: { duration: 0.3 } },
-    closed: { width: "80px", transition: { duration: 0.3 } },
+    open: { width: '320px', transition: { duration: 0.3 } },
+    closed: { width: '80px', transition: { duration: 0.3 } },
   };
 
   const textVariants = {
@@ -26,12 +26,12 @@ const Sidebar = () => {
     <motion.div
       className="text-[#B8B8B8] bg-[#1d1c21] flex h-screen"
       initial="closed"
-      animate={isOpen ? "open" : "closed"}
+      animate={isOpen ? 'open' : 'closed'}
       variants={sidebarVariants}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="flex flex-col justify-between h-full w-full items-center py-4">
+      <div className="fixed flex flex-col justify-between h-screen pl-[25px] py-4">
         <div className="logo py-4 flex items-center">
           {isOpen ? (
             <motion.h2
@@ -65,7 +65,7 @@ const Sidebar = () => {
             )}
           </a>
           <a
-            href="#"
+            href="/grid"
             className="flex items-center gap-4 py-2 hover:bg-gray-700 w-full"
           >
             <FaInfoCircle size={24} className="text-[#B8B8B8]" />

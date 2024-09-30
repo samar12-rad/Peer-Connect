@@ -1,16 +1,9 @@
-import React from 'react'
-
-
+import React from 'react';
 
 const Navbar = () => {
+  const [FormData, setFormData] = useState();
 
-    const [FormData, setFormData] = useState();
+  return <div> {FormData}</div>;
+};
 
-  return (
-    <div> {FormData}</div>
-  )
-}
-
-
-
-export default Navbar
+export default Navbar;
