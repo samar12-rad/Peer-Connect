@@ -4,19 +4,21 @@ import SignUp from './pages/Signup_old/SignUp';
 import Sidebar from './Components/Sidebar';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { GridBackgroundDemo } from './Components/GridBackground';
+import Profile from './pages/Profile/Profile';
 
 const App = () => {
   return (
     <Router>
       <div className="bg-[#1d1c21] flex">
         <Sidebar />
-        <div className="w-full bg-[#000000] pl-5 pt-5 rounded-l-3xl rounded-bl-none h-fit shadow-inner-fat-blue rounded-r-[0]">
+        <div className="w-full bg-[#000000] pt-5 rounded-l-3xl rounded-bl-none h-fit shadow-inner-fat-blue rounded-r-[0]">
           <Routes>
             <Route path="/" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/grid" element={<GridBackgroundDemo />} />
+            <Route path="/profile" element={<Profile/>} />
           </Routes>
         </div>
       </div>
