@@ -34,6 +34,22 @@
   cursor: pointer;
 }
 
+.gradient-text {
+  font-weight: 700;
+  background: linear-gradient(
+    144deg,
+    #db9e39,
+    #d4cb50,
+    #3db8d2,
+    #a83dd2,
+    #d23d8a
+  );
+  background-size: 1000% 1000%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: AnimationName 11s ease infinite;
+}
+
 @-webkit-keyframes AnimationName {
   0% {
     background-position: 0% 77%;
