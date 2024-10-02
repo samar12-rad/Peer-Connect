@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './pages/login/Login';
 import SignUp from './pages/Signup_old/SignUp';
 import Sidebar from './Components/Sidebar';
-import { Dashboard } from './pages/dashboard/Dashboard';
 import { GridBackgroundDemo } from './Components/GridBackground';
-import Profile from './pages/Profile/Profile';
+import { Dashboard } from './pages/dashboard/Dashboard';
 
 const App = () => {
   return (
@@ -14,7 +12,6 @@ const App = () => {
         <div className="w-full bg-[#000000] pt-5 rounded-l-3xl rounded-bl-none h-fit shadow-inner-fat-blue rounded-r-[0]">
           <Routes>
             <Route path="/" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/grid" element={<GridBackgroundDemo />} />
