@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import './SignUp.css'; // Import your CSS file for styling
+import './SignUpOld.css'; // Import your CSS file for styling
 import MyDropzone from '../../Components/DropzoneComponent';
 
-const SignUp = () => {
+const SignUpOld = () => {
   const [formData, setFormData] = useState({
     username: '',
     name: '',
@@ -209,4 +209,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpOld;

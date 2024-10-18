@@ -38,12 +38,12 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-fit w-full flex flex-col gap-4 shadow-xl relative overflow-hidden">
+    <div className="max-fit w-full flex flex-col gap-4 pb-9 shadow-xl relative overflow-hidden">
       <div className="text-black justify-evenly flex text-2xl">
         <h1>PROFILE</h1>
       </div>
 
-      <div className="grid h-full w-full grid-cols-6 grid-rows-8 gap-3 px-10">
+      <div className="grid h-full w-full grid-cols-6 grid-rows-7 gap-3 px-10">
         <div className="col-span-2 row-span-5 flex flex-col items-center px-15 pt-10  relative overflow-hidden bg-opacity-50 rounded-[16px] shadow-6 shadow-white backdrop-blur-[7.4px] border border-white/5">
           <div className="absolute inset-0 opacity-15 rounded-xl" />{' '}
           {/* Enhanced overlay for more frosted look */}
