@@ -55,8 +55,8 @@ const Profile = () => {
             <p className="pb-4">Pronouns: {dummyData.pronouns}</p>
             <div className="flex justify-end">
               <button className="mt-6 h-7 ml-20 mb-5 w-30 bg-blue-900 hover:bg-blue-800 text-white rounded-lg text-[16px]">
-                edit                                  
-              </button             >
+                edit
+              </button>
             </div>
           </div>
         </div>
