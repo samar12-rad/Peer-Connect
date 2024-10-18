@@ -3,6 +3,8 @@ import SignUp from './pages/Signup_old/SignUp';
 import Sidebar from './Components/Sidebar';
 import { GridBackgroundDemo } from './Components/GridBackground';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import Profile from './pages/Profile/Profile';
+import Login from './pages/login/Login';
 
 const App = () => {
   return (
@@ -16,6 +18,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/grid" element={<GridBackgroundDemo />} />
             <Route path="/profile" element={<Profile/>} />
+            <Route path="/login" element={<Login/>} />
           </Routes>
         </div>
       </div>
