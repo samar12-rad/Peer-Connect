@@ -11,14 +11,14 @@ const App = () => {
     <Router>
       <div className="bg-[#1d1c21] flex">
         <Sidebar />
-        <div className="w-full bg-[#000000] pt-5 rounded-l-3xl rounded-bl-none h-fit shadow-inner-fat-blue rounded-r-[0]">
+        <div className="w-full bg-gradient-to-br from-[#9dbbd4] to-[#d4a5b6] pt-5 rounded-l-3xl rounded-bl-none h-fit shadow-inner-fat-blue rounded-r-[0]">
           <Routes>
             <Route path="/" element={<SignUp />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/grid" element={<GridBackgroundDemo />} />
-            <Route path="/profile" element={<Profile/>} />
-            <Route path="/login" element={<Login/>} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>
