@@ -1,9 +1,5 @@
 const Signup = () => {
-  return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <h1>Hello Current Landing page which is running from new signup page</h1>
-    </div>
-  );
+  return <div className="h-screen w-screen bg-black-2"></div>;
 };
 
 export default Signup;
