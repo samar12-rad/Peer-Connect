@@ -43,7 +43,7 @@ const Sidebar = () => {
               PeerConnect
             </motion.h2>
           ) : (
-            <FaComments size={40} className="text-[#B8B8B8]" />
+            <FaComments size={40} className="text-[#B8B8B8] -translate-x-2 " />
           )}
         </div>
 

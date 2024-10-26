@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SignUpOld from './pages/Signup_old/SignUpOld';
 import Sidebar from './Components/Sidebar';
-import { GridBackgroundDemo } from './Components/GridBackground';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import Login from './pages/login/Login';
@@ -18,7 +17,6 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signupold" element={<SignUpOld />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/grid" element={<GridBackgroundDemo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
           </Routes>
