@@ -1,4 +1,4 @@
-const User = require("../models/userModel"); // Import database from here
+const User = require('../models/userModel'); // Import database from here
 
 const fetchUser = async (req, res) => {
   const skills = req.body.skills; // Get the full array of skills from the request body
