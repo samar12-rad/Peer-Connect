@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import './SignUp.css'; // Import your CSS file for styling
+import './SignUpOld.css'; // Import your CSS file for styling
 import MyDropzone from '../../Components/DropzoneComponent';
 
-const SignUp = () => {
+const SignUpOld = () => {
   const [formData, setFormData] = useState({
     username: '',
     name: '',
@@ -35,7 +35,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('localhost:3000/api/v1/user/signup', {
+      const response = await fetch('http://localhost:3000/api/v1/user/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -209,4 +209,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpOld;

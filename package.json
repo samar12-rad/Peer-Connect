@@ -10,7 +10,9 @@
   "scripts": {
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd Peer-Connect-Backend && npm start",
-    "start:frontend": "cd Peer-Connect-Frontend && npm run dev"
+    "start:frontend": "cd Peer-Connect-Frontend && npm run dev",
+    "prepare": "husky install",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "keywords": [
     "networking",
@@ -30,6 +32,17 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8"
+  },
+  "lint-staged": {
+    "Peer-Connect-Frontend/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write",
+    "Peer-Connect-Backend/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
   }
 }

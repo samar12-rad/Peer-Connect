@@ -5,7 +5,7 @@
 ## Overview
 Peer Connect is a web application designed to help developers, students, and professionals connect and form teams for hackathons and networking events. The platform enables users to create profiles, showcase projects, and find collaborators based on location, experience level, and project interests. Once matched, users can communicate via a real-time chat system.
 
-## Features
+## Features 
 - **User Profiles**: Create and customize profiles, showcase projects, and request reviews/ratings.
 - **Matching System**: Swipe-based system for finding suitable collaborators.
 - **Location-based Search**: Filter users based on proximity (city, college, or local area).

@@ -13,8 +13,7 @@ const clientPath = process.env.CLIENT_PATH || "http://localhost:3000";
 // Enable CORS with credentials
 app.use(
   cors({
-    credentials: true,
-    origin: clientPath,
+    
   })
 );
 

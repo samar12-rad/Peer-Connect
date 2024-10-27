@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ---------------------Dont change anything here ------------------- */
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
 .pc-button {
   width: 180px;
   height: 50px;
@@ -66,4 +72,21 @@
   100% {
     background-position: 0% 77%;
   }
+}
+.tag {
+  background-color: #db9e39;
+  display: inline-block; /* Ensures the tag fits its content */
+  padding: 8px 16px; /* Adds padding for height and width */
+  color: #333; /* Text color */
+  border-radius: 50px; /* Gives it a pill shape */
+  font-size: 14px; /* Adjusts the font size */
+  font-weight: 500; /* Adjusts the font weight */
+  text-align: center; /* Centers the text */
+  cursor: default; /* Sets the cursor style */
+  white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+.tag:hover {
+  background-color: #e0e0e0;
+  color: black; /* Changes background on hover */
 }
