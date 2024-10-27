@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ---------------------Dont change anything here ------------------- */
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
 .pc-button {
   width: 180px;
   height: 50px;
@@ -33,8 +39,6 @@
   border-radius: 35px;
   cursor: pointer;
 }
-
-
 
 @-webkit-keyframes AnimationName {
   0% {
@@ -84,5 +88,5 @@
 
 .tag:hover {
   background-color: #e0e0e0;
-  color:black; /* Changes background on hover */
+  color: black; /* Changes background on hover */
 }
