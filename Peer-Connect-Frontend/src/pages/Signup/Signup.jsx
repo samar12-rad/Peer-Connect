@@ -1,41 +1,13 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
-import {
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '../../Components/Dialog';
-import { Dialog } from '../../Components/Dialog';
-
-// Define PropTypes for DialogContent, DialogHeader, DialogTitle, and DialogFooter components
-DialogContent.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
-DialogHeader.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
-DialogTitle.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
-DialogFooter.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
-
-// Project Modal Component
+// ProjectModal Component
 const ProjectModal = ({ isOpen, onClose, onAddProject }) => {
   const [projectName, setProjectName] = useState('');
   const [projectLink, setProjectLink] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (projectName && projectLink) {
       onAddProject({ name: projectName, link: projectLink });
       setProjectName('');
@@ -44,57 +16,77 @@ const ProjectModal = ({ isOpen, onClose, onAddProject }) => {
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-2xl">Add New Project</DialogTitle>
-        </DialogHeader>
-        <div className="flex flex-col gap-4 py-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="projectName" className="text-sm font-medium">
+    <div className="fixed inset-0 z-50 flex items-end justify-center p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xl font-bold text-gray-900">Add New Project</h2>
+          <button
+            onClick={onClose}
+            className="rounded-full p-2 text-xl hover:bg-gray-100"
+          >
+            ×
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label
+              htmlFor="projectName"
+              className="block text-sm font-medium text-gray-700"
+            >
               Project Name
             </label>
             <input
-              id="projectName"
               type="text"
+              id="projectName"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mt-1 w-full rounded border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Enter project name"
+              required
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="projectLink" className="text-sm font-medium">
+          <div>
+            <label
+              htmlFor="projectLink"
+              className="block text-sm font-medium text-gray-700"
+            >
               Project Link
             </label>
             <input
-              id="projectLink"
               type="url"
+              id="projectLink"
               value={projectLink}
               onChange={(e) => setProjectLink(e.target.value)}
-              className="rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter project link"
+              className="mt-1 w-full rounded border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              placeholder="https://..."
+              required
             />
           </div>
-        </div>
-        <DialogFooter>
-          <button type="button" onClick={onClose} className="mr-2">
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={!projectName || !projectLink}
-          >
-            Add Project
-          </button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <div className="flex justify-end space-x-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
+            >
+              Add Project
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
+// Add PropTypes validation
 ProjectModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
@@ -253,29 +245,206 @@ const Signup = () => {
             Add Projects
           </button>
           <h2 className="mt-4">Added Projects:</h2>
-          <ul>
+          <ul className="space-y-2">
             {projects.map((project, index) => (
-              <li key={index} className="mt-2">
-                {project.name} -{' '}
+              <li key={index} className="flex items-center space-x-2">
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-indigo-500 hover:underline"
                 >
-                  {project.link}
+                  <span className="font-medium">{project.name}</span>
                 </a>
               </li>
             ))}
           </ul>
+          <ProjectModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onAddProject={handleAddProject}
+          />
+        </div>
+
+        <div className="pt-4 text-2xl">
+          <h1 className="">What are your skills?</h1>
+          <div className="mt-4 text-sm">
+            <h2>Skills:</h2>
+          </div>
+          <div className="">
+            <div className="flex flex-wrap gap-4">
+              <button
+                id="frontend"
+                name="frontend"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Frontend
+              </button>
+              <button
+                id="backend"
+                name="backend"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Backend
+              </button>
+              <button
+                id="fullstack"
+                name="fullstack"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Fullstack
+              </button>
+              <button
+                id="dsa"
+                name="dsa"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                DSA
+              </button>
+              <button
+                id="flutter"
+                name="flutter"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Flutter
+              </button>
+              <button
+                id="python"
+                name="python"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Python
+              </button>
+              <button
+                id="aiml"
+                name="aiml"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                AI/ML
+              </button>
+              <button
+                id="html"
+                name="html"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                HTML
+              </button>
+              <button
+                id="css"
+                name="css"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                CSS
+              </button>
+              <button
+                id="javascript"
+                name="javascript"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                JAVASCRIPT
+              </button>
+              <button
+                id="react"
+                name="react"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                REACT
+              </button>
+              <button
+                id="c/c++"
+                name="c/c++"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                C/C++
+              </button>
+              <button
+                id="java"
+                name="java"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                JAVA
+              </button>
+              <button
+                id="angular"
+                name="angular"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                ANGULAR
+              </button>
+              <button
+                id="node"
+                name="node"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                NODE.JS
+              </button>
+              <button
+                id="ruby on rails"
+                name="ruby on rails"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Ruby on Rails
+              </button>
+              <button
+                id="mongodb"
+                name="mongodb"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                MONGODB
+              </button>
+              <button
+                id="sql"
+                name="sql"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                SQL
+              </button>
+              <button
+                id="postgresql"
+                name="posgresql"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                POSTGRESQL
+              </button>
+              <button
+                id="springboot"
+                name="springboot"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                SPRINGBOOT
+              </button>
+              <button
+                id="nextjs"
+                name="nextjs"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                NEXT.JS
+              </button>
+              <button
+                id="rust"
+                name="rust"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                RUST
+              </button>
+              <button
+                id="golang"
+                name="golang"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                GOLANG
+              </button>
+              <button
+                id="git"
+                name="git"
+                className="w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                GIT
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-
-      <ProjectModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onAddProject={handleAddProject}
-      />
     </div>
   );
 };
