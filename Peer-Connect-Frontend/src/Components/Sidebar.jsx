@@ -24,15 +24,15 @@ const Sidebar = () => {
 
   return (
     <motion.div
-      className="text-[#B8B8B8] bg-[#1d1c21] flex h-screen"
+      className="flex h-screen bg-[#1d1c21] text-[#B8B8B8]"
       initial="closed"
       animate={isOpen ? 'open' : 'closed'}
       variants={sidebarVariants}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="fixed flex flex-col justify-between h-screen pl-[25px] py-4">
-        <div className="logo py-4 flex items-center">
+      <div className="fixed flex h-screen flex-col justify-between py-4 pl-[25px]">
+        <div className="logo flex items-center py-4">
           {isOpen ? (
             <motion.h2
               className="text-4xl font-bold text-[#B8B8B8]"
@@ -43,14 +43,14 @@ const Sidebar = () => {
               PeerConnect
             </motion.h2>
           ) : (
-            <FaComments size={40} className="text-[#B8B8B8] -translate-x-2 " />
+            <FaComments size={40} className="-translate-x-2 text-[#B8B8B8]" />
           )}
         </div>
 
         <nav className="flex flex-col gap-4">
           <a
             href="/dashboard"
-            className="flex items-center gap-4 py-2 hover:bg-gray-700 w-full"
+            className="flex w-full items-center gap-4 py-2 hover:bg-gray-700"
           >
             <FaHome size={24} className="text-[#B8B8B8]" />
             {isOpen && (
@@ -66,7 +66,7 @@ const Sidebar = () => {
           </a>
           <a
             href="/grid"
-            className="flex items-center gap-4 py-2 hover:bg-gray-700 w-full"
+            className="flex w-full items-center gap-4 py-2 hover:bg-gray-700"
           >
             <FaInfoCircle size={24} className="text-[#B8B8B8]" />
             {isOpen && (
@@ -82,7 +82,7 @@ const Sidebar = () => {
           </a>
           <a
             href="#"
-            className="flex items-center gap-4 py-2 hover:bg-gray-700 w-full"
+            className="flex w-full items-center gap-4 py-2 hover:bg-gray-700"
           >
             <FaServicestack size={24} className="text-[#B8B8B8]" />
             {isOpen && (
@@ -98,7 +98,7 @@ const Sidebar = () => {
           </a>
           <a
             href="#"
-            className="flex items-center gap-4 py-2 hover:bg-gray-700 w-full"
+            className="flex w-full items-center gap-4 py-2 hover:bg-gray-700"
           >
             <FaPhone size={24} className="text-[#B8B8B8]" />
             {isOpen && (
