@@ -10,6 +10,7 @@
     "format": "prettier --write 'src/**/*.{js,jsx,css,scss}'"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@tabler/icons-react": "^3.18.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.8.0",
