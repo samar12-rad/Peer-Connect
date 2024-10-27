@@ -9,9 +9,9 @@ import Signup from './pages/Signup/Signup';
 const App = () => {
   return (
     <Router>
-      <div className="bg-[#1d1c21] flex">
+      <div className="flex bg-[#1d1c21]">
         <Sidebar />
-        <div className="w-full bg-gradient-to-br from-[#9dbbd4] to-[#d4a5b6] pt-5 rounded-l-3xl rounded-bl-none h-fit shadow-inner-fat-blue rounded-r-[0]">
+        <div className="shadow-inner-fat-blue h-fit w-full rounded-l-3xl rounded-r-[0] rounded-bl-none bg-gradient-to-br from-[#9dbbd4] to-[#d4a5b6] pt-5">
           <Routes>
             <Route path="/" />
             <Route path="/signup" element={<Signup />} />

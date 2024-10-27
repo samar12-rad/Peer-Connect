@@ -1,21 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-const session = require("express-session");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo");
-const cookieParser = require("cookie-parser"); // Add this line
-require("dotenv").config();
+const express = require('express');
+const cors = require('cors');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
+const cookieParser = require('cookie-parser'); // Add this line
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
-const clientPath = process.env.CLIENT_PATH || "http://localhost:3000";
+const clientPath = process.env.CLIENT_PATH || 'http://localhost:3000';
 
 // Enable CORS with credentials
-app.use(
-  cors({
-    
-  })
-);
+app.use(cors({}));
 
 // Parse cookies
 app.use(cookieParser()); // Add this line to use cookie-parser
@@ -26,21 +22,21 @@ app.use(express.json());
 mongoose
   .connect(process.env.DB_URI)
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
   })
   .catch((error) => {
-    console.error("Database connection failed:", error);
+    console.error('Database connection failed:', error);
   });
 
 // Configure session store
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "secret",
+    secret: process.env.SESSION_SECRET || 'secret',
     saveUninitialized: false,
     resave: false,
     store: MongoStore.create({
       mongoUrl: process.env.DB_URI,
-      collectionName: "sessions",
+      collectionName: 'sessions',
       ttl: 60 * 60 * 6,
     }), // 6 hours
     cookie: {
@@ -53,7 +49,7 @@ app.use(
 );
 
 // Use root router for API routes
-app.use("/api/v1", require("./routes/index"));
+app.use('/api/v1', require('./routes/index'));
 
 // Start the server
 app.listen(port, () => {

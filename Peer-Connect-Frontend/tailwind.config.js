@@ -210,7 +210,7 @@ export default {
       },
       backgroundImage: {
         video: "url('../images/video/video.png')",
-        darkMode: "url('../src/assets/dark.jpg')"
+        darkMode: "url('../src/assets/dark.jpg')",
       },
       content: {
         'icon-copy': 'url("../images/icon/icon-copy-alt.svg")',
