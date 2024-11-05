@@ -4,10 +4,8 @@ import { Dashboard } from './pages/dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import Login from './pages/login/Login';
 import Signup from './pages/Signup/Signup';
-import Landing from './pages/landing_page/Landing';
 import ChatPage from './pages/chat/ChatPage';
 import PeerFinder from './pages/peerFinder/PeerFinder';
-import Hello from './pages/Hello/Hello';
 
 const App = () => {
   return (
@@ -17,12 +15,11 @@ const App = () => {
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/signupold" element={<SignUpOld />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Landing />} />
             <Route path="/find" element={<PeerFinder />} />
-            <Route path="/" element={<Hello />} />
+
             <Route
               path="*"
               element={
