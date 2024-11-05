@@ -189,7 +189,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -205,7 +205,7 @@ const Signup = () => {
               name="password"
               placeholder="Enter your password"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -222,7 +222,7 @@ const Signup = () => {
               onChange={(e) => handleChanges(e)}
               placeholder="Enter your first name"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg"
             />
             <div className="mt-4 text-sm">
               <h2>Last Name:</h2>
@@ -234,10 +234,33 @@ const Signup = () => {
               name="lastname"
               placeholder="Enter your last name"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg"
             />
           </div>
-
+          <div className="pt-7 text-2xl">
+            <h1>What is your gender?</h1>
+            <div className="mt-4 text-sm">
+              <h2>Gender:</h2>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  id="Male"
+                  name="Male"
+                  onClick={selectSkill}
+                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  Male
+                </button>
+                <button
+                  id="Female"
+                  name="Female"
+                  onClick={selectSkill}
+                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  Female
+                </button>
+              </div>
+            </div>
+          </div>
           {/* City Section */}
           <div className="pt-7 text-2xl">
             <h1>What is your city?</h1>
@@ -251,7 +274,7 @@ const Signup = () => {
               onChange={(e) => handleChanges(e)}
               placeholder="Enter your city"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -268,7 +291,7 @@ const Signup = () => {
               onChange={(e) => handleChanges(e)}
               placeholder="Enter your GitHub"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -285,7 +308,7 @@ const Signup = () => {
               onChange={(e) => handleChanges(e)}
               placeholder="Enter your LinkedIn"
               required
-              className="w-[25%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -295,13 +318,13 @@ const Signup = () => {
             <div className="mt-4 text-sm">
               <h2>Bio:</h2>
             </div>
-            <input
+            <textarea
               type="text"
               id="bio"
               name="bio"
               placeholder="Enter your bio"
               required
-              className="h-25 w-[40%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="h-50 w-[40%] text-wrap rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -310,7 +333,7 @@ const Signup = () => {
             <h1>Add your Projects</h1>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="mb-3 mt-4 w-60 rounded border border-gray-300 bg-blue-800 bg-transparent p-2 text-lg text-white placeholder-gray-500 hover:bg-blue-900 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mb-3 mt-4 w-60 rounded border border-gray-300 bg-indigo-800 p-2 text-lg text-white placeholder-gray-500 hover:bg-gray-200 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               Add Projects
             </button>
@@ -378,7 +401,8 @@ const Signup = () => {
                 </button>
                 <button
                   id="dsa"
-                  name="dsa"
+                  name="DSA"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={dsa} alt="dsa" className="h-5 w-5" />
@@ -387,6 +411,7 @@ const Signup = () => {
                 <button
                   id="flutter"
                   name="flutter"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -396,6 +421,7 @@ const Signup = () => {
                 <button
                   id="python"
                   name="python"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={python} alt="python" className="h-5 w-5" />
@@ -404,6 +430,7 @@ const Signup = () => {
                 <button
                   id="aiml"
                   name="aiml"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={aiml} alt="aiml" className="h-5 w-5" />
@@ -412,6 +439,7 @@ const Signup = () => {
                 <button
                   id="html"
                   name="html"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={html} alt="html" className="h-5 w-5" />
@@ -420,6 +448,7 @@ const Signup = () => {
                 <button
                   id="css"
                   name="css"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={css} alt="css" className="h-5 w-5" />
@@ -428,6 +457,7 @@ const Signup = () => {
                 <button
                   id="javascript"
                   name="javascript"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={js} alt="js" className="h-5 w-5" />
@@ -436,6 +466,7 @@ const Signup = () => {
                 <button
                   id="react"
                   name="react"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={react} alt="react" className="h-5 w-5" />
@@ -444,6 +475,7 @@ const Signup = () => {
                 <button
                   id="c/c++"
                   name="c/c++"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -453,6 +485,7 @@ const Signup = () => {
                 <button
                   id="java"
                   name="java"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={java} alt="java" className="h-5 w-5" />
@@ -461,6 +494,7 @@ const Signup = () => {
                 <button
                   id="angular"
                   name="angular"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -470,6 +504,7 @@ const Signup = () => {
                 <button
                   id="node"
                   name="node"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -479,6 +514,7 @@ const Signup = () => {
                 <button
                   id="ruby on rails"
                   name="ruby on rails"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={ruby} alt="ruby" className="h-5 w-5" />
@@ -487,6 +523,7 @@ const Signup = () => {
                 <button
                   id="mongodb"
                   name="mongodb"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -496,6 +533,7 @@ const Signup = () => {
                 <button
                   id="sql"
                   name="sql"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={sql} alt="sql" className="h-5 w-5" />
@@ -504,6 +542,7 @@ const Signup = () => {
                 <button
                   id="postgresql"
                   name="posgresql"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={postgresql} alt="postgresql" className="h-5 w-5" />
@@ -512,6 +551,7 @@ const Signup = () => {
                 <button
                   id="springboot"
                   name="springboot"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -521,6 +561,7 @@ const Signup = () => {
                 <button
                   id="nextjs"
                   name="nextjs"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={next} alt="next" className="h-5 w-5" />
@@ -529,6 +570,7 @@ const Signup = () => {
                 <button
                   id="rust"
                   name="rust"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={rust} alt="rust" className="h-5 w-5" />
@@ -537,6 +579,7 @@ const Signup = () => {
                 <button
                   id="golang"
                   name="golang"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 *:items-center hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {' '}
@@ -546,6 +589,7 @@ const Signup = () => {
                 <button
                   id="git"
                   name="git"
+                  onClick={selectSkill}
                   className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <img src={git} alt="git" className="h-5 w-5" />
@@ -563,12 +607,13 @@ const Signup = () => {
             </button>
           </div>
         </div>
-        <div className="pt-18 relative h-screen w-[70vw] p-3">
-          <div className="w-94 shadow-6 fixed col-span-4 row-span-3 h-[60vh] overflow-hidden rounded-xl border border-white/5 bg-blue-200 shadow-white backdrop-blur-[7.4px]">
-            <div className="h-30 w-30 absolute left-[10%] top-[30%] translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
+
+        <div className="relative h-screen w-[70vw] p-3 pt-3">
+          <div className="w-94 shadow-6 fixed col-span-4 row-span-3 h-[75vh] overflow-hidden rounded-xl border border-white/5 bg-blue-200 shadow-white backdrop-blur-[7.4px]">
+            <div className="h-30 w-30 absolute left-[10%] top-[25%] translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
               <CgProfile className="h-full w-full" />
             </div>
-            <div className="h-[30%] w-full bg-pink-600"></div>
+            <div className="h-[25%] w-full bg-pink-600"></div>
             <div className="h-[70%] w-full">
               <div className="mt-15 flex flex-col justify-center p-2 pl-[10%]">
                 <h1 className="text-3xl font-bold">
