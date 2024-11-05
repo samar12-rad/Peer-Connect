@@ -83,8 +83,7 @@ function MyDropzone({ onFileDrop }) {
     <div>
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed flex flex-col items-center justify-center rounded-lg p-4 my-4 transition-colors 
-                    ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}
+        className={`my-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-4 transition-colors ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}
       >
         <input {...getInputProps()} />
         {isUploading ? (
@@ -103,7 +102,7 @@ function MyDropzone({ onFileDrop }) {
             <img
               src={previewUrl}
               alt="Preview"
-              className="w-48 h-48 object-contain rounded"
+              className="h-48 w-48 rounded object-contain"
             />
           </div>
         )}
@@ -111,7 +110,7 @@ function MyDropzone({ onFileDrop }) {
       {uploadedFile && (
         <button
           onClick={cancelUpload}
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          className="rounded bg-red-500 px-4 py-2 text-white"
         >
           Cancel Upload
         </button>

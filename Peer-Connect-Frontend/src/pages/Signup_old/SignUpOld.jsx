@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './SignUpOld.css'; // Import your CSS file for styling
-import MyDropzone from '../../Components/DropzoneComponent';
 
 const SignUpOld = () => {
   const [formData, setFormData] = useState({
@@ -73,7 +72,6 @@ const SignUpOld = () => {
           />
         </div>
         <div className="form-group">
-          <MyDropzone />
           <label htmlFor="username">Username:</label>
           <input
             type="text"

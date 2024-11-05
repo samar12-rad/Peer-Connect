@@ -10,6 +10,9 @@ export default {
       ...defaultTheme.screens,
     },
     extend: {
+      filter: {
+        invert: 'invert(1)',
+      },
       colors: {
         'background-light': '#F3F4F6',
         'background-dark': '#010B18',
@@ -211,6 +214,10 @@ export default {
       backgroundImage: {
         video: "url('../images/video/video.png')",
         darkMode: "url('../src/assets/dark.jpg')",
+        gradient:
+          'linear-gradient(to right, rgba(253, 187, 45, 0.5), rgba(178, 31, 31, 0.5), rgba(26, 42, 108, 0.5))',
+        gradientReverse:
+          'linear-gradient(to right, rgba(253, 187, 45, 0.5), rgba(26, 42, 108, 0.5), rgba(178, 31, 31, 0.5))',
       },
       content: {
         'icon-copy': 'url("../images/icon/icon-copy-alt.svg")',
@@ -287,5 +294,15 @@ export default {
     },
   },
   darkMode: 'class',
-  plugins: [],
+  plugins: [require('daisyui')],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          'base-content': '#000000', // Change default text color to black
+          // Customize other colors as needed
+        },
+      },
+    ],
+  },
 };
