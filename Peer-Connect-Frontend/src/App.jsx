@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import Signup from './pages/Signup/Signup';
 import ChatPage from './pages/chat/ChatPage';
 import PeerFinder from './pages/peerFinder/PeerFinder';
+import Landing from './pages/landing_page/Landing';
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/find" element={<PeerFinder />} />
-
+            <Route path="/landing" element={<Landing />} />
             <Route
               path="*"
               element={

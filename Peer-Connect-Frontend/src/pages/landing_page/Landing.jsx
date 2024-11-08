@@ -1,14 +1,21 @@
+import About from './About';
+import Faq from './Faq';
+import Footer from './Footer';
+import Header from './Header';
+import LandingContent from './LandingContent';
+import Nav from './Nav';
+
 const Landing = () => {
   return (
-    <div className="h-screen w-screen">
-      <div className="">
-        <div className="">
-          <h1>about</h1>
-        </div>
-        <div className="">
-          <h1>FAQ</h1>
-        </div>
-      </div>
+    <div className="flex h-fit w-full flex-col gap-2 bg-slate-400">
+      <Nav />
+
+      <Header />
+      <LandingContent />
+      <About />
+      <Faq />
+
+      <Footer />
     </div>
   );
 };
