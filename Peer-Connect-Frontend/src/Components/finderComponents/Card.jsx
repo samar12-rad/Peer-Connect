@@ -117,3 +117,16 @@ Card.defaultProps = {
 };
 
 export default Card;
+
+// Card use Example Snippet
+//  <Card
+//    firstName="John"
+//    lastName="Doe"
+//    city="New York"
+//    github="https://github.com/johndoe"
+//    linkedin="https://linkedin.com/in/johndoe"
+//    email="john@example.com"
+//    gender="male"
+//    skills={[{ name: 'React' }, { name: 'JavaScript' }]}
+//    bio="Full stack developer passionate about web technologies"
+//  />;
