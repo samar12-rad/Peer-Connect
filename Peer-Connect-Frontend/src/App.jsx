@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SignUpOld from './pages/Signup_old/SignUpOld';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import Profile from './pages/Profile/Profile';
 import Login from './pages/login/Login';
@@ -11,10 +10,9 @@ const App = () => {
   return (
     <Router>
       <div className="flex">
-        <div className="shadow-inner-fat-blue h-fit min-h-screen w-full bg-gradient-to-br from-[#9dbbd4] to-[#d4a5b6]">
+        <div className="shadow-inner-fat-blue h-fit min-h-screen w-full bg-[#000000]">
           <Routes>
             <Route path="/signup" element={<Signup />} />
-            <Route path="/signupold" element={<SignUpOld />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />

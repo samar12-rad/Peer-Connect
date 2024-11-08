@@ -1,6 +1,8 @@
 import { FaGithub } from 'react-icons/fa';
-import PropTypes from 'prop-types';
+import girl from '../../assets/card/girl.jpg';
+import boy from '../../assets/card/boy.jpg';
 import { FaLinkedin } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import frontend from '../../assets/skillsLogo/frontend.png';
 import backend from '../../assets/skillsLogo/backend.png';
@@ -131,6 +133,8 @@ const Signup = () => {
   const [github, setGithub] = useState('');
   const [linkedIn, setLinkedIn] = useState('');
   const [skillsArray, setSkillsArray] = useState([]);
+  const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('');
 
   const handleChanges = (e) => {
     if (e.target.name === 'firstname') {
@@ -143,7 +147,65 @@ const Signup = () => {
       setGithub(e.target.value);
     } else if (e.target.name === 'linkedIn') {
       setLinkedIn(e.target.value);
+    } else if (e.target.name === 'password') {
+      setPassword(e.target.value);
     }
+  };
+
+  const [idLevel, setIdLevel] = useState(0);
+  console.log(gender);
+  if (idLevel === 0) {
+    setIdLevel(3);
+  }
+  console.log(idLevel);
+  const getBackgroundColor = (level) => {
+    switch (level) {
+      case 1: // Beginner
+        return 'linear-gradient(to top, #FFFFFF, #90EE90)'; // White to light green
+      case 2: // Intermediate
+        return 'linear-gradient(to top, #FFFFFF, #4169E1)'; // White to blue
+      case 3: // Expert
+        return 'linear-gradient(to top, #FFFFFF, #FFD700)'; // White to gold
+      default:
+        return 'linear-gradient(to top, #FFFFFF, #f5f5f5)'; // White to light gray
+    }
+  };
+
+  const handleGenderChange = (selectedGender) => {
+    setGender(selectedGender); // This will automatically unselect the previous gender
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const user = {
+      username: `${lastName}${firstName}`,
+      name: `${firstName} ${lastName}`,
+      password: password,
+      email: email,
+      city: city,
+      github: github,
+      linkedIn: linkedIn,
+      skills: skillsArray,
+      projects: projects,
+      gender: gender,
+      bio: 'I am a software developer',
+    };
+    console.log(user);
+    const response = await fetch('http://localhost:3000/api/v1/user/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    console.log(response);
   };
 
   const selectSkill = (e) => {
@@ -203,6 +265,7 @@ const Signup = () => {
               type="password"
               id="password"
               name="password"
+              onChange={(e) => handleChanges(e)}
               placeholder="Enter your password"
               required
               className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -241,20 +304,24 @@ const Signup = () => {
             <h1>What is your gender?</h1>
             <div className="mt-4 text-sm">
               <h2>Gender:</h2>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-4">
                 <button
-                  id="Male"
-                  name="Male"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  type="button"
+                  className={`rounded-md px-4 py-2 ${
+                    gender === 'male' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                  }`}
+                  onClick={() => handleGenderChange('male')}
                 >
                   Male
                 </button>
                 <button
-                  id="Female"
-                  name="Female"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  type="button"
+                  className={`rounded-md px-4 py-2 ${
+                    gender === 'female'
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200'
+                  }`}
+                  onClick={() => handleGenderChange('female')}
                 >
                   Female
                 </button>
@@ -601,6 +668,7 @@ const Signup = () => {
           <div className="mt-7 flex items-center justify-center">
             <button
               type="submit"
+              onClick={handleSubmit}
               className="h-fit w-fit rounded border border-white bg-indigo-800 px-4 py-4 text-white hover:bg-indigo-900"
             >
               <h1> I&apos;m Ready to Explore Peer Connect!!</h1>
@@ -608,44 +676,60 @@ const Signup = () => {
           </div>
         </div>
 
-        <div className="relative h-screen w-[70vw] p-3 pt-3">
-          <div className="w-94 shadow-6 fixed col-span-4 row-span-3 h-[75vh] overflow-hidden rounded-xl border border-white/5 bg-blue-200 shadow-white backdrop-blur-[7.4px]">
-            <div className="h-30 w-30 absolute left-[10%] top-[25%] translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
-              <CgProfile className="h-full w-full" />
-            </div>
-            <div className="h-[25%] w-full bg-pink-600"></div>
-            <div className="h-[70%] w-full">
-              <div className="mt-15 flex flex-col justify-center p-2 pl-[10%]">
-                <h1 className="text-3xl font-bold">
-                  {firstName} {lastName}
-                </h1>
-                <p className="text-lg italic">{email}</p>
-                {city ? (
-                  <h2 className="text-xl">
-                    📍<span className="">{city}</span>
-                  </h2>
-                ) : null}
-                <div className="mt-3 flex gap-2">
-                  {github ? (
-                    <a>
-                      <FaGithub className="h-6 w-6" />
-                    </a>
+        <div className="pt-13 relative h-screen w-[70vw] items-center justify-center p-3">
+          <div className="fixed h-fit w-fit rounded-lg">
+            <div
+              className="w-94 shadow-6 min-h-[60vh] overflow-hidden rounded-xl border border-white/5 pb-4 shadow-white backdrop-blur-[7.4px]"
+              style={{
+                background: getBackgroundColor(idLevel), // Changed from backgroundColor to background
+              }}
+            >
+              <div className="h-30 w-30 absolute left-[10%] top-[150px] translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
+                <CgProfile className="h-full w-full" />
+              </div>
+              <div
+                className={`h-[150px] w-full`}
+                style={{
+                  backgroundImage: `url(${gender === 'female' ? girl : boy})`, // Fix: Use template literal with url()
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'bottom',
+                }}
+              ></div>
+              <div className="h-fit w-full">
+                <div className="mt-15 flex flex-col justify-center p-2 px-[10%]">
+                  <h1 className="text-3xl font-bold">
+                    {firstName} {lastName}
+                  </h1>
+                  <p className="text-lg italic">{email}</p>
+
+                  {city ? (
+                    <h2 className="text-xl">
+                      📍<span className="">{city}</span>
+                    </h2>
                   ) : null}
-                  {linkedIn ? (
-                    <a>
-                      <FaLinkedin className="h-6 w-6" />
-                    </a>
-                  ) : null}
-                </div>
-                <div className="mt-3 flex h-fit w-full flex-wrap gap-3">
-                  {skillsArray.map((skill) => (
-                    <div
-                      className="h-fit w-fit rounded bg-black px-2 text-white"
-                      key={skill.name}
-                    >
-                      {skill.name}
-                    </div>
-                  ))}
+
+                  <div className="mt-3 flex gap-2">
+                    {github ? (
+                      <a>
+                        <FaGithub className="h-6 w-6" />
+                      </a>
+                    ) : null}
+                    {linkedIn ? (
+                      <a>
+                        <FaLinkedin className="h-6 w-6" />
+                      </a>
+                    ) : null}{' '}
+                  </div>
+                  <div className="mt-3 flex h-fit w-full flex-wrap gap-3">
+                    {skillsArray.map((skill) => (
+                      <div
+                        className="h-fit w-fit rounded bg-black px-2 text-white"
+                        key={skill.name}
+                      >
+                        {skill.name}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
