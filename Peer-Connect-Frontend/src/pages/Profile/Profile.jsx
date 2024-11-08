@@ -39,8 +39,10 @@ const Profile = () => {
 
   return (
     <div className="max-fit relative flex w-full flex-col gap-4 overflow-hidden pb-9 shadow-xl">
-      <div className="flex justify-evenly text-2xl text-black">
-        <h1>PROFILE</h1>
+      <div className="flex justify-evenly text-2xl">
+        <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
+          PROFILE
+        </h1>
       </div>
 
       <div className="grid h-full w-full grid-cols-6 grid-rows-7 gap-3 px-10">
@@ -70,16 +72,16 @@ const Profile = () => {
           </div>
           <div className="pt-15 pl-5">
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Portfolio website:</h1>
-              <p className="text-xl text-black"> {dummyData.portfolio}</p>
+              <h1 className="-2 pb-3 text-xl">Portfolio website:</h1>
+              <p className="text-xl"> {dummyData.portfolio}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Projects:</h1>
-              <p className="text-xl text-black"> {dummyData.projects}</p>
+              <h1 className="-2 pb-3 text-xl">Projects:</h1>
+              <p className="text-xl"> {dummyData.projects}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Skills:</h1>{' '}
-              <p className="text-xl text-black"></p>
+              <h1 className="-2 pb-3 text-xl">Skills:</h1>{' '}
+              <p className="text-xl"></p>
             </div>
           </div>
         </div>
@@ -93,41 +95,32 @@ const Profile = () => {
           </div>
           <div className="pt-15 pl-5">
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">GitHub:</h1>{' '}
-              <p className="text-xl text-black">{dummyData.socials.github}</p>
+              <h1 className="-2 pb-3 text-xl">GitHub:</h1>{' '}
+              <p className="text-xl">{dummyData.socials.github}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Linked In: </h1>
-              <p className="text-xl text-black">
-                {' '}
-                {dummyData.socials.linkedin}
-              </p>
+              <h1 className="-2 pb-3 text-xl">Linked In: </h1>
+              <p className="text-xl"> {dummyData.socials.linkedin}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Leetcode:</h1>{' '}
-              <p className="text-xl text-black">
-                {' '}
-                {dummyData.socials.leetcode}
-              </p>
+              <h1 className="-2 pb-3 text-xl">Leetcode:</h1>{' '}
+              <p className="text-xl"> {dummyData.socials.leetcode}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Instagram:</h1>{' '}
-              <p className="text-xl text-black">
-                {' '}
-                {dummyData.socials.instagram}
-              </p>
+              <h1 className="-2 pb-3 text-xl">Instagram:</h1>{' '}
+              <p className="text-xl"> {dummyData.socials.instagram}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Whatsapp: </h1>{' '}
-              <p className="text-xl text-black">{dummyData.socials.whatsapp}</p>
+              <h1 className="-2 pb-3 text-xl">Whatsapp: </h1>{' '}
+              <p className="text-xl">{dummyData.socials.whatsapp}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Telegram: </h1>
-              <p className="text-xl text-black">{dummyData.socials.telegram}</p>
+              <h1 className="-2 pb-3 text-xl">Telegram: </h1>
+              <p className="text-xl">{dummyData.socials.telegram}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Twitter: </h1>
-              <p className="text-xl text-black">{dummyData.socials.twitter}</p>
+              <h1 className="-2 pb-3 text-xl">Twitter: </h1>
+              <p className="text-xl">{dummyData.socials.twitter}</p>
             </div>
           </div>
         </div>
@@ -141,14 +134,12 @@ const Profile = () => {
           </div>
           <div className="pt-15 pl-5">
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Interests:</h1>
-              <p className="text-xl text-black">{dummyData.codingInterests}</p>
+              <h1 className="-2 pb-3 text-xl">Interests:</h1>
+              <p className="text-xl">{dummyData.codingInterests}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">
-                Hobbies Outside Coding:
-              </h1>
-              <p className="text-xl text-black">{dummyData.hobbies}</p>
+              <h1 className="-2 pb-3 text-xl">Hobbies Outside Coding:</h1>
+              <p className="text-xl">{dummyData.hobbies}</p>
             </div>
           </div>
         </div>
@@ -162,12 +153,12 @@ const Profile = () => {
           </div>
           <div className="pt-15 pl-5">
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Language: </h1>
-              <p className="text-xl text-black">{dummyData.language}</p>
+              <h1 className="-2 pb-3 text-xl">Language: </h1>
+              <p className="text-xl">{dummyData.language}</p>
             </div>
             <div className="flex gap-7">
-              <h1 className="text-black-2 pb-3 text-xl">Time: </h1>
-              <p className="text-xl text-black">{dummyData.preferredTime}</p>
+              <h1 className="-2 pb-3 text-xl">Time: </h1>
+              <p className="text-xl">{dummyData.preferredTime}</p>
             </div>
           </div>
         </div>
@@ -180,8 +171,8 @@ const Profile = () => {
             </button>
           </div>
           <div className="flex-grow flex-col items-center justify-center pt-7">
-            <p className="text-xl text-black">Email Me.</p>
-            <p className="text-xl text-black">Schedule a Call.</p>
+            <p className="text-xl">Email Me.</p>
+            <p className="text-xl">Schedule a Call.</p>
           </div>
         </div>
       </div>

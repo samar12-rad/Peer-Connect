@@ -299,7 +299,7 @@ export default {
     themes: [
       {
         mytheme: {
-          'base-content': '#000000', // Change default text color to black
+          'base-content': '#ffff', // Change default text color to black
           // Customize other colors as needed
         },
       },
