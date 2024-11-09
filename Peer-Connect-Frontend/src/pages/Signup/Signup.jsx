@@ -1,126 +1,7 @@
-import { FaGithub } from 'react-icons/fa';
-import girl from '../../assets/card/girl.jpg';
-import boy from '../../assets/card/boy.jpg';
-import { FaLinkedin } from 'react-icons/fa';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
-import frontend from '../../assets/skillsLogo/frontend.png';
-import backend from '../../assets/skillsLogo/backend.png';
-import fullstack from '../../assets/skillsLogo/fullstack.png';
-import dsa from '../../assets/skillsLogo/dsa.png';
-import flutter from '../../assets/skillsLogo/flutter.png';
-import { CgProfile } from 'react-icons/cg';
-import python from '../../assets/skillsLogo/python.png';
-import aiml from '../../assets/skillsLogo/aiml.png';
-import html from '../../assets/skillsLogo/html.png';
-import css from '../../assets/skillsLogo/css.png';
-import js from '../../assets/skillsLogo/js.png';
-import react from '../../assets/skillsLogo/react.png';
-import java from '../../assets/skillsLogo/java.png';
-import angular from '../../assets/skillsLogo/angular.png';
-import node from '../../assets/skillsLogo/node.png';
-import ruby from '../../assets/skillsLogo/ruby.png';
-import mongo from '../../assets/skillsLogo/mongo.png';
-import sql from '../../assets/skillsLogo/sql.png';
-import postgresql from '../../assets/skillsLogo/postgresql.png';
-import springboot from '../../assets/skillsLogo/springboot.png';
-import next from '../../assets/skillsLogo/next.png';
-import rust from '../../assets/skillsLogo/rust.png';
-import golang from '../../assets/skillsLogo/golang.png';
-import git from '../../assets/skillsLogo/git.png';
-import cpp from '../../assets/skillsLogo/cpp.png';
-
-// ProjectModal Component
-const ProjectModal = ({ isOpen, onClose, onAddProject }) => {
-  const [projectName, setProjectName] = useState('');
-  const [projectLink, setProjectLink] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (projectName && projectLink) {
-      onAddProject({ name: projectName, link: projectLink });
-      setProjectName('');
-      setProjectLink('');
-      onClose();
-    }
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">Add New Project</h2>
-          <button
-            onClick={onClose}
-            className="rounded-full p-2 text-xl hover:bg-gray-100"
-          >
-            ×
-          </button>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="projectName"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Project Name
-            </label>
-            <input
-              type="text"
-              id="projectName"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              className="mt-1 w-full rounded border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter project name"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="projectLink"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Project Link
-            </label>
-            <input
-              type="url"
-              id="projectLink"
-              value={projectLink}
-              onChange={(e) => setProjectLink(e.target.value)}
-              className="mt-1 w-full rounded border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="https://..."
-              required
-            />
-          </div>
-          <div className="flex justify-end space-x-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="rounded bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700"
-            >
-              Add Project
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-// Add PropTypes validation
-ProjectModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onAddProject: PropTypes.func.isRequired,
-};
+import Skill from '../../Components/unitComponents/Skill';
+import Card from '../../Components/finderComponents/Card';
+import ProjectModal from '../../Components/unitComponents/ProjectModal';
 
 // Main Signup Component
 const Signup = () => {
@@ -149,25 +30,6 @@ const Signup = () => {
       setLinkedIn(e.target.value);
     } else if (e.target.name === 'password') {
       setPassword(e.target.value);
-    }
-  };
-
-  const [idLevel, setIdLevel] = useState(0);
-  console.log(gender);
-  if (idLevel === 0) {
-    setIdLevel(3);
-  }
-  console.log(idLevel);
-  const getBackgroundColor = (level) => {
-    switch (level) {
-      case 1: // Beginner
-        return 'linear-gradient(to top, #FFFFFF, #90EE90)'; // White to light green
-      case 2: // Intermediate
-        return 'linear-gradient(to top, #FFFFFF, #4169E1)'; // White to blue
-      case 3: // Expert
-        return 'linear-gradient(to top, #FFFFFF, #FFD700)'; // White to gold
-      default:
-        return 'linear-gradient(to top, #FFFFFF, #f5f5f5)'; // White to light gray
     }
   };
 
@@ -209,23 +71,54 @@ const Signup = () => {
   };
 
   const selectSkill = (e) => {
-    const skill = e.target;
-    if (skill.classList.contains('bg-transparent')) {
+    // Handle both button element and custom Skill component
+    const skill = e.currentTarget || e.target;
+    const skillName = skill.name || skill.getAttribute('name');
+
+    const isSelected = skill.classList.contains('bg-green-500');
+
+    if (!isSelected) {
+      // Select skill
       skill.classList.remove('bg-transparent');
       skill.classList.add('bg-green-500');
-      setSkillsArray([...skillsArray, { name: skill.name }]);
-      console.log(skillsArray);
+      setSkillsArray((prev) => [...prev, { name: skillName }]);
     } else {
+      // Deselect skill
       skill.classList.remove('bg-green-500');
       skill.classList.add('bg-transparent');
-      setSkillsArray(skillsArray.filter((s) => s.name !== skill.name));
-      console.log(skillsArray);
+      setSkillsArray((prev) => prev.filter((s) => s.name !== skillName));
     }
   };
 
   const handleAddProject = (project) => {
     setProjects([...projects, project]);
   };
+
+  const skillNames = [
+    'frontend',
+    'backend',
+    'fullstack',
+    'dsa',
+    'flutter',
+    'python',
+    'aiml',
+    'html',
+    'css',
+    'js',
+    'react',
+    'java',
+    'angular',
+    'ruby',
+    'mongo',
+    'sql',
+    'postgresql',
+    'springboot',
+    'next',
+    'rust',
+    'golang',
+    'git',
+    'cpp',
+  ];
 
   return (
     <div className="flex h-fit w-full flex-col items-center px-5 pb-10 pt-2">
@@ -396,7 +289,7 @@ const Signup = () => {
           </div>
 
           {/* Projects Section */}
-          <div className="pt-4 text-2xl">
+          <div className="relative h-fit pt-4 text-2xl">
             <h1>Add your Projects</h1>
             <button
               onClick={() => setIsModalOpen(true)}
@@ -437,231 +330,13 @@ const Signup = () => {
             </div>
             <div className="">
               <div className="flex flex-wrap gap-6">
-                <button
-                  id="frontend"
-                  name="frontend"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 transition-colors hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={frontend} alt="Frontend" className="h-5 w-5" />
-                  Frontend
-                </button>
-                <button
-                  id="backend"
-                  name="backend"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={backend} alt="backend" className="h-5 w-5" />
-                  Backend
-                </button>
-                <button
-                  id="fullstack"
-                  name="fullstack"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={fullstack} alt="fullstack" className="h-5 w-5" />
-                  Fullstack
-                </button>
-                <button
-                  id="dsa"
-                  name="DSA"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={dsa} alt="dsa" className="h-5 w-5" />
-                  DSA
-                </button>
-                <button
-                  id="flutter"
-                  name="flutter"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={flutter} alt="flutter" className="h-5 w-5" />
-                  Flutter
-                </button>
-                <button
-                  id="python"
-                  name="python"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={python} alt="python" className="h-5 w-5" />
-                  Python
-                </button>
-                <button
-                  id="aiml"
-                  name="aiml"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={aiml} alt="aiml" className="h-5 w-5" />
-                  AI/ML
-                </button>
-                <button
-                  id="html"
-                  name="html"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={html} alt="html" className="h-5 w-5" />
-                  HTML
-                </button>
-                <button
-                  id="css"
-                  name="css"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={css} alt="css" className="h-5 w-5" />
-                  CSS
-                </button>
-                <button
-                  id="javascript"
-                  name="javascript"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={js} alt="js" className="h-5 w-5" />
-                  Javascript
-                </button>
-                <button
-                  id="react"
-                  name="react"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={react} alt="react" className="h-5 w-5" />
-                  React
-                </button>
-                <button
-                  id="c/c++"
-                  name="c/c++"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={cpp} alt="cpp" className="h-5 w-5" />
-                  C/C++
-                </button>
-                <button
-                  id="java"
-                  name="java"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={java} alt="java" className="h-5 w-5" />
-                  JAVA
-                </button>
-                <button
-                  id="angular"
-                  name="angular"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={angular} alt="angular" className="h-5 w-5" />
-                  Angular
-                </button>
-                <button
-                  id="node"
-                  name="node"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={node} alt="node" className="h-9 w-9" />
-                  Node.js
-                </button>
-                <button
-                  id="ruby on rails"
-                  name="ruby on rails"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={ruby} alt="ruby" className="h-5 w-5" />
-                  Ruby on Rails
-                </button>
-                <button
-                  id="mongodb"
-                  name="mongodb"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={mongo} alt="mongo" className="h-5 w-5" />
-                  MongoDB
-                </button>
-                <button
-                  id="sql"
-                  name="sql"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={sql} alt="sql" className="h-5 w-5" />
-                  SQL
-                </button>
-                <button
-                  id="postgresql"
-                  name="posgresql"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={postgresql} alt="postgresql" className="h-5 w-5" />
-                  Postgre
-                </button>
-                <button
-                  id="springboot"
-                  name="springboot"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={springboot} alt="springboot" className="h-5 w-5" />
-                  Springboot
-                </button>
-                <button
-                  id="nextjs"
-                  name="nextjs"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={next} alt="next" className="h-5 w-5" />
-                  Next.js
-                </button>
-                <button
-                  id="rust"
-                  name="rust"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={rust} alt="rust" className="h-5 w-5" />
-                  Rust
-                </button>
-                <button
-                  id="golang"
-                  name="golang"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 *:items-center hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {' '}
-                  <img src={golang} alt="golang" className="h-5 w-5" />
-                  Golang
-                </button>
-                <button
-                  id="git"
-                  name="git"
-                  onClick={selectSkill}
-                  className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  <img src={git} alt="git" className="h-5 w-5" />
-                  git
-                </button>
+                {skillNames.map((skillName) => (
+                  <Skill
+                    key={skillName}
+                    name={skillName}
+                    onClick={selectSkill}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -678,61 +353,16 @@ const Signup = () => {
 
         <div className="pt-13 relative h-screen w-[70vw] items-center justify-center p-3">
           <div className="fixed h-fit w-fit rounded-lg">
-            <div
-              className="w-94 shadow-6 min-h-[60vh] overflow-hidden rounded-xl border border-white/5 pb-4 shadow-white backdrop-blur-[7.4px]"
-              style={{
-                background: getBackgroundColor(idLevel), // Changed from backgroundColor to background
-              }}
-            >
-              <div className="h-30 w-30 absolute left-[10%] top-[150px] translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
-                <CgProfile className="h-full w-full" />
-              </div>
-              <div
-                className={`h-[150px] w-full`}
-                style={{
-                  backgroundImage: `url(${gender === 'female' ? girl : boy})`, // Fix: Use template literal with url()
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'bottom',
-                }}
-              ></div>
-              <div className="h-fit w-full">
-                <div className="mt-15 flex flex-col justify-center p-2 px-[10%]">
-                  <h1 className="text-3xl font-bold">
-                    {firstName} {lastName}
-                  </h1>
-                  <p className="text-lg italic">{email}</p>
-
-                  {city ? (
-                    <h2 className="text-xl">
-                      📍<span className="">{city}</span>
-                    </h2>
-                  ) : null}
-
-                  <div className="mt-3 flex gap-2">
-                    {github ? (
-                      <a>
-                        <FaGithub className="h-6 w-6" />
-                      </a>
-                    ) : null}
-                    {linkedIn ? (
-                      <a>
-                        <FaLinkedin className="h-6 w-6" />
-                      </a>
-                    ) : null}{' '}
-                  </div>
-                  <div className="mt-3 flex h-fit w-full flex-wrap gap-3">
-                    {skillsArray.map((skill) => (
-                      <div
-                        className="h-fit w-fit rounded bg-black px-2 text-white"
-                        key={skill.name}
-                      >
-                        {skill.name}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Card
+              firstName={firstName}
+              lastName={lastName}
+              city={city}
+              github={github}
+              linkedin={linkedIn}
+              email={email}
+              gender={gender}
+              skills={skillsArray}
+            />
           </div>
         </div>
       </div>
