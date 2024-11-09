@@ -1,5 +1,5 @@
-import Skill from '../../Components/unitComponents';
 import Header from './Header';
+import Skill from '../../Components/unitComponents/Skill';
 
 const PeerFinder = () => {
   return (
