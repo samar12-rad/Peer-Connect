@@ -1,4 +1,4 @@
-import Skill from '../../Components/unitComponents/skill';
+import Skill from '../../Components/unitComponents';
 import Header from './Header';
 
 const PeerFinder = () => {
