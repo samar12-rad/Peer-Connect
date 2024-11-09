@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Skill from '../../Components/unitComponents/skill';
+import Skill from '../../Components/unitComponents/Skill';
 import Card from '../../Components/finderComponents/Card';
 import ProjectModal from '../../Components/unitComponents/ProjectModal';
 
