@@ -1,22 +1,17 @@
-import Card from '../../Components/finderComponents/Card';
+import Skill from '../../Components/unitComponents/skill';
 import Header from './Header';
 
 const PeerFinder = () => {
   return (
     <div className="flex min-h-screen w-screen flex-col items-center p-10">
       <Header />
-      <div className=""></div>
-      <Card
-        firstName="John"
-        lastName="Doe"
-        city="New York"
-        github="https://github.com/johndoe"
-        linkedin="https://linkedin.com/in/johndoe"
-        email="john@example.com"
-        gender="male"
-        skills={[{ name: 'React' }, { name: 'JavaScript' }]}
-        bio="Full stack developer passionate about web technologies"
-      />
+      <div className="mt-[20vh] h-fit w-fit">
+        <h1>
+          Just tell us the skills you&apos;re looking for in your partner and we
+          will find them for you :)
+        </h1>
+        <Skill name="node" />
+      </div>
     </div>
   );
 };

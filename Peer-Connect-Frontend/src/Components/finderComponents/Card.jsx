@@ -106,6 +106,7 @@ Card.propTypes = {
     })
   ),
   bio: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 Card.defaultProps = {
@@ -114,6 +115,7 @@ Card.defaultProps = {
   email: '',
   skills: [],
   bio: '',
+  onClick: () => {}, // Add default empty function
 };
 
 export default Card;
