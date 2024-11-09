@@ -1,25 +1,80 @@
+import Card from '../../Components/finderComponents/Card';
+import chat from '../../assets/aboutCard/Chat.png';
 const About = () => {
   return (
-    <div className="bg-black-2 flex min-h-[50vh] w-full flex-col">
-      <div className="ml-45 mt-19">
-        <h1 className="text-6xl font-bold text-green-400">
-          Match.Chat.Code.Collaborate.
-        </h1>
-      </div>
-      <div>
-        <h2 className="px-25 pt-10 text-2xl text-white">
-          Peer Connect is a platform designed to help coders find like-minded
-          collaborators for hackathons, coding projects, and learning together.
-          Whether you’re looking to build, innovate, or improve your coding
-          skills, Peer Connect brings coders together for meaningful
-          collaborations.
+    <div className="bg-black-2 flex min-h-[50vh] w-full flex-col gap-20">
+      <div className="bg-black-2 flex min-h-[50vh] w-full flex-col px-40 py-20">
+        <div className="">
+          <h1 className="text-6xl font-bold text-green-400">
+            Match.Chat.Code.
+            <br />
+            Collaborate.
+          </h1>
+        </div>
+        <div className="mt-15 flex w-full justify-between">
           <div>
-            {' '}
-            <button className="mt-30 mb-30 ml-30 text-black-2 rounded-3xl rounded-md bg-green-400 px-5 py-1 font-bold duration-300 hover:bg-blue-500 hover:text-white">
+            <h2 className="w-[70%] text-2xl text-white">
+              Peer Connect is a platform designed to help coders find
+              like-minded collaborators for hackathons, coding projects, and
+              learning together. Whether you’re looking to build, innovate, or
+              improve your coding skills, Peer Connect brings coders together
+              for meaningful collaborations.
+            </h2>{' '}
+            <button className="text-black-2 mt-20 rounded-3xl bg-green-400 px-5 py-1 font-bold duration-300 hover:bg-blue-500 hover:text-white">
               SIGN UP
             </button>
           </div>
-        </h2>
+          <div className="-mt-35 scale-90">
+            <Card
+              firstName="John"
+              lastName="Doe"
+              city="New York"
+              github="https://github.com/johndoe"
+              linkedin="https://linkedin.com/in/johndoe"
+              email="john@example.com"
+              gender="male"
+              skills={[{ name: 'React' }, { name: 'JavaScript' }]}
+              bio="Full stack developer passionate about web technologies"
+            />
+          </div>
+        </div>
+      </div>
+      <div className="flex-col px-40 py-20">
+        <div className="mt-15 flex w-full justify-between">
+          <div className="-mt-35 scale-90">
+            <Card
+              firstName="John"
+              lastName="Doe"
+              city="New York"
+              github="https://github.com/johndoe"
+              linkedin="https://linkedin.com/in/johndoe"
+              email="john@example.com"
+              gender="male"
+              skills={[{ name: 'React' }, { name: 'JavaScript' }]}
+              bio="Full stack developer passionate about web technologies"
+            />
+          </div>
+          <div>
+            <img
+              src={chat}
+              className="scale-60 h-95 w-110 -mt-29"
+              alt="chat"
+            ></img>
+          </div>
+          <div className="w-[70%] px-10 text-2xl text-white">
+            <div>
+              <h1 className="pb-5 text-4xl text-green-400">
+                It Start with a Swipe.
+              </h1>
+            </div>
+            <div>
+              <h1 className="text-2xl">
+                See what happens when you Like someone with our iconic Swipe
+                Right® feature.
+              </h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
