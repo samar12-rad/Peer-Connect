@@ -89,6 +89,60 @@ body {
     background-position: 0% 77%;
   }
 }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 15px currentColor,
+      0 0 20px currentColor,
+      0 0 25px currentColor,
+      inset 0 0 15px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 25px currentColor,
+      0 0 30px currentColor,
+      0 0 35px currentColor,
+      inset 0 0 25px currentColor;
+    transform: scale(1.01);
+  }
+  100% {
+    box-shadow:
+      0 0 15px #fff,
+      0 0 25px #fff,
+      0 0 35px currentColor,
+      0 0 40px currentColor,
+      0 0 45px currentColor,
+      inset 0 0 35px currentColor;
+    transform: scale(1);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
 .tag {
   background-color: #db9e39;
   display: inline-block; /* Ensures the tag fits its content */

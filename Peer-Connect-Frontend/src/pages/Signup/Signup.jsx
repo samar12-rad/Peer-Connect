@@ -2,8 +2,9 @@ import { useState } from 'react';
 import Skill from '../../Components/unitComponents/Skill';
 import Card from '../../Components/finderComponents/Card';
 import ProjectModal from '../../Components/unitComponents/ProjectModal';
+import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
+import { motion } from 'framer-motion';
 
-// Main Signup Component
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -16,6 +17,9 @@ const Signup = () => {
   const [skillsArray, setSkillsArray] = useState([]);
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('');
+  const [theme, setTheme] = useState(1);
+
+  const MAX_PROJECTS = 5;
 
   const handleChanges = (e) => {
     if (e.target.name === 'firstname') {
@@ -39,6 +43,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(skillsArray);
     const user = {
       username: `${lastName}${firstName}`,
       name: `${firstName} ${lastName}`,
@@ -71,22 +76,18 @@ const Signup = () => {
   };
 
   const selectSkill = (e) => {
-    // Handle both button element and custom Skill component
     const skill = e.currentTarget || e.target;
     const skillName = skill.name || skill.getAttribute('name');
-
     const isSelected = skill.classList.contains('bg-green-500');
 
     if (!isSelected) {
-      // Select skill
       skill.classList.remove('bg-transparent');
       skill.classList.add('bg-green-500');
-      setSkillsArray((prev) => [...prev, { name: skillName }]);
+      setSkillsArray((prev) => [...prev, [skillName]]); // Wrap skill in array
     } else {
-      // Deselect skill
       skill.classList.remove('bg-green-500');
       skill.classList.add('bg-transparent');
-      setSkillsArray((prev) => prev.filter((s) => s.name !== skillName));
+      setSkillsArray((prev) => prev.filter((s) => s[0] !== skillName));
     }
   };
 
@@ -120,15 +121,45 @@ const Signup = () => {
     'cpp',
   ];
 
+  const themes = [
+    { id: 1, name: 'Beginner', color: 'from-white to-green-300' },
+    { id: 2, name: 'Intermediate', color: 'from-white to-blue-500' },
+    { id: 3, name: 'Expert', color: 'from-white to-yellow-400' },
+  ];
+
   return (
     <div className="flex h-fit w-full flex-col items-center px-5 pb-10 pt-2">
       <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
         Sign up
       </h1>
-      <div className="flex h-fit w-full">
-        <div className="flex h-full w-full flex-col gap-4 rounded-lg bg-opacity-50 pl-10 pr-10 pt-10 shadow-white backdrop-blur-[7.4px]">
+      <div className="flex h-fit w-full justify-center">
+        <div className="flex h-full w-fit flex-col gap-4 rounded-lg bg-opacity-50 pl-10 pr-10 pt-10 shadow-white backdrop-blur-[7.4px]">
           <div className="mb-1 text-3xl">
             <h1>Nice to meet you! Lets get acquainted.</h1>
+          </div>
+
+          <div className="pt-4 text-2xl">
+            <h1>Choose your card theme</h1>
+            <div className="mt-4 flex gap-4">
+              {themes.map((t) => (
+                <motion.button
+                  key={t.id}
+                  onClick={() => setTheme(t.id)}
+                  className={`relative flex h-fit w-fit overflow-hidden rounded-full px-4 py-2 ${
+                    theme === t.id ? 'ring-2 ring-white' : ''
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div
+                    className={`absolute inset-0 rounded-lg bg-gradient-to-t ${t.color} opacity-75`}
+                  />
+                  <span className="relative z-10 text-lg font-medium text-white">
+                    {t.name}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
           </div>
 
           {/* Email Section */}
@@ -302,20 +333,41 @@ const Signup = () => {
             ) : null}
             <ul className="flex flex-wrap gap-4">
               {projects.map((project, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-black hover:underline"
-                  >
-                    <div className="min-w-35 flex-wrap-reverse rounded border border-gray-300 bg-transparent p-2 text-lg font-medium text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                      {project.name}
-                    </div>
-                  </a>
-                </div>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: index * 0.1,
+                    duration: 0.5,
+                  }}
+                  className="flex items-center justify-center text-white"
+                >
+                  <LinkPreview url={project.link} width={300} height={200}>
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative text-white hover:underline"
+                    >
+                      <div className="min-w-35 relative flex w-fit items-center justify-center overflow-hidden rounded-full text-lg font-medium tracking-widest">
+                        {/* Animated gradient border */}
+                        <div className="animate-gradient absolute inset-0 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 opacity-75" />
+                        {/* Content */}
+                        <div className="relative z-10 rounded px-4 py-2 tracking-[0.25em] transition-transform duration-300 group-hover:scale-105">
+                          {project.name}
+                        </div>
+                      </div>
+                    </a>
+                  </LinkPreview>
+                </motion.div>
               ))}
             </ul>
+
+            {/* Project count indicator */}
+            <div className="mt-2 text-sm text-gray-400">
+              {projects.length} / {MAX_PROJECTS} projects added
+            </div>
             <ProjectModal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
@@ -340,6 +392,7 @@ const Signup = () => {
               </div>
             </div>
           </div>
+
           <div className="mt-7 flex items-center justify-center">
             <button
               type="submit"
@@ -351,8 +404,12 @@ const Signup = () => {
           </div>
         </div>
 
-        <div className="pt-13 relative h-screen w-[70vw] items-center justify-center p-3">
-          <div className="fixed h-fit w-fit rounded-lg">
+        <div className="pt-13 relative h-screen w-[50vw] items-center justify-center">
+          <div className="fixed -ml-20 flex h-fit w-[30vw] flex-col items-center justify-center gap-3 rounded-lg">
+            <h1 className="text-wrap text-center text-2xl">
+              This is a unique card. This will be your Indentity for the
+              website.
+            </h1>
             <Card
               firstName={firstName}
               lastName={lastName}
@@ -362,6 +419,7 @@ const Signup = () => {
               email={email}
               gender={gender}
               skills={skillsArray}
+              theme={theme}
             />
           </div>
         </div>
