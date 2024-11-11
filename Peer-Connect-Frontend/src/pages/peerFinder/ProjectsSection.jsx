@@ -4,16 +4,16 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 
 const ProjectsSection = ({ bio, projects }) => {
   return (
-    <div className="py-19 flex h-full w-[60%] flex-col items-center gap-4">
+    <div className="py-19 flex h-full w-[60%] flex-col items-center gap-0">
       <p className="text-center text-2xl font-bold italic text-white">
         “{bio}”
       </p>
-      <div className="mt-4 w-full">
-        <h3 className="text-xl font-semibold text-white">
+      <div className="mt-6 w-full">
+        <h3 className="text-3xl font-semibold tracking-wider text-white">
           My Projects include:
         </h3>
         <div className="scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 mt-2 flex w-full overflow-x-auto pb-4">
-          <div className="flex gap-4">
+          <div className="flex gap-5">
             {projects.map((project, index) => (
               <div key={index} className="flex w-[300px] flex-col items-center">
                 <a
