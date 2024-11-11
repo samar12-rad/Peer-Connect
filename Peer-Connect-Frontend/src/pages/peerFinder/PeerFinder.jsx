@@ -1,6 +1,7 @@
 import Header from './Header';
-import Skill from '../../Components/unitComponents/Skill';
+import SkillSelector from './SkillSelector';
 import { useState } from 'react';
+import UserCardWrapper from './UserCardWrapper';
 
 const PeerFinder = () => {
   const [skillsArray, setSkillsArray] = useState([]);
@@ -77,25 +78,12 @@ const PeerFinder = () => {
   return (
     <div className="flex h-fit w-full flex-col items-center p-10">
       <Header />
-      <div className="mt-[20vh] flex h-fit w-fit flex-col items-center justify-center px-10">
-        <h1 className="tracking-normal">
-          Just tell us the skills you&apos;re looking for in your partner and we
-          will find them for you :)
-        </h1>
-        <div className="flex h-fit w-full flex-col items-center gap-10">
-          <div className="mt-4 flex flex-wrap justify-center gap-4">
-            {skillNames.map((skillName) => (
-              <Skill key={skillName} name={skillName} onClick={selectSkill} />
-            ))}
-          </div>
-          <button
-            onClick={fetchPeers}
-            className="w-fit rounded-full bg-green-500 px-6 py-3 text-4xl font-bold tracking-tighter text-white"
-          >
-            Find Peers
-          </button>
-        </div>
-      </div>
+      <SkillSelector
+        skillNames={skillNames}
+        onSkillSelect={selectSkill}
+        onFindPeers={fetchPeers}
+      />
+      <UserCardWrapper />
     </div>
   );
 };
