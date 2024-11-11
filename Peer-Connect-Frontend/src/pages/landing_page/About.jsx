@@ -20,7 +20,7 @@ const About = () => {
               improve your coding skills, Peer Connect brings coders together
               for meaningful collaborations.
             </h2>{' '}
-            <button className="text-black-2 mt-20 rounded-3xl bg-green-400 px-5 py-1 font-bold duration-300 hover:bg-blue-500 hover:text-white">
+            <button className="text-black-2 mt-20 rounded-3xl bg-green-400 px-5 py-1 text-lg font-bold duration-300 hover:bg-blue-500 hover:text-white">
               SIGN UP
             </button>
           </div>
@@ -63,7 +63,7 @@ const About = () => {
           </div>
           <div className="w-[70%] px-10 text-2xl text-white">
             <div>
-              <h1 className="pb-5 text-4xl text-green-400">
+              <h1 className="-mt-10 pb-5 text-4xl text-green-400">
                 It Start with a Swipe.
               </h1>
             </div>
