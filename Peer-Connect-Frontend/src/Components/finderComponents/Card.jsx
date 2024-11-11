@@ -72,10 +72,10 @@ const Card = ({
               </a>
             ) : null}{' '}
           </div>
-          <div className="mt-3 flex h-fit w-full flex-wrap gap-3">
+          <div className="mt-3 flex h-fit w-full flex-wrap gap-2">
             {skills.map((skill, index) => (
               <div
-                className="h-fit w-fit rounded bg-black px-2 text-white"
+                className="h-fit w-fit rounded bg-black px-4 py-1 text-white"
                 key={index} // Use index since skill is now an array
               >
                 {skill[0]} {/* Access first element of nested array */}

@@ -130,7 +130,7 @@ const Signup = () => {
   return (
     <div className="flex h-fit w-full flex-col items-center px-5 pb-10 pt-2">
       <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
-        Sign up
+        Create your Profile
       </h1>
       <div className="flex h-fit w-full justify-center">
         <div className="flex h-full w-fit flex-col gap-4 rounded-lg bg-opacity-50 pl-10 pr-10 pt-10 shadow-white backdrop-blur-[7.4px]">
@@ -231,7 +231,7 @@ const Signup = () => {
               <div className="flex gap-4">
                 <button
                   type="button"
-                  className={`rounded-md px-4 py-2 ${
+                  className={`w-30 rounded-md border border-white px-4 py-2 ${
                     gender === 'male' ? 'bg-blue-500 text-white' : 'bg-gray-200'
                   }`}
                   onClick={() => handleGenderChange('male')}
@@ -240,7 +240,7 @@ const Signup = () => {
                 </button>
                 <button
                   type="button"
-                  className={`rounded-md px-4 py-2 ${
+                  className={`w-30 rounded-md border border-white px-4 py-2 ${
                     gender === 'female'
                       ? 'bg-blue-500 text-white'
                       : 'bg-gray-200'
