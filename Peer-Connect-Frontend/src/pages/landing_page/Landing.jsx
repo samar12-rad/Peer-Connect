@@ -7,7 +7,7 @@ import Nav from './Nav';
 
 const Landing = () => {
   return (
-    <div className="flex h-fit w-full flex-col gap-2 bg-slate-400">
+    <div className="flex h-fit w-full flex-col gap-2">
       <Nav />
 
       <Header />
