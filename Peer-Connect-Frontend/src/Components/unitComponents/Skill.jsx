@@ -23,6 +23,7 @@ import git from '../../assets/skillsLogo/git.png';
 import cpp from '../../assets/skillsLogo/cpp.png';
 import node from '../../assets/skillsLogo/node.png';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 
 const skillImages = {
   frontend,
@@ -43,8 +44,8 @@ const skillImages = {
   mongo,
   sql,
   postgresql,
-  springboot,
   next,
+  springboot,
   rust,
   golang,
   git,
@@ -54,15 +55,17 @@ const skillImages = {
 const Skill = ({ name, onClick }) => {
   return (
     <div>
-      <button
+      <motion.button
         id={name}
         name={name}
         onClick={onClick}
-        className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         <img src={skillImages[name]} alt={name} className="h-9 w-9" />
         {name}
-      </button>
+      </motion.button>
     </div>
   );
 };

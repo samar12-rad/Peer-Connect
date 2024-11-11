@@ -20,7 +20,7 @@ const About = () => {
               improve your coding skills, Peer Connect brings coders together
               for meaningful collaborations.
             </h2>{' '}
-            <button className="text-black-2 mt-20 rounded-3xl bg-green-400 px-5 py-1 font-bold duration-300 hover:bg-blue-500 hover:text-white">
+            <button className="text-black-2 mt-20 rounded-3xl bg-green-400 px-5 py-1 text-lg font-bold duration-300 hover:bg-blue-500 hover:text-white">
               SIGN UP
             </button>
           </div>
@@ -41,7 +41,7 @@ const About = () => {
       </div>
       <div className="flex-col px-40 py-20">
         <div className="mt-15 flex w-full justify-between">
-          <div className="-mt-35 scale-90">
+          <div className="-mt-55 z-1 absolute -ml-10 scale-75">
             <Card
               firstName="John"
               lastName="Doe"
@@ -55,22 +55,18 @@ const About = () => {
             />
           </div>
           <div>
-            <img
-              src={chat}
-              className="scale-60 h-95 w-110 -mt-29"
-              alt="chat"
-            ></img>
+            <img src={chat} className="-mt-18 scale-90" alt="chat"></img>
           </div>
           <div className="w-[70%] px-10 text-2xl text-white">
             <div>
-              <h1 className="pb-5 text-4xl text-green-400">
-                It Start with a Swipe.
+              <h1 className="-mt-10 pb-5 text-4xl text-green-400">
+                It Start with a Match.
               </h1>
             </div>
             <div>
               <h1 className="text-2xl">
-                See what happens when you Like someone with our iconic Swipe
-                Right® feature.
+                See what happens when you Like someone with our iconic matching
+                feature.
               </h1>
             </div>
           </div>

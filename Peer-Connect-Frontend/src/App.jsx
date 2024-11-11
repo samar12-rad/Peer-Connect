@@ -19,6 +19,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/find" element={<PeerFinder />} />
             <Route path="/landing" element={<Landing />} />
+
             <Route
               path="*"
               element={
