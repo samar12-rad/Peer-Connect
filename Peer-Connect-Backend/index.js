@@ -11,7 +11,14 @@ const port = process.env.PORT || 5000;
 const clientPath = process.env.CLIENT_PATH || 'http://localhost:3000';
 
 // Enable CORS with credentials
-app.use(cors({}));
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Frontend URL
+    credentials: true, // Enable credentials
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // Allowed headers
+  })
+);
 
 // Parse cookies
 app.use(cookieParser()); // Add this line to use cookie-parser

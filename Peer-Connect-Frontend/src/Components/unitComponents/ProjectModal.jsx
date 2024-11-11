@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { LinkPreview } from './LinkPreview';
 
 // ProjectModal Component
 const ProjectModal = ({ isOpen, onClose, onAddProject }) => {
@@ -46,7 +47,7 @@ const ProjectModal = ({ isOpen, onClose, onAddProject }) => {
               id="projectName"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="mt-1 w-full rounded border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mt-1 w-full rounded border border-gray-300 bg-black p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Enter project name"
               required
             />
@@ -63,10 +64,17 @@ const ProjectModal = ({ isOpen, onClose, onAddProject }) => {
               id="projectLink"
               value={projectLink}
               onChange={(e) => setProjectLink(e.target.value)}
-              className="mt-1 w-full rounded border border-gray-300 p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mt-1 w-full rounded border border-gray-300 bg-black p-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="https://..."
               required
             />
+            {projectLink && (
+              <LinkPreview url={projectLink}>
+                <button type="button" className="mt-2 text-sm text-blue-500">
+                  Preview Link
+                </button>
+              </LinkPreview>
+            )}
           </div>
           <div className="flex justify-end space-x-2">
             <button

@@ -3,7 +3,6 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import girl from '../../assets/card/girl.jpg';
 import boy from '../../assets/card/boy.jpg';
-import { useState } from 'react';
 
 const Card = ({
   firstName,
@@ -14,12 +13,9 @@ const Card = ({
   email,
   gender,
   skills,
+  theme = 1, // Add theme prop with default
 }) => {
-  const [idLevel, setIdLevel] = useState(0);
-
-  if (idLevel === 0) {
-    setIdLevel(3);
-  }
+  // Remove idLevel state and use theme prop directly
   const getBackgroundColor = (level) => {
     switch (level) {
       case 1: // Beginner
@@ -37,10 +33,10 @@ const Card = ({
     <div
       className="w-94 shadow-6 min-h-[60vh] overflow-hidden rounded-xl border border-white/5 pb-4 text-black shadow-white backdrop-blur-[7.4px]"
       style={{
-        background: getBackgroundColor(idLevel), // Changed from backgroundColor to background
+        background: getBackgroundColor(theme), // Changed from backgroundColor to background
       }}
     >
-      <div className="h-30 w-30 absolute left-[10%] top-[150px] translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
+      <div className="absolute left-[10%] top-[150px] h-24 w-24 translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
         <CgProfile className="h-full w-full" />
       </div>
       <div
@@ -77,12 +73,12 @@ const Card = ({
             ) : null}{' '}
           </div>
           <div className="mt-3 flex h-fit w-full flex-wrap gap-3">
-            {skills.map((skill) => (
+            {skills.map((skill, index) => (
               <div
                 className="h-fit w-fit rounded bg-black px-2 text-white"
-                key={skill.name}
+                key={index} // Use index since skill is now an array
               >
-                {skill.name}
+                {skill[0]} {/* Access first element of nested array */}
               </div>
             ))}
           </div>
@@ -101,19 +97,18 @@ Card.propTypes = {
   email: PropTypes.string,
   gender: PropTypes.oneOf(['male', 'female']).isRequired,
   skills: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    })
+    PropTypes.arrayOf(PropTypes.string) // Update to expect nested arrays
   ),
   bio: PropTypes.string,
   onClick: PropTypes.func,
+  theme: PropTypes.number,
 };
 
 Card.defaultProps = {
   github: '',
   linkedin: '',
   email: '',
-  skills: [],
+  skills: [], // Keep empty array default
   bio: '',
   onClick: () => {}, // Add default empty function
 };
@@ -131,4 +126,5 @@ export default Card;
 //    gender="male"
 //    skills={[{ name: 'React' }, { name: 'JavaScript' }]}
 //    bio="Full stack developer passionate about web technologies"
+//    theme={theme}
 //  />;
