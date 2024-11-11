@@ -4,7 +4,7 @@ import ProjectsSection from './ProjectsSection';
 
 const UserCard = ({ bio, projects = [] }) => {
   return (
-    <div className="flex h-full w-full items-center justify-evenly">
+    <div className="flex h-full w-full items-center justify-between px-[7%]">
       <Card
         firstName="John"
         lastName="Doe"
