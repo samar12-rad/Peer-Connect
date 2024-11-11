@@ -135,7 +135,7 @@ const Signup = () => {
       <div className="flex h-fit w-full justify-center">
         <div className="flex h-full w-fit flex-col gap-4 rounded-lg bg-opacity-50 pl-10 pr-10 pt-10 shadow-white backdrop-blur-[7.4px]">
           <div className="mb-1 text-3xl">
-            <h1>Nice to meet you! Lets get acquainted.</h1>
+            <h1>Nice to meet you! Lets get you acquainted.</h1>
           </div>
 
           <div className="pt-4 text-2xl">
@@ -320,7 +320,7 @@ const Signup = () => {
           </div>
 
           {/* Projects Section */}
-          <div className="relative h-fit pt-4 text-2xl">
+          <div className="relative h-fit rounded-lg pt-4 text-2xl">
             <h1>Add your Projects</h1>
             <button
               onClick={() => setIsModalOpen(true)}
@@ -406,10 +406,6 @@ const Signup = () => {
 
         <div className="pt-13 relative h-screen w-[50vw] items-center justify-center">
           <div className="fixed -ml-20 flex h-fit w-[30vw] flex-col items-center justify-center gap-3 rounded-lg">
-            <h1 className="text-wrap text-center text-2xl">
-              This is a unique card. This will be your Indentity for the
-              website.
-            </h1>
             <Card
               firstName={firstName}
               lastName={lastName}
