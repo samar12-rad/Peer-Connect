@@ -13,5 +13,7 @@ router.post('/login', userController.loginUser);
 router.get('/', checkSession, userController.getData);
 // Fetch Users Route
 router.post('/fetchUsers', checkSession, fetchUser);
+// Update User Data Route
+router.post('/update', userController.updateData);
 
 module.exports = router;

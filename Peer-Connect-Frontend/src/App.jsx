@@ -14,7 +14,7 @@ const App = () => {
     const scroll = new LocomotiveScroll({
       el: document.querySelector('[data-scroll-container]'),
       smooth: true,
-      multiplier: 0.4,
+      multiplier: 0.5,
       lerp: 0.08,
       smartphone: {
         smooth: true,

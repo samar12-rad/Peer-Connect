@@ -1,10 +1,9 @@
 // ProjectsSection.jsx
 import PropTypes from 'prop-types';
-import { FaCheck, FaTimes } from 'react-icons/fa';
 
 const ProjectsSection = ({ bio, projects }) => {
   return (
-    <div className="py-19 flex h-full w-[60%] flex-col items-center gap-0">
+    <div className="flex flex-col">
       <p className="text-center text-2xl font-bold italic text-white">
         “{bio}”
       </p>
@@ -44,27 +43,6 @@ const ProjectsSection = ({ bio, projects }) => {
             ))}
           </div>
         </div>
-      </div>
-      <div className="mt-4 flex h-fit w-full justify-between gap-8 p-4">
-        <button
-          className="group relative flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-green-400 to-green-600 px-6 py-2 text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(34,197,94,0.5)]"
-          onClick={() => {
-            /* handle accept */
-          }}
-        >
-          <FaCheck className="transition-transform duration-300 group-hover:rotate-12" />
-          Lets Connect
-        </button>
-
-        <button
-          className="group relative flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-red-400 to-red-600 px-6 py-2 text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(239,68,68,0.5)]"
-          onClick={() => {
-            /* handle reject */
-          }}
-        >
-          <FaTimes className="transition-transform duration-300 group-hover:rotate-12" />
-          Find Me Another Peer
-        </button>
       </div>
     </div>
   );

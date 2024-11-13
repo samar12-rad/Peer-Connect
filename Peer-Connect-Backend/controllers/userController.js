@@ -1,5 +1,5 @@
-const bcrypt = require("bcrypt");
-const User = require("../models/userModel");
+const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
 
 async function getData(req, res) {
   try {
@@ -7,12 +7,12 @@ async function getData(req, res) {
     const userData = await User.findOne({ _id: user_id }); // Use await for async DB query
 
     if (!userData) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: 'User not found' });
     }
     req.userId = userData._id; // Store user ID in the request object for
     res.status(200).json({ data: userData });
   } catch (error) {
-    res.status(500).json({ error: "Error fetching user data" });
+    res.status(500).json({ error: 'Error fetching user data' });
   }
 }
 
@@ -36,7 +36,7 @@ async function createUser(req, res) {
   if (!username || !password || !email) {
     return res
       .status(400)
-      .json({ error: "Username, password, and email are required" });
+      .json({ error: 'Username, password, and email are required' });
   }
 
   try {
@@ -59,10 +59,10 @@ async function createUser(req, res) {
       skills,
     });
 
-    res.status(201).json({ message: "User created successfully" });
+    res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     console.error(error); // Log error details for debugging
-    res.status(500).json({ error: "Error creating user" });
+    res.status(500).json({ error: 'Error creating user' });
   }
 }
 
@@ -71,7 +71,7 @@ async function loginUser(req, res) {
 
   // Basic validation
   if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required" });
+    return res.status(400).json({ error: 'Email and password are required' });
   }
 
   try {
@@ -79,14 +79,14 @@ async function loginUser(req, res) {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid email or password" });
+      return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Compare the provided password with the hashed password in the database
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      return res.status(401).json({ error: "Invalid email or password" });
+      return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     // Create a session for the user
@@ -94,12 +94,55 @@ async function loginUser(req, res) {
     req.session.sessionID = req.sessionID; // Optionally store the session ID
 
     res.status(200).json({
-      message: "Login successful",
+      message: 'Login successful',
       user: { username: user.username, email: user.email },
     });
   } catch (error) {
     console.error(error); // Log error details for debugging
-    res.status(500).json({ error: "Error logging in" });
+    res.status(500).json({ error: 'Error logging in' });
+  }
+}
+
+async function updateData(req, res) {
+  const {
+    userId,
+    firstName,
+    lastName,
+    city,
+    github,
+    linkedin,
+    bio,
+    skills,
+    projects,
+    friendRequests,
+    watchedUsers,
+  } = req.body;
+
+  try {
+    const userData = await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        firstName,
+        lastName,
+        city,
+        github,
+        linkedin,
+        bio,
+        skills,
+        projects,
+        friendRequests,
+        watchedUsers,
+      },
+      { new: true }
+    );
+
+    if (!userData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User data updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating user data' });
   }
 }
 
@@ -107,4 +150,5 @@ module.exports = {
   getData,
   createUser,
   loginUser,
+  updateData,
 };

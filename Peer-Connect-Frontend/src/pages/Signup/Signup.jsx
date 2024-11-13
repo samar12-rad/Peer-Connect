@@ -46,7 +46,8 @@ const Signup = () => {
     console.log(skillsArray);
     const user = {
       username: `${lastName}${firstName}`,
-      name: `${firstName} ${lastName}`,
+      firstName: firstName,
+      lastName: lastName,
       password: password,
       email: email,
       city: city,
@@ -405,7 +406,7 @@ const Signup = () => {
         </div>
 
         <div className="pt-13 relative h-screen w-[50vw] items-center justify-center">
-          <div className="fixed -ml-20 flex h-fit w-[30vw] flex-col items-center justify-center gap-3 rounded-lg">
+          <div className="fixed -ml-20 h-fit w-[30vw]">
             <Card
               firstName={firstName}
               lastName={lastName}
