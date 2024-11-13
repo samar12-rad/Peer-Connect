@@ -1,55 +1,55 @@
-import frontend from '../../assets/skillsLogo/frontend.png';
-import backend from '../../assets/skillsLogo/backend.png';
-import fullstack from '../../assets/skillsLogo/fullstack.png';
-import dsa from '../../assets/skillsLogo/dsa.png';
-import flutter from '../../assets/skillsLogo/flutter.png';
-import python from '../../assets/skillsLogo/python.png';
-import aiml from '../../assets/skillsLogo/aiml.png';
-import html from '../../assets/skillsLogo/html.png';
-import css from '../../assets/skillsLogo/css.png';
-import js from '../../assets/skillsLogo/js.png';
-import react from '../../assets/skillsLogo/react.png';
-import java from '../../assets/skillsLogo/java.png';
-import angular from '../../assets/skillsLogo/angular.png';
-import ruby from '../../assets/skillsLogo/ruby.png';
-import mongo from '../../assets/skillsLogo/mongo.png';
-import sql from '../../assets/skillsLogo/sql.png';
-import postgresql from '../../assets/skillsLogo/postgresql.png';
-import springboot from '../../assets/skillsLogo/springboot.png';
-import next from '../../assets/skillsLogo/next.png';
-import rust from '../../assets/skillsLogo/rust.png';
-import golang from '../../assets/skillsLogo/golang.png';
-import git from '../../assets/skillsLogo/git.png';
-import cpp from '../../assets/skillsLogo/cpp.png';
-import node from '../../assets/skillsLogo/node.png';
+import Frontend from '../../assets/skillsLogo/Frontend.png';
+import Backend from '../../assets/skillsLogo/Backend.png';
+import Fullstack from '../../assets/skillsLogo/Fullstack.png';
+import DSA from '../../assets/skillsLogo/DSA.png';
+import Flutter from '../../assets/skillsLogo/Flutter.png';
+import Python from '../../assets/skillsLogo/Python.png';
+import AIML from '../../assets/skillsLogo/AIML.png';
+import HTML from '../../assets/skillsLogo/HTML.png';
+import CSS from '../../assets/skillsLogo/CSS.png';
+import JS from '../../assets/skillsLogo/JS.png';
+import React from '../../assets/skillsLogo/React.png';
+import Java from '../../assets/skillsLogo/Java.png';
+import Angular from '../../assets/skillsLogo/Angular.png';
+import Ruby from '../../assets/skillsLogo/Ruby.png';
+import Mongo from '../../assets/skillsLogo/Mongo.png';
+import SQL from '../../assets/skillsLogo/SQL.png';
+import PostgreSQL from '../../assets/skillsLogo/PostgreSQL.png';
+import SpringBoot from '../../assets/skillsLogo/SpringBoot.png';
+import Next from '../../assets/skillsLogo/Next.png';
+import Rust from '../../assets/skillsLogo/Rust.png';
+import Golang from '../../assets/skillsLogo/Golang.png';
+import GIT from '../../assets/skillsLogo/GIT.png';
+import CPP from '../../assets/skillsLogo/CPP.png';
+import Node from '../../assets/skillsLogo/Node.png';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
 const skillImages = {
-  frontend,
-  backend,
-  fullstack,
-  dsa,
-  flutter,
-  python,
-  aiml,
-  html,
-  css,
-  js,
-  react,
-  java,
-  node,
-  angular,
-  ruby,
-  mongo,
-  sql,
-  postgresql,
-  next,
-  springboot,
-  rust,
-  golang,
-  git,
-  cpp,
+  Frontend,
+  Backend,
+  Fullstack,
+  DSA,
+  Flutter,
+  Python,
+  AIML,
+  HTML,
+  CSS,
+  JS,
+  React,
+  Java,
+  Node,
+  Angular,
+  Ruby,
+  Mongo,
+  SQL,
+  PostgreSQL,
+  Next,
+  SpringBoot,
+  Rust,
+  Golang,
+  GIT,
+  CPP,
 };
 
 const Skill = ({ name, onClick }) => {
