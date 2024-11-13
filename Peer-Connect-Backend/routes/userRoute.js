@@ -10,7 +10,7 @@ router.post('/signup', userController.createUser);
 // Login Route
 router.post('/login', userController.loginUser);
 // Get User Data Route
-router.get('/', checkSession, userController.getData);
+router.get('/data', userController.getData);
 // Fetch Users Route
 router.post('/fetchUsers', checkSession, fetchUser);
 // Update User Data Route
