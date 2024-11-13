@@ -1,13 +1,44 @@
 import { useState } from 'react';
 import peer from '../../assets/Peerlist.png';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  // Configure axios defaults
+  axios.defaults.withCredentials = true;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/api/v1/user/login',
+        {
+          email,
+          password,
+        }
+      );
+
+      if (response.data.sessionId) {
+        // Session cookie will be automatically handled by the browser
+        // Store any additional user info if needed
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+    navigate('/');
   };
 
   return (
@@ -57,8 +88,9 @@ const Login = () => {
           type="submit"
           className="w-full rounded bg-blue-500 p-3 text-white hover:bg-blue-700"
         >
-          Login
+          {loading ? 'Logging in...' : 'Login'}
         </button>
+        {error && <p className="mt-2 text-red-500">{error}</p>}
         <button className="mt-2 w-full rounded bg-blue-500 p-3 text-white hover:bg-blue-700">
           <a
             href="/signup"

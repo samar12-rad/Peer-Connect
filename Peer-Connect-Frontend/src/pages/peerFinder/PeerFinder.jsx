@@ -5,7 +5,7 @@ import UserCardWrapper from './UserCardWrapper';
 
 const PeerFinder = () => {
   const [skillsArray, setSkillsArray] = useState([]);
-  console.log(skillsArray);
+  const [peerData, setPeerData] = useState(null);
   const skillNames = [
     'frontend',
     'backend',
@@ -50,6 +50,7 @@ const PeerFinder = () => {
       skill.classList.add('bg-transparent');
       setSkillsArray((prev) => prev.filter((s) => s.name !== skillName));
     }
+    console.log(skillsArray);
   };
 
   const fetchPeers = async () => {
@@ -69,7 +70,7 @@ const PeerFinder = () => {
       );
 
       const data = await response.json();
-      console.log('Fetched peers:', data);
+      setPeerData(data);
     } catch (error) {
       console.error('Error fetching peers:', error);
     }
@@ -83,7 +84,7 @@ const PeerFinder = () => {
         onSkillSelect={selectSkill}
         onFindPeers={fetchPeers}
       />
-      <UserCardWrapper />
+      <UserCardWrapper peerData={peerData} />
     </div>
   );
 };
