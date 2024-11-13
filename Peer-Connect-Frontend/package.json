@@ -15,6 +15,7 @@
     "@radix-ui/react-hover-card": "^1.1.2",
     "@tabler/icons-react": "^3.18.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "framer-motion": "^11.11.11",
     "locomotive-scroll": "^4.1.4",
     "mini-svg-data-uri": "^1.4.4",
