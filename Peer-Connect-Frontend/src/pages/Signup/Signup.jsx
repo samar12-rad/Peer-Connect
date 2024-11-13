@@ -17,7 +17,7 @@ const Signup = () => {
   const [skillsArray, setSkillsArray] = useState([]);
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('');
-  const [theme, setTheme] = useState(1);
+  const [theme, setTheme] = useState(2);
 
   const MAX_PROJECTS = 5;
 
