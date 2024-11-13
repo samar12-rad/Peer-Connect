@@ -5,6 +5,10 @@ import ProjectModal from '../../Components/unitComponents/ProjectModal';
 import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -20,6 +24,11 @@ const Signup = () => {
   const [theme, setTheme] = useState(1);
 
   const MAX_PROJECTS = 5;
+
+  const backendUrl = process.env.BACKEND_URI;
+
+  // Use backendUrl wherever you need the backend URL
+  console.log(backendUrl);
 
   const handleChanges = (e) => {
     if (e.target.name === 'firstname') {
@@ -96,8 +105,8 @@ const Signup = () => {
   };
 
   const skillNames = [
-    'frontend',
-    'backend',
+    'Frontend',
+    'Backend',
     'fullstack',
     'dsa',
     'flutter',

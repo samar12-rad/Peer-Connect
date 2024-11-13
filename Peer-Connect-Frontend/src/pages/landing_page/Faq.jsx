@@ -75,11 +75,7 @@ const faqData = [
     answer:
       'You can change your email address by going to your account settings and updating your email information.',
   },
-  {
-    question: 'What should I do if I encounter inappropriate behavior?',
-    answer:
-      'If you encounter inappropriate behavior, please report it to our support team immediately so we can take appropriate action.',
-  },
+
   {
     question: 'Can I customize my notification settings?',
     answer:
