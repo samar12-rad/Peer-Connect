@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import profile from '../../assets/dashboardLogo/profile.png';
 import msg from '../../assets/dashboardLogo/msg.png';
 import finder from '../../assets/dashboardLogo/finder.png';
@@ -7,15 +8,58 @@ import msgHover from '../../assets/dashboardLogo/chat.png';
 import find from '../../assets/dashboardLogo/find.png';
 
 export const Dashboard = () => {
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/v1/user/data', {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            navigate('/login');
+            throw new Error('Unauthorized');
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUserData(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+    return () => {
+      // Cleanup if needed
+    };
+  }, [navigate]); // Add navigate as dependency since it's used inside effect
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="flex h-fit w-full flex-col items-center justify-start gap-2">
       <div className="HEADER flex w-fit flex-col items-center justify-center pt-20">
-        <h1 className="items-center justify-center text-6xl">Hey!,</h1>
-        <h2 className="items-center justify-center whitespace-nowrap text-6xl font-bold">
-          Ishika Verma
-        </h2>
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="items-center justify-center text-6xl">Hey!</h1>
+          <h2 className="items-center justify-center whitespace-nowrap text-6xl font-bold">
+            {error ? error : userData?.data.firstName}
+          </h2>
+        </div>
         <p className="items-center justify-center whitespace-nowrap pt-4 text-2xl font-bold">
           Swipe, Connect, Code – Find your perfect coding partner and build
           together!

@@ -2,7 +2,7 @@ import { MdPersonSearch } from 'react-icons/md';
 
 const SearchInput = () => {
   return (
-    <div className="bg-gradient flex min-h-[10%] items-center justify-center gap-2 px-3 text-white">
+    <div className="flex min-h-[10%] items-center justify-center gap-2 border border-white px-3 text-white">
       <MdPersonSearch className="absolute left-5 z-10 text-3xl text-zinc-700" />
       <input
         type="text"

@@ -1,12 +1,11 @@
 import { CgProfile } from 'react-icons/cg';
 import { ImCross } from 'react-icons/im';
-import bg from '../../assets/chat.jpg';
 import { FaLocationArrow } from 'react-icons/fa';
 
 const MessageContainer = () => {
   return (
-    <div className="flex h-full w-full flex-col bg-white bg-opacity-25">
-      <div className="bg-gradient flex h-[10%] items-center justify-between">
+    <div className="flex h-full w-full flex-col">
+      <div className="flex h-[10%] items-center justify-between border border-white">
         <div className="flex h-full w-full items-center justify-start gap-3 px-7">
           <div className="h-[45%] rounded-full bg-white">
             <CgProfile className="h-full w-full" />
@@ -17,14 +16,7 @@ const MessageContainer = () => {
           <ImCross className="h-5 w-5 text-white" />
         </div>
       </div>
-      <div
-        className="flex h-[90%] w-full flex-col justify-between"
-        style={{
-          backgroundImage: `url(${bg})`,
-          backgroundSize: '80%',
-          backgroundPosition: 'center',
-        }}
-      >
+      <div className="flex h-[90%] w-full flex-col justify-between">
         <div className="my-4 flex flex-col p-4">
           <div className="chat chat-start">
             <div className="chat-image avatar">
@@ -63,7 +55,7 @@ const MessageContainer = () => {
             <div className="chat-footer opacity-50">Seen at 12:46</div>
           </div>
         </div>
-        <div className="bg-gradient flex h-[10%] w-full items-center justify-between px-3">
+        <div className="flex h-[10%] w-full items-center justify-between border border-white px-3">
           <FaLocationArrow className="absolute right-6 text-blue-400" />
           <input
             type="text"
