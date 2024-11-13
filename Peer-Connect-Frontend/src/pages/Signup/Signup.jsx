@@ -5,10 +5,6 @@ import ProjectModal from '../../Components/unitComponents/ProjectModal';
 import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
 
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState([]);
@@ -25,7 +21,7 @@ const Signup = () => {
 
   const MAX_PROJECTS = 5;
 
-  const backendUrl = process.env.BACKEND_URI;
+  const backendUrl = import.meta.BACKEND_URI;
 
   // Use backendUrl wherever you need the backend URL
   console.log(backendUrl);

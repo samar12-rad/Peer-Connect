@@ -33,13 +33,16 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^9.0.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.8"
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   },
   "lint-staged": {
     "Peer-Connect-Frontend/**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write",

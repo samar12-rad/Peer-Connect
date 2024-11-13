@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import peer from '../../assets/Peerlist.png';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,16 +11,22 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-200">
-      <h1 className="mb-4 text-4xl font-bold text-gray-800">Peer Connect</h1>
+    <div className="bg-black-2 flex h-screen flex-col items-center justify-center">
+      <div className="mb-5 flex items-center justify-center">
+        <img className="h-9" src={peer}></img>
+
+        <h1 className="text-4xl font-bold text-gray-800 text-green-400">
+          Peer Connect
+        </h1>
+      </div>
       <h2 className="mb-6 text-2xl text-gray-600">Login</h2>
 
       <form
-        className="w-72 rounded-lg bg-slate-200 p-8 shadow-lg"
+        className="bg-black-2 text-black-2 w-72 rounded-lg border border-white p-8 shadow-lg"
         onSubmit={handleSubmit}
       >
         <div className="mb-6">
-          <label htmlFor="email" className="mb-2 block font-bold">
+          <label htmlFor="email" className="mb-2 block font-bold text-white">
             Email:
           </label>
           <input
@@ -30,7 +36,7 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             required
-            className="w-full rounded border border-gray-300 bg-slate-200 p-2 focus:outline-none"
+            className="bg-black-2 w-full rounded border border-gray-300 border-green-400 p-2 text-white placeholder-green-400 focus:outline-none"
           />
         </div>
         <div className="mb-6">
