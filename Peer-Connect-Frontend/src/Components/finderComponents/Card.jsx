@@ -37,7 +37,7 @@ const Card = ({
       }}
     >
       <div className="absolute left-[10%] top-[150px] h-24 w-24 translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
-        <CgProfile className="h-full w-full" />
+        <CgProfile className="profile-logo h-full w-full" />
       </div>
       <div
         className={`h-[150px] w-full`}
@@ -128,3 +128,6 @@ export default Card;
 //    bio="Full stack developer passionate about web technologies"
 //    theme={theme}
 //  />;
+
+/* styles.css */
+/* Adjust the height a*/
