@@ -104,27 +104,27 @@ const Signup = () => {
   const skillNames = [
     'Frontend',
     'Backend',
-    'fullstack',
-    'dsa',
-    'flutter',
-    'python',
-    'aiml',
-    'html',
-    'css',
-    'js',
-    'react',
-    'java',
-    'angular',
-    'ruby',
-    'mongo',
-    'sql',
-    'postgresql',
-    'next',
-    'springboot',
-    'rust',
-    'golang',
-    'git',
-    'cpp',
+    'Fullstack',
+    'DSA',
+    'Flutter',
+    'Python',
+    'AIML',
+    'HTML',
+    'CSS',
+    'JS',
+    'React',
+    'Java',
+    'Angular',
+    'Ruby',
+    'Mongo',
+    'SQL',
+    'PostgreSQL',
+    'Next',
+    'SpringBoot',
+    'Rust',
+    'Golang',
+    'GIT',
+    'CPP',
   ];
 
   const themes = [
@@ -168,6 +168,22 @@ const Signup = () => {
             </div>
           </div>
 
+          <div className="pt-5 text-2xl">
+            <h1>Create your username</h1>
+            <div className="mt-4 text-sm">
+              <h2>Username:</h2>
+            </div>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              onChange={(e) => handleChanges(e)}
+              placeholder="Enter your username"
+              required
+              className="w-[50%] rounded border border-gray-300 bg-transparent p-2 text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            ></input>
+          </div>
+
           {/* Email Section */}
           <div className="pt-5 text-2xl">
             <h1>What is your email?</h1>
@@ -204,7 +220,7 @@ const Signup = () => {
 
           {/* Name Section */}
           <div className="username pt-4 text-2xl">
-            <h1>What is your name?</h1>
+            <h1>Create your username</h1>
             <div className="mt-4 text-sm">
               <h2>First Name:</h2>
             </div>

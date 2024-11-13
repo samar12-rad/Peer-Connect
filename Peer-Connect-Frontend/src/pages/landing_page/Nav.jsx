@@ -15,7 +15,7 @@ const Nav = () => {
       </div>
       <div className="flex items-center gap-10">
         <p className="text-2xl">About</p>
-        <p className="text-2xl">Faqs</p>w1
+        <p className="text-2xl">Faqs</p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
