@@ -17,5 +17,17 @@ router.post('/fetchUsers', checkSession, fetchUser);
 router.post('/update', userController.updateData);
 // Get Users for Sidebar Route
 router.get('/users', checkSession, userController.getUsersForSidebar);
+// Check Friend Status Route
+router.get(
+  '/checkFriend/:targetUserId',
+  checkSession,
+  userController.checkFriendStatus
+);
+// Make Friend Route
+router.post(
+  '/makeFriend/:targetUserId',
+  checkSession,
+  userController.makeFriend
+);
 
 module.exports = router;

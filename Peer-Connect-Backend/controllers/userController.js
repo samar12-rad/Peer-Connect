@@ -164,10 +164,74 @@ async function getUsersForSidebar(req, res) {
   }
 }
 
+async function checkFriendStatus(req, res) {
+  try {
+    const currentUserId = req.session.userId;
+    const { targetUserId } = req.params;
+
+    const user = await User.findById(currentUserId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Current user not found' });
+    }
+
+    const isFriend = user.friends.includes(targetUserId);
+    const hasPendingRequest = user.friendRequests.includes(targetUserId);
+
+    res.status(200).json({
+      isFriend,
+      hasPendingRequest,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error checking friend status' });
+  }
+}
+
+async function makeFriend(req, res) {
+  try {
+    const currentUserId = req.session.userId;
+    const { targetUserId } = req.params;
+
+    // Update both users' friend lists
+    const [currentUser, targetUser] = await Promise.all([
+      User.findByIdAndUpdate(
+        currentUserId,
+        {
+          $addToSet: { friends: targetUserId },
+          $pull: { friendRequests: targetUserId },
+        },
+        { new: true }
+      ),
+      User.findByIdAndUpdate(
+        targetUserId,
+        {
+          $addToSet: { friends: currentUserId },
+          $pull: { friendRequests: currentUserId },
+        },
+        { new: true }
+      ),
+    ]);
+
+    if (!currentUser || !targetUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: 'Friend added successfully',
+      friend: targetUser,
+    });
+  } catch (error) {
+    console.error('Make friend error:', error);
+    res.status(500).json({ error: 'Error making friend connection' });
+  }
+}
+
 module.exports = {
   getData,
   createUser,
   loginUser,
   updateData,
   getUsersForSidebar,
+  checkFriendStatus,
+  makeFriend,
 };
