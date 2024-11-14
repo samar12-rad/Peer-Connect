@@ -9,7 +9,7 @@ const Header = () => {
       <h1 className="py-25 flex items-center justify-center text-8xl font-bold text-white">
         Code, Collaborate, Conquer
       </h1>
-      <hr className="mx-auto my-4 w-3/4 border-t-2 border-green-400"></hr>
+      <hr className="mx-auto my-4 w-3/4 border-t-2 border-green-500"></hr>
     </div>
   );
 };

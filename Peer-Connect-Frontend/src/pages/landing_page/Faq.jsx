@@ -121,13 +121,15 @@ const Faq = () => {
   return (
     <div className="bg-black-2 py-35 flex min-h-[50vh] w-full flex-col px-40">
       <div>
-        <h1 className="text-5xl font-bold text-green-400">
+        <div id="faqs">{/* Your FAQs content */}</div>
+        <h1 className="text-5xl font-bold text-green-500">
           Frequently Asked Questions
         </h1>
       </div>
       <div className="pt-4 text-lg">
         <h5>Quick answers to the questions you may have.</h5>
       </div>
+
       <div className="pt-15 gap-30 flex">
         <div className="flex w-[50%] flex-col gap-10">
           {faqData.slice(0, Math.ceil(faqData.length / 2)).map((faq, index) => (
