@@ -12,7 +12,7 @@ const ProjectsSection = ({ bio, projects }) => {
           My Projects include:
         </h3>
         <div className="scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 mt-2 flex w-full overflow-x-auto pb-4">
-          <div className="flex gap-5">
+          <div className="flex items-start gap-5">
             {projects.map((project, index) => (
               <div key={index} className="flex w-[300px] flex-col items-center">
                 <a

@@ -146,9 +146,28 @@ async function updateData(req, res) {
   }
 }
 
+async function getUsersForSidebar(req, res) {
+  const userId = req.session.userId;
+  try {
+    const user = await User.findOne({ _id: userId }, 'friends');
+    const friends = user.friends;
+    if (!friends || friends.length === 0) {
+      return res.status(200).json({
+        message: 'No friends found',
+        friends: [],
+      });
+    }
+
+    res.status(200).json({ data: friends });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching users' });
+  }
+}
+
 module.exports = {
   getData,
   createUser,
   loginUser,
   updateData,
+  getUsersForSidebar,
 };

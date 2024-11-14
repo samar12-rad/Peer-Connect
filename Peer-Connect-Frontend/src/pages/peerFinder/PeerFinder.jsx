@@ -53,7 +53,8 @@ const PeerFinder = () => {
     console.log(skillsArray);
   };
 
-  const fetchPeers = async () => {
+  const fetchPeers = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch(
         'http://localhost:3000/api/v1/user/fetchUsers',
@@ -70,7 +71,12 @@ const PeerFinder = () => {
       );
 
       const data = await response.json();
-      setPeerData(data);
+      if (response.status === 401) {
+        alert('Please login to continue');
+        window.location.href = '/login';
+      } else {
+        setPeerData(data);
+      }
     } catch (error) {
       console.error('Error fetching peers:', error);
     }

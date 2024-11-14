@@ -15,5 +15,7 @@ router.get('/data', userController.getData);
 router.post('/fetchUsers', checkSession, fetchUser);
 // Update User Data Route
 router.post('/update', userController.updateData);
+// Get Users for Sidebar Route
+router.get('/users', checkSession, userController.getUsersForSidebar);
 
 module.exports = router;

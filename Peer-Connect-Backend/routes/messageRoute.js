@@ -1,12 +1,14 @@
-const express = require("express");
+const express = require('express');
 const {
   sendMessage,
   getMessages,
-} = require("../controllers/messageController");
-const checkSession = require("../middlewares/sessionAuth");
+} = require('../controllers/messageController');
+const checkSession = require('../middlewares/sessionAuth');
 const router = express.Router();
 
-router.post("/send", checkSession, sendMessage);
-router.post("/getMessages", checkSession, getMessages);
+//Send Message Route
+router.post('/send', checkSession, sendMessage);
+//Get Messages Route
+router.post('/getMessages', checkSession, getMessages);
 
 module.exports = router;
