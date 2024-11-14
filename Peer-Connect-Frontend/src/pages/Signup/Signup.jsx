@@ -143,7 +143,20 @@ const Signup = () => {
           <div className="mb-1 text-3xl">
             <h1>Nice to meet you! Lets get you acquainted.</h1>
           </div>
-
+          <div>
+            <div className="pt-4 text-2xl">
+              <h1>Already have an Account ?</h1>
+            </div>
+            <div>
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className="w-30 mt-4 flex h-fit items-center justify-center gap-4 rounded border border-white bg-green-500 px-2 py-2 text-white hover:bg-green-600"
+              >
+                Login
+              </button>
+            </div>
+          </div>
           <div className="pt-4 text-2xl">
             <h1>Choose your card theme</h1>
             <div className="mt-4 flex gap-4">
@@ -419,7 +432,7 @@ const Signup = () => {
             <button
               type="submit"
               onClick={handleSubmit}
-              className="h-fit w-fit rounded border border-white bg-indigo-800 px-4 py-4 text-white hover:bg-indigo-900"
+              className="h-fit w-fit rounded border border-white bg-green-500 px-4 py-4 text-white hover:bg-green-600"
             >
               <h1> I&apos;m Ready to Explore Peer Connect!!</h1>
             </button>

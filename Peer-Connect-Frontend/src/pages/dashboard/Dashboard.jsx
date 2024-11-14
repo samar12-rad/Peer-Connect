@@ -24,35 +24,23 @@ export const Dashboard = () => {
             'Content-Type': 'application/json',
           },
         });
-
-        if (!response.ok) {
-          if (response.status === 401) {
-            navigate('/login');
-            throw new Error('Unauthorized');
-          }
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const data = await response.json();
         setUserData(data);
         setLoading(false);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error);
         setLoading(false);
       }
     };
 
     fetchUserData();
-    return () => {
-      // Cleanup if needed
-    };
-  }, [navigate]); // Add navigate as dependency since it's used inside effect
+  }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex h-fit w-full flex-col items-center justify-start gap-2">
+    <div className="flex h-fit w-full flex-col items-center justify-start gap-2 overflow-hidden">
       <div className="HEADER flex w-fit flex-col items-center justify-center pt-20">
         <div className="flex flex-col items-center gap-2">
           <h1 className="items-center justify-center text-6xl">Hey!</h1>
@@ -69,8 +57,10 @@ export const Dashboard = () => {
         <div className="CARD-WRAPPER gap-15 flex w-full flex-wrap justify-center">
           <div
             className="hover:h-100 hover:w-100 flex h-80 w-80 flex-col items-center justify-center rounded-lg bg-gray-800 bg-slate-200 p-4 text-black transition-all duration-1000"
+            style={{ cursor: 'pointer' }}
             onMouseEnter={() => setHoveredCard('finder')}
             onMouseLeave={() => setHoveredCard(null)}
+            onClick={() => navigate('/find')}
           >
             {hoveredCard === 'finder' ? (
               <img
@@ -96,13 +86,15 @@ export const Dashboard = () => {
 
           <div
             className="hover:h-100 hover:w-100 flex h-80 w-80 flex-col items-center justify-center rounded-lg bg-gray-800 bg-slate-200 p-4 text-black transition-all duration-1000"
-            onMouseEnter={() => setHoveredCard('msg')}
+            style={{ cursor: 'pointer' }}
+            onMouseEnter={() => setHoveredCard('message')}
             onMouseLeave={() => setHoveredCard(null)}
+            onClick={() => navigate('/message')}
           >
-            {hoveredCard === 'msg' ? (
+            {hoveredCard === 'message' ? (
               <img
                 src={msgHover}
-                className="h-50 mb-5 rounded transition-all duration-1000"
+                className="h-50 mb-5 rounded-lg transition-all duration-1000"
               />
             ) : (
               <img
@@ -112,24 +104,26 @@ export const Dashboard = () => {
               />
             )}
             <h3
-              className={`text-2xl font-bold ${hoveredCard === 'msg' ? 'text-4xl' : 'text-2xl'} transition-all duration-1000`}
+              className={`font-bold ${hoveredCard === 'message' ? 'text-4xl' : 'text-2xl'} transition-all duration-1000`}
             >
-              Message
+              Messages
             </h3>
             <p className="text-center text-sm transition-all duration-1000">
-              Build connections with like-minded developers.
+              Chat with your coding partners.
             </p>
           </div>
 
           <div
             className="hover:h-100 hover:w-100 flex h-80 w-80 flex-col items-center justify-center rounded-lg bg-gray-800 bg-slate-200 p-4 text-black transition-all duration-1000"
+            style={{ cursor: 'pointer' }}
             onMouseEnter={() => setHoveredCard('profile')}
             onMouseLeave={() => setHoveredCard(null)}
+            onClick={() => navigate('/profile')}
           >
             {hoveredCard === 'profile' ? (
               <img
                 src={profileHover}
-                className="h-50 mb-5 rounded transition-all duration-1000"
+                className="h-50 mb-5 rounded-lg transition-all duration-1000"
               />
             ) : (
               <img
@@ -139,12 +133,12 @@ export const Dashboard = () => {
               />
             )}
             <h3
-              className={`text-2xl font-bold ${hoveredCard === 'profile' ? 'text-4xl' : 'text-2xl'} transition-all duration-1000`}
+              className={`font-bold ${hoveredCard === 'profile' ? 'text-4xl' : 'text-2xl'} transition-all duration-1000`}
             >
               Profile
             </h3>
             <p className="text-center text-sm transition-all duration-1000">
-              Show your skills and connect with coders.
+              View and edit your profile.
             </p>
           </div>
         </div>
