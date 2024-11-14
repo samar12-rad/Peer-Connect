@@ -24,6 +24,9 @@ export const Dashboard = () => {
             'Content-Type': 'application/json',
           },
         });
+        if (!response.ok) {
+          navigate('/login');
+        }
         const data = await response.json();
         setUserData(data);
         setLoading(false);

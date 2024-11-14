@@ -55,6 +55,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
 
       if (isFriend) {
         setError('This user is already your friend!');
+        alert(error);
         return;
       }
 
@@ -86,10 +87,6 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
     // Add your reject logic here
     handleNextUser(); // Move to next user after rejecting
   };
-
-  if (error) {
-    alert(error);
-  }
 
   return (
     <div className="px-15 py-22 h-screen w-full">
