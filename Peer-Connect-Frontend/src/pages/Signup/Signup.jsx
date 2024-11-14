@@ -4,6 +4,7 @@ import Card from '../../Components/finderComponents/Card';
 import ProjectModal from '../../Components/unitComponents/ProjectModal';
 import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +26,8 @@ const Signup = () => {
 
   // Use backendUrl wherever you need the backend URL
   console.log(backendUrl);
+
+  const navigate = useNavigate(); // Create navigate function
 
   const handleChanges = (e) => {
     if (e.target.name === 'firstname') {
@@ -79,6 +82,9 @@ const Signup = () => {
         console.error('Error:', error);
       });
     console.log(response);
+
+    // Redirect to login page
+    navigate('/login');
   };
 
   const selectSkill = (e) => {
@@ -136,7 +142,7 @@ const Signup = () => {
   return (
     <div className="flex h-fit w-full flex-col items-center px-5 pb-10 pt-2">
       <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
-        Create your Profile
+        Create your<span className="text-green-500"> Profile</span>
       </h1>
       <div className="flex h-fit w-full justify-center">
         <div className="flex h-full w-fit flex-col gap-4 rounded-lg bg-opacity-50 pl-10 pr-10 pt-10 shadow-white backdrop-blur-[7.4px]">
@@ -149,14 +155,15 @@ const Signup = () => {
             </div>
             <div>
               <button
-                type="submit"
-                onClick={handleSubmit}
+                type="button"
+                onClick={() => navigate('/login')} // Update onClick handler
                 className="w-30 mt-4 flex h-fit items-center justify-center gap-4 rounded border border-white bg-green-500 px-2 py-2 text-white hover:bg-green-600"
               >
                 Login
               </button>
             </div>
           </div>
+
           <div className="pt-4 text-2xl">
             <h1>Choose your card theme</h1>
             <div className="mt-4 flex gap-4">
@@ -434,7 +441,7 @@ const Signup = () => {
               onClick={handleSubmit}
               className="h-fit w-fit rounded border border-white bg-green-500 px-4 py-4 text-white hover:bg-green-600"
             >
-              <h1> I&apos;m Ready to Explore Peer Connect!!</h1>
+              <h1> Im Ready to Explore Peer Connect!!</h1>
             </button>
           </div>
         </div>

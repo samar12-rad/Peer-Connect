@@ -41,7 +41,7 @@ const Profile = () => {
     <div className="max-fit relative flex w-full flex-col gap-4 overflow-hidden pb-9 shadow-xl">
       <div className="flex justify-evenly text-2xl">
         <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
-          PROFILE
+          <span className="text-green-500"> PROFILE</span>
         </h1>
       </div>
 
@@ -56,7 +56,7 @@ const Profile = () => {
             <p className="pb-4">Bio: {dummyData.bio}</p>
             <p className="pb-4">Pronouns: {dummyData.pronouns}</p>
             <div className="flex justify-end">
-              <button className="w-30 mb-5 ml-20 mt-6 h-7 rounded-lg bg-blue-900 text-[16px] text-white hover:bg-blue-800">
+              <button className="w-30 mb-5 ml-20 mt-6 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
                 edit
               </button>
             </div>
@@ -66,7 +66,7 @@ const Profile = () => {
         <div className="shadow-6 col-span-4 row-span-3 rounded-xl border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[10%]">
             <p className="text-center text-xl font-bold">SKILLS</p>
-            <button className="w-30 h-7 rounded-lg bg-blue-900 text-[16px] text-white hover:bg-blue-800">
+            <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit
             </button>
           </div>
@@ -89,7 +89,7 @@ const Profile = () => {
         <div className="shadow-6 col-span-2 row-span-4 rounded-xl border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[10%]">
             <p className="text-center text-xl font-bold">SOCIALS</p>
-            <button className="w-30 h-7 rounded-lg bg-blue-900 text-[16px] text-white hover:bg-blue-800">
+            <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit
             </button>
           </div>
@@ -128,7 +128,7 @@ const Profile = () => {
         <div className="shadow-6 col-span-2 row-span-2 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[10%]">
             <p className="text-center text-xl font-bold">CODING</p>
-            <button className="w-30 h-7 rounded-lg bg-blue-900 text-[16px] text-white hover:bg-blue-800">
+            <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit{' '}
             </button>
           </div>
@@ -147,7 +147,7 @@ const Profile = () => {
         <div className="shadow-6 col-span-2 row-span-2 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[5%]">
             <p className="text-center text-xl font-bold">PREFERENCES</p>
-            <button className="w-30 h-7 rounded-lg bg-blue-900 text-[16px] text-white hover:bg-blue-800">
+            <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit
             </button>
           </div>
@@ -166,7 +166,7 @@ const Profile = () => {
         <div className="shadow-6 col-span-2 row-span-2 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between gap-3 px-[5%]">
             <p className="text-center text-xl font-bold">LETS WORK TOGETHER</p>
-            <button className="w-30 h-7 rounded-lg bg-blue-900 text-[16px] text-white hover:bg-blue-800">
+            <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit
             </button>
           </div>

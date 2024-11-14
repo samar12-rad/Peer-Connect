@@ -48,8 +48,8 @@ export const Dashboard = () => {
             {error ? error : userData?.data.firstName}
           </h2>
         </div>
-        <p className="items-center justify-center whitespace-nowrap pt-4 text-2xl font-bold">
-          Swipe, Connect, Code – Find your perfect coding partner and build
+        <p className="items-center justify-center whitespace-nowrap pt-4 text-2xl font-bold text-green-500">
+          Swipe. Connect. Code. – Find your perfect coding partner and build
           together!
         </p>
       </div>
@@ -89,7 +89,7 @@ export const Dashboard = () => {
             style={{ cursor: 'pointer' }}
             onMouseEnter={() => setHoveredCard('message')}
             onMouseLeave={() => setHoveredCard(null)}
-            onClick={() => navigate('/message')}
+            onClick={() => navigate('/chat')}
           >
             {hoveredCard === 'message' ? (
               <img
