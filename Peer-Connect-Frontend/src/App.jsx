@@ -30,8 +30,8 @@ const App = () => {
   return (
     <Router>
       {/* <main data-scroll-container> */}
-      <div className="flex">
-        <div className="shadow-inner-fat-blue h-fit min-h-screen w-full bg-[#000000]">
+      <div className="bg-black-2 flex">
+        <div className="shadow-inner-fat-blue bg-black-2 h-fit min-h-screen w-screen overflow-hidden">
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Dashboard />} />
