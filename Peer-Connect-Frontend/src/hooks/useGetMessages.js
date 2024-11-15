@@ -6,14 +6,18 @@ const useGetMessages = () => {
   const { selectedConversation, messages, setMessages } = useConversation();
 
   useEffect(() => {
-    console.log('inside UE of useGetMessages', selectedConversation);
+    // Only run if there's a selected conversation
+    if (!selectedConversation) {
+      return;
+    }
+
     const getMessages = async () => {
       setLoading(true);
       try {
         const response = await fetch(
           `http://localhost:3000/api/v1/message/getMessages`,
           {
-            method: 'POST', // Changed to POST as backend expects body
+            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -35,7 +39,7 @@ const useGetMessages = () => {
     };
 
     getMessages();
-  }, [selectedConversation]);
+  }, [selectedConversation, setMessages]);
 
   return { messages, loading };
 };
