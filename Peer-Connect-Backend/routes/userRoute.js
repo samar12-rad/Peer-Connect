@@ -5,6 +5,8 @@ const checkSession = require('../middlewares/sessionAuth');
 const userController = require('../controllers/userController');
 const { fetchUser } = require('../v1(small scale)/Fetch-User');
 
+// Get Peer Data Route
+router.get('/peerData/:userId', userController.getPeerData);
 // Signup Route
 router.post('/signup', userController.createUser);
 // Login Route

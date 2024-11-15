@@ -226,6 +226,34 @@ async function makeFriend(req, res) {
   }
 }
 
+async function getPeerData(req, res) {
+  try {
+    const { userId } = req.params;
+
+    const userData = await User.findById(userId)
+      .select(
+        'firstName lastName city github linkedin bio skills projects profilePicture'
+      )
+      .lean();
+
+    if (!userData) {
+      return res.status(404).json({
+        error: 'User not found',
+      });
+    }
+
+    res.status(200).json({
+      message: 'User data fetched successfully',
+      data: userData,
+    });
+  } catch (error) {
+    console.error('Get peer data error:', error);
+    res.status(500).json({
+      error: 'Error fetching user data',
+    });
+  }
+}
+
 module.exports = {
   getData,
   createUser,
@@ -234,4 +262,5 @@ module.exports = {
   getUsersForSidebar,
   checkFriendStatus,
   makeFriend,
+  getPeerData,
 };

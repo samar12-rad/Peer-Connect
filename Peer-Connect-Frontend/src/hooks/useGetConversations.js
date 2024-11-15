@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 const useGetConversations = () => {
   const [conversations, setConversations] = useState([]);
 
@@ -5,7 +7,7 @@ const useGetConversations = () => {
     const getConversations = async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/api/v1/conversations',
+          'http://localhost:3000/api/v1/user/users',
           {
             method: 'GET',
             credentials: 'include',
@@ -14,22 +16,16 @@ const useGetConversations = () => {
             },
           }
         );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
         const data = await response.json();
         setConversations(data);
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        console.error('Error fetching conversations:', error);
       }
     };
 
     getConversations();
   }, []);
-
-  return <div>useGetConversations</div>;
+  return conversations;
 };
 
 export default useGetConversations;
