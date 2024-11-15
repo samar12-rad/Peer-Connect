@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import Requestbar from './RequestBar';
+
 import UserCardModal from '../../Components/unitComponents/UserCardModal';
+import Requestbar from './Requestbar';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);

@@ -1,5 +1,5 @@
-import photu from '../../assets/user-profile-icon-free-vector.jpg';
-
+//import photu from '../../assets/user-profile-icon-free-vector.jpg';
+import Card from '../../Components/finderComponents/Card';
 const Profile = () => {
   const dummyData = {
     name: 'Ishika Verma',
@@ -46,21 +46,19 @@ const Profile = () => {
       </div>
 
       <div className="grid h-full w-full grid-cols-6 grid-rows-7 gap-3 px-10">
-        <div className="px-15 shadow-6 relative col-span-2 row-span-5 flex flex-col items-center overflow-hidden rounded-[16px] border border-white/5 bg-opacity-50 pt-10 shadow-white backdrop-blur-[7.4px]">
-          <div className="absolute inset-0 rounded-xl opacity-15" />{' '}
-          {/* Enhanced overlay for more frosted look */}
-          <img src={photu} alt="Profile" className="h-40 w-40 rounded-full" />
-          <div className="pt-20">
-            <p className="pb-4">Name: {dummyData.name}</p>
-            <p className="pb-4">User Name: {dummyData.username}</p>
-            <p className="pb-4">Bio: {dummyData.bio}</p>
-            <p className="pb-4">Pronouns: {dummyData.pronouns}</p>
-            <div className="flex justify-end">
-              <button className="w-30 mb-5 ml-20 mt-6 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
-                edit
-              </button>
-            </div>
-          </div>
+        <div className="shadow-6 relative col-span-2 row-span-5 flex items-center justify-center rounded-[16px] border border-white/5 bg-opacity-50 shadow-white backdrop-blur-[7.4px]">
+          <Card
+            firstName="firstName"
+            lastName="lastName"
+            city="city"
+            github="github"
+            linkedin="linkedin"
+            email="email"
+            gender="female"
+            skills={[['React'], ['JavaScript']]}
+            onConnect="onConnect"
+            onNextUser="onNextUser"
+          />
         </div>
 
         <div className="shadow-6 col-span-4 row-span-3 rounded-xl border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
@@ -71,14 +69,6 @@ const Profile = () => {
             </button>
           </div>
           <div className="pt-15 pl-5">
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Portfolio website:</h1>
-              <p className="text-xl"> {dummyData.portfolio}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Projects:</h1>
-              <p className="text-xl"> {dummyData.projects}</p>
-            </div>
             <div className="flex gap-7">
               <h1 className="-2 pb-3 text-xl">Skills:</h1>{' '}
               <p className="text-xl"></p>
@@ -102,64 +92,24 @@ const Profile = () => {
               <h1 className="-2 pb-3 text-xl">Linked In: </h1>
               <p className="text-xl"> {dummyData.socials.linkedin}</p>
             </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Leetcode:</h1>{' '}
-              <p className="text-xl"> {dummyData.socials.leetcode}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Instagram:</h1>{' '}
-              <p className="text-xl"> {dummyData.socials.instagram}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Whatsapp: </h1>{' '}
-              <p className="text-xl">{dummyData.socials.whatsapp}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Telegram: </h1>
-              <p className="text-xl">{dummyData.socials.telegram}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Twitter: </h1>
-              <p className="text-xl">{dummyData.socials.twitter}</p>
-            </div>
           </div>
         </div>
 
         <div className="shadow-6 col-span-2 row-span-2 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[10%]">
-            <p className="text-center text-xl font-bold">CODING</p>
+            <p className="text-center text-xl font-bold">PROJECTS</p>
             <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit{' '}
             </button>
-          </div>
-          <div className="pt-15 pl-5">
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Interests:</h1>
-              <p className="text-xl">{dummyData.codingInterests}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Hobbies Outside Coding:</h1>
-              <p className="text-xl">{dummyData.hobbies}</p>
-            </div>
           </div>
         </div>
 
         <div className="shadow-6 col-span-2 row-span-2 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[5%]">
-            <p className="text-center text-xl font-bold">PREFERENCES</p>
+            <p className="text-center text-xl font-bold">BIO</p>
             <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit
             </button>
-          </div>
-          <div className="pt-15 pl-5">
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Language: </h1>
-              <p className="text-xl">{dummyData.language}</p>
-            </div>
-            <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Time: </h1>
-              <p className="text-xl">{dummyData.preferredTime}</p>
-            </div>
           </div>
         </div>
 
