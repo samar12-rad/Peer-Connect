@@ -1,4 +1,24 @@
-const Requestbar = () => {
+import PropTypes from 'prop-types';
+import { useEffect } from 'react';
+
+const Requestbar = ({ peerkey }) => {
+  useEffect(() => {
+    const getPeerData = async () => {
+      console.log(peerkey);
+      const url = `http://localhost:3000/api/v1/user/peerData/${peerkey}`;
+      console.log(url);
+      const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+    };
+    getPeerData();
+  });
   return (
     <div className="px-15 flex h-fit w-full flex-col items-center justify-center">
       <div className="h-1 w-[80%] rounded-lg bg-slate-600"></div>
@@ -19,5 +39,7 @@ const Requestbar = () => {
     </div>
   );
 };
-
+Requestbar.propTypes = {
+  peerkey: PropTypes.string.isRequired,
+};
 export default Requestbar;
