@@ -61,6 +61,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
 
       if (hasPendingRequest) {
         setError('Friend request already sent!');
+        alert(error);
         return;
       }
 
@@ -80,11 +81,10 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
       if (!response.ok) {
         throw new Error('Failed to send friend request');
       }
-
-      handleNextUser();
     } catch (err) {
       setError(err.message);
     }
+    handleNextUser();
   };
 
   const handleReject = () => {
