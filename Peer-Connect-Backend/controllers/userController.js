@@ -104,7 +104,8 @@ async function loginUser(req, res) {
 }
 
 async function updateData(req, res) {
-  const {
+  const user = req.session.userId;
+  var {
     userId,
     firstName,
     lastName,
@@ -118,30 +119,54 @@ async function updateData(req, res) {
     watchedUsers,
   } = req.body;
 
+  if (friendRequests === 'self') {
+    friendRequests = user;
+    console.log('friendRequests:', friendRequests);
+  }
+
   try {
-    const userData = await User.findOneAndUpdate(
-      { _id: userId },
-      {
-        firstName,
-        lastName,
-        city,
-        github,
-        linkedin,
-        bio,
-        skills,
-        projects,
-        friendRequests,
-        watchedUsers,
-      },
-      { new: true }
-    );
+    // Construct basic update fields
+    const basicFields = {
+      firstName,
+      lastName,
+      city,
+      github,
+      linkedin,
+      bio,
+      skills,
+    };
+
+    // Construct array operations
+    const arrayOperations = {};
+
+    if (projects) {
+      arrayOperations.$push = { ...arrayOperations.$push, projects };
+    }
+    if (friendRequests) {
+      arrayOperations.$push = { ...arrayOperations.$push, friendRequests };
+    }
+    if (watchedUsers) {
+      arrayOperations.$push = { ...arrayOperations.$push, watchedUsers };
+    }
+
+    // Combine updates
+    const updateQuery = {
+      ...basicFields,
+      ...arrayOperations,
+    };
+
+    const userData = await User.findOneAndUpdate({ _id: userId }, updateQuery, {
+      new: true,
+    });
 
     if (!userData) {
       return res.status(404).json({ error: 'User not found' });
     }
 
     res.status(200).json({ message: 'User data updated successfully' });
+    console.log('userData:', userData);
   } catch (error) {
+    console.error('Update error:', error);
     res.status(500).json({ error: 'Error updating user data' });
   }
 }

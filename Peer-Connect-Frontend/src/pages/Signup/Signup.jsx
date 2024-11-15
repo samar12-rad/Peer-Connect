@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [username, setUsername] = useState('');
   const [projects, setProjects] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,11 +22,6 @@ const Signup = () => {
   const [theme, setTheme] = useState(2);
 
   const MAX_PROJECTS = 5;
-
-  const backendUrl = import.meta.BACKEND_URI;
-
-  // Use backendUrl wherever you need the backend URL
-  console.log(backendUrl);
 
   const navigate = useNavigate(); // Create navigate function
 
@@ -43,6 +39,10 @@ const Signup = () => {
     } else if (e.target.name === 'password') {
       setPassword(e.target.value);
     }
+    if (e.target.name === 'username') {
+      setUsername(e.target.value);
+    }
+    console.log(e.target.value);
   };
 
   const handleGenderChange = (selectedGender) => {
@@ -53,7 +53,7 @@ const Signup = () => {
     e.preventDefault();
     console.log(skillsArray);
     const user = {
-      username: `${lastName}${firstName}`,
+      username: username,
       firstName: firstName,
       lastName: lastName,
       password: password,

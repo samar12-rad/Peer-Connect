@@ -70,8 +70,12 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId, friendRequests: userId }),
+        body: JSON.stringify({ userId, friendRequests: 'self' }),
       });
+
+      if (response.ok) {
+        alert('Friend request sent!');
+      }
 
       if (!response.ok) {
         throw new Error('Failed to send friend request');
