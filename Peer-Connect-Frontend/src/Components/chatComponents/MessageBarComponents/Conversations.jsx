@@ -4,7 +4,6 @@ import useGetConversations from '../../../hooks/useGetConversations';
 
 const Conversations = () => {
   const conversations = useGetConversations();
-  console.log(conversations.data);
   // Handle loading state
   if (!conversations) {
     return (
