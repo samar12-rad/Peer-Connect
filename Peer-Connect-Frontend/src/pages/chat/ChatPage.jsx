@@ -1,30 +1,11 @@
 import MessageContainer from '../../Components/chatComponents/MessageContainer';
 import MessagesBar from '../../Components/chatComponents/MessageBarComponents/MessagesBar';
+import FriendRequest from './FriendRequest';
 
 const ChatPage = () => {
   return (
-    <div className="flex h-fit w-full flex-col items-center justify-start gap-4 pt-5">
-      <div>
-        <div className="shadow-3d-effect px-15 py-15 h-[80vh] w-[90vw] flex-col gap-3 overflow-clip rounded-2xl border border-white/5 shadow-white backdrop-blur-[7.4px]">
-          <h1 className="px-5 pb-7 text-7xl font-bold text-green-500">
-            Peer Requests
-          </h1>
-          <div className="gap-30 flex">
-            <div className="flex flex-col">
-              <div>
-                <h1 className="text-3xl">Ishika verma</h1>
-              </div>
-              <div>
-                <h1>---</h1>
-              </div>
-            </div>
-
-            <div className="flex">
-              <h1 className="">Click to view the peer</h1>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="p-30 flex h-fit w-full flex-col items-center justify-start gap-4 pt-5">
+      <FriendRequest />
 
       <h1 className="pb-5 text-center text-7xl font-bold">
         <span className="text-yellow-200">Great! </span>
