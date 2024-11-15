@@ -6,6 +6,7 @@ import finder from '../../assets/dashboardLogo/finder.png';
 import profileHover from '../../assets/dashboardLogo/profile_copy.png';
 import msgHover from '../../assets/dashboardLogo/chat.png';
 import find from '../../assets/dashboardLogo/find.png';
+import LoadingScreen from '../../Components/unitComponents/LoadingScreen';
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -39,7 +40,7 @@ export const Dashboard = () => {
     fetchUserData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingScreen message="Loading Dashboard..." />;
   if (error) return <div>Error: {error}</div>;
 
   return (
