@@ -2,11 +2,16 @@ import { useEffect, useState } from 'react';
 
 import UserCardModal from '../../Components/unitComponents/UserCardModal';
 import Requestbar from './Requestbar';
+import useGetUserInfo from '../../hooks/useGetUserInfo';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
   const [showModal, setShowModal] = useState(false);
   const [selectedPeer, setSelectedPeer] = useState(null);
+  const { getUserInfo } = useGetUserInfo(); // Use the hook
+  useEffect(() => {
+    getUserInfo(); // Call the function
+  }, []);
 
   useEffect(() => {
     const getData = async () => {

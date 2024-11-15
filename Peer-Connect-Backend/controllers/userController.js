@@ -121,7 +121,6 @@ async function updateData(req, res) {
 
   if (friendRequests === 'self') {
     friendRequests = user;
-    console.log('friendRequests:', friendRequests);
   }
 
   try {
@@ -164,7 +163,6 @@ async function updateData(req, res) {
     }
 
     res.status(200).json({ message: 'User data updated successfully' });
-    console.log('userData:', userData);
   } catch (error) {
     console.error('Update error:', error);
     res.status(500).json({ error: 'Error updating user data' });
@@ -194,15 +192,14 @@ async function checkFriendStatus(req, res) {
     const currentUserId = req.session.userId;
     const { targetUserId } = req.params;
 
-    const user = await User.findById(currentUserId);
+    const user = await User.findById(targetUserId);
 
     if (!user) {
       return res.status(404).json({ error: 'Current user not found' });
     }
 
-    const isFriend = user.friends.includes(targetUserId);
-    const hasPendingRequest = user.friendRequests.includes(targetUserId);
-
+    const isFriend = user.friends.includes(currentUserId);
+    const hasPendingRequest = user.friendRequests.includes(currentUserId);
     res.status(200).json({
       isFriend,
       hasPendingRequest,

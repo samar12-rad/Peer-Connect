@@ -14,7 +14,7 @@ const dummyData = {
       email: 'loading@example.com',
       projects: [],
       bio: 'Loading user data...',
-      skills: [],
+      skills: ['Loading', 'skills'],
     },
   ],
 };
@@ -32,6 +32,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
         }
       );
       const data = await response.json();
+      console.log('Friend status:', data);
       return data;
     } catch (err) {
       console.error('Error checking friend status:', err);
@@ -47,12 +48,13 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
   };
 
   const handleConnect = async () => {
+    setError(null);
     try {
       const currentUser = peerData?.filteredUsers[currentUserIndex];
       const userId = currentUser?._id;
 
       const { isFriend, hasPendingRequest } = await checkFriendStatus(userId);
-
+      console.log('Friend status:', isFriend, hasPendingRequest);
       if (isFriend) {
         setError('This user is already your friend!');
         alert(error);
@@ -61,7 +63,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
 
       if (hasPendingRequest) {
         setError('Friend request already sent!');
-        alert(error);
+        alert('Friend request already sent!');
         return;
       }
 

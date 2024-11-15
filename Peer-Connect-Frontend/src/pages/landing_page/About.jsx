@@ -47,7 +47,7 @@ const About = () => {
               linkedin="https://linkedin.com/in/johndoe"
               email="john@example.com"
               gender="male"
-              skills={[{ name: 'React' }, { name: 'JavaScript' }]}
+              skills={[['React'], ['JavaScript']]}
               bio="Full stack developer passionate about web technologies"
             />
           </div>
