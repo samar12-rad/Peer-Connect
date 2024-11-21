@@ -1,41 +1,13 @@
 //import photu from '../../assets/user-profile-icon-free-vector.jpg';
+import { useEffect } from 'react';
 import Card from '../../Components/finderComponents/Card';
+import useGetUserInfo from '../../hooks/useGetUserInfo';
+
 const Profile = () => {
-  const dummyData = {
-    name: 'Ishika Verma',
-    username: 'ishika',
-    bio: 'I am a student at IIPS DAVV, passionate about coding, web development, and learning new technologies.',
-    pronouns: 'She/Her',
-    portfolio: 'www.ishikaportfolio.com',
-    projects: 'Project1, Project2, Project3',
-    skills: [
-      {
-        skill: 'JavaScript',
-        color: 'yellow-500',
-      },
-      {
-        skill: 'ReactJS',
-        color: 'blue-500',
-      },
-      {
-        skill: 'NodeJS',
-        color: 'green-500',
-      },
-    ],
-    socials: {
-      github: 'github.com/ishika123',
-      linkedin: 'linkedin.com/in/ishikaverma',
-      leetcode: 'leetcode.com/ishikaverma',
-      instagram: '@ishikaverma',
-      whatsapp: '+1234567890',
-      telegram: '@ishikaverma',
-      twitter: '@ishika_tweets',
-    },
-    codingInterests: 'Web Development',
-    hobbies: 'Reading, Painting, Music',
-    language: 'English',
-    preferredTime: 'Morning',
-  };
+  const { getUserInfo, userInfo } = useGetUserInfo();
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <div className="max-fit relative flex w-full flex-col gap-4 overflow-hidden pb-9 shadow-xl">
@@ -46,18 +18,16 @@ const Profile = () => {
       </div>
 
       <div className="grid h-full w-full grid-cols-6 grid-rows-7 gap-3 px-10">
-        <div className="shadow-6 relative col-span-2 row-span-5 flex items-center justify-center rounded-[16px] border border-white/5 bg-opacity-50 shadow-white backdrop-blur-[7.4px]">
+        <div className="shadow-6 relative col-span-2 row-span-5 flex items-center justify-center rounded-[16px] border border-white/5 bg-opacity-50 py-10 shadow-white backdrop-blur-[7.4px]">
           <Card
-            firstName="firstName"
-            lastName="lastName"
-            city="city"
-            github="github"
-            linkedin="linkedin"
-            email="email"
-            gender="female"
-            skills={[['React'], ['JavaScript']]}
-            onConnect="onConnect"
-            onNextUser="onNextUser"
+            firstName={userInfo?.data.firstName}
+            lastName={userInfo?.data.lastName}
+            city={userInfo?.data.city}
+            github={userInfo?.data.github}
+            linkedin={userInfo?.data.linkedin}
+            email={userInfo?.data.email}
+            gender={userInfo?.data.gender}
+            skills={userInfo?.data.skills}
           />
         </div>
 
@@ -70,8 +40,19 @@ const Profile = () => {
           </div>
           <div className="pt-15 pl-5">
             <div className="flex gap-7">
-              <h1 className="-2 pb-3 text-xl">Skills:</h1>{' '}
-              <p className="text-xl"></p>
+              <h1 className="-2 flex items-center justify-center pb-3 text-xl">
+                Skills:
+              </h1>{' '}
+              <div className="flex flex-wrap gap-4">
+                {userInfo?.data.skills?.map((skill, index) => (
+                  <span
+                    key={index}
+                    className="rounded-full bg-green-500 px-2 py-2 text-sm"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -86,11 +67,11 @@ const Profile = () => {
           <div className="pt-15 pl-5">
             <div className="flex gap-7">
               <h1 className="-2 pb-3 text-xl">GitHub:</h1>{' '}
-              <p className="text-xl">{dummyData.socials.github}</p>
+              <p className="text-xl">{userInfo?.data.github}</p>
             </div>
             <div className="flex gap-7">
               <h1 className="-2 pb-3 text-xl">Linked In: </h1>
-              <p className="text-xl"> {dummyData.socials.linkedin}</p>
+              <p className="text-xl"> {userInfo?.data.linkedin}</p>
             </div>
           </div>
         </div>
@@ -104,12 +85,15 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="shadow-6 col-span-2 row-span-2 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
+        <div className="shadow-6 col-span-2 row-span-2 flex flex-col gap-10 rounded-[16px] border border-white/5 bg-opacity-50 pl-10 pr-10 pt-5 shadow-white backdrop-blur-[7.4px]">
           <div className="flex w-full justify-between px-[5%]">
             <p className="text-center text-xl font-bold">BIO</p>
             <button className="w-30 h-7 rounded-lg bg-green-500 text-[16px] text-white hover:bg-green-800">
               edit
             </button>
+          </div>
+          <div className="flex items-center justify-start text-xl">
+            {userInfo?.data.bio}
           </div>
         </div>
 
@@ -120,9 +104,26 @@ const Profile = () => {
               edit
             </button>
           </div>
-          <div className="flex-grow flex-col items-center justify-center pt-7">
-            <p className="text-xl">Email Me.</p>
-            <p className="text-xl">Schedule a Call.</p>
+          <div className="flex flex-col items-center justify-center pt-7">
+            {' '}
+            {/* Fixed: Changed flex-grow flex-col to flex flex-col */}
+            <p className="mb-2">
+              {userInfo?.data?.email ? (
+                <a
+                  href={`mailto:${userInfo.data.email}`}
+                  className="cursor-pointer text-xl text-green-500 transition-colors hover:text-green-400"
+                >
+                  Email Me
+                </a>
+              ) : (
+                <span className="text-xl text-gray-400">
+                  Email not available
+                </span>
+              )}
+            </p>
+            <p className="cursor-pointer text-xl transition-colors hover:text-green-400">
+              Schedule a Call
+            </p>
           </div>
         </div>
       </div>
