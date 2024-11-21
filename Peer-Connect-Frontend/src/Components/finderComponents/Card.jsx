@@ -13,19 +13,19 @@ const Card = ({
   email,
   gender,
   skills,
-  theme = 1, // Add theme prop with default
+  theme = 1,
+  profilePicture, // Add profilePicture prop
 }) => {
-  // Remove idLevel state and use theme prop directly
   const getBackgroundColor = (level) => {
     switch (level) {
-      case 1: // Beginner
-        return 'linear-gradient(to top, #FFFFFF, #90EE90)'; // White to light green
-      case 2: // Intermediate
-        return 'linear-gradient(to top, #FFFFFF, #4169E1)'; // White to blue
-      case 3: // Expert
-        return 'linear-gradient(to top, #FFFFFF, #FFD700)'; // White to gold
+      case 1:
+        return 'linear-gradient(to top, #FFFFFF, #90EE90)';
+      case 2:
+        return 'linear-gradient(to top, #FFFFFF, #4169E1)';
+      case 3:
+        return 'linear-gradient(to top, #FFFFFF, #FFD700)';
       default:
-        return 'linear-gradient(to top, #FFFFFF, #f5f5f5)'; // White to light gray
+        return 'linear-gradient(to top, #FFFFFF, #f5f5f5)';
     }
   };
 
@@ -33,16 +33,24 @@ const Card = ({
     <div
       className="w-94 shadow-6 min-h-[60vh] overflow-hidden rounded-xl border border-white/5 pb-4 text-black shadow-white backdrop-blur-[7.4px]"
       style={{
-        background: getBackgroundColor(theme), // Changed from backgroundColor to background
+        background: getBackgroundColor(theme),
       }}
     >
-      <div className="absolute left-[10%] top-[150px] h-24 w-24 translate-y-[-50%] rounded-full border-4 border-blue-200 bg-white">
-        <CgProfile className="profile-logo h-full w-full" />
+      <div className="absolute left-[10%] top-[150px] h-24 w-24 translate-y-[-50%] overflow-hidden rounded-full border-4 border-blue-200 bg-white">
+        {profilePicture ? (
+          <img
+            src={profilePicture}
+            alt="Profile"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <CgProfile className="profile-logo h-full w-full" />
+        )}
       </div>
       <div
         className={`h-[150px] w-full`}
         style={{
-          backgroundImage: `url(${gender === 'female' ? girl : boy})`, // Fix: Use template literal with url()
+          backgroundImage: `url(${gender === 'female' ? girl : boy})`,
           backgroundSize: 'cover',
           backgroundPosition: 'bottom',
         }}
@@ -76,9 +84,9 @@ const Card = ({
             {skills.map((skill, index) => (
               <div
                 className="h-fit w-fit rounded bg-black px-4 py-1 text-white"
-                key={index} // Use index since skill is now an array
+                key={index}
               >
-                {skill[0]} {/* Access first element of nested array */}
+                {skill[0]}
               </div>
             ))}
           </div>
@@ -96,21 +104,21 @@ Card.propTypes = {
   linkedin: PropTypes.string,
   email: PropTypes.string,
   gender: PropTypes.oneOf(['male', 'female']).isRequired,
-  skills: PropTypes.arrayOf(
-    PropTypes.arrayOf(PropTypes.string) // Update to expect nested arrays
-  ),
+  skills: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   bio: PropTypes.string,
   onClick: PropTypes.func,
   theme: PropTypes.number,
+  profilePicture: PropTypes.string, // Add profilePicture prop type
 };
 
 Card.defaultProps = {
   github: '',
   linkedin: '',
   email: '',
-  skills: [], // Keep empty array default
+  skills: [],
   bio: '',
-  onClick: () => {}, // Add default empty function
+  onClick: () => {},
+  profilePicture: '', // Add default empty string for profilePicture
 };
 
 export default Card;

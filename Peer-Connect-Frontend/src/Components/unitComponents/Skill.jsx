@@ -52,14 +52,14 @@ const skillImages = {
   CPP,
 };
 
-const Skill = ({ name, onClick }) => {
+const Skill = ({ name, onClick, className }) => {
   return (
     <div>
       <motion.button
         id={name}
         name={name}
         onClick={onClick}
-        className="min-w-35 flex flex-wrap items-center justify-center gap-2 rounded-lg border border-gray-300 bg-transparent p-2 text-lg text-gray-700 placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className={`min-w-35 flex flex-wrap items-center justify-center gap-2 rounded-lg border border-gray-300 p-2 text-lg placeholder-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${className}`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -73,6 +73,7 @@ const Skill = ({ name, onClick }) => {
 Skill.propTypes = {
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 Skill.defaultProps = {

@@ -4,6 +4,9 @@ require('dotenv').config();
 const checkSession = require('../middlewares/sessionAuth');
 const userController = require('../controllers/userController');
 const { fetchUser } = require('../v1(small scale)/Fetch-User');
+const multer = require('multer');
+const { Upload, removeFile } = require('../controllers/CloudinaryController');
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Get Peer Data Route
 router.get('/peerData/:userId', userController.getPeerData);
@@ -31,5 +34,7 @@ router.post(
   checkSession,
   userController.makeFriend
 );
+router.post('/upload', upload.single('file'), Upload);
+router.post('/remove-file', removeFile);
 
 module.exports = router;

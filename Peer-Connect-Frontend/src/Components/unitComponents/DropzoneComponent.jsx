@@ -22,7 +22,7 @@ function MyDropzone({ onFileDrop }) {
         setIsUploading(true); // Set uploading state to true
 
         // API call to the backend
-        fetch('http://localhost:5000/teacher/upload', {
+        fetch('http://localhost:3000/api/v1/user/upload', {
           method: 'POST',
           body: formData,
         })
@@ -34,8 +34,8 @@ function MyDropzone({ onFileDrop }) {
           })
           .then((data) => {
             console.log('Response from server:', data);
-            setUploadedFile({ name: file.name, public_id: data.public_id }); // Store the uploaded file info
-            onFileDrop(data); // Pass the response data to the parent component
+            setUploadedFile({ name: file.name, public_id: data.public_id });
+            onFileDrop(data); // data contains { url: "cloudinary_url", public_id: "..." }
           })
           .catch((error) => {
             console.error('Error uploading the file:', error);
@@ -53,7 +53,7 @@ function MyDropzone({ onFileDrop }) {
     if (uploadedFile) {
       try {
         const response = await fetch(
-          'http://localhost:5000/teacher/remove-file',
+          'http://localhost:3000/api/v1/user/remove-file',
           {
             method: 'POST',
             body: JSON.stringify({ public_id: uploadedFile.public_id }),
@@ -63,10 +63,10 @@ function MyDropzone({ onFileDrop }) {
         const result = await response.json();
         console.log('File removed:', result);
 
-        // Reset the preview and uploaded file states
-        setPreviewUrl(null); // Clear the preview URL
-        setUploadedFile(null); // Clear the uploaded file state
-        onFileDrop({}); // Notify parent of removal
+        // Reset states
+        setPreviewUrl(null);
+        setUploadedFile(null);
+        onFileDrop({ url: null }); // Pass null URL to parent
       } catch (error) {
         console.error('Error removing file:', error);
       }
@@ -80,7 +80,7 @@ function MyDropzone({ onFileDrop }) {
   });
 
   return (
-    <div>
+    <div className="w-fit">
       <div
         {...getRootProps()}
         className={`my-4 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-4 transition-colors ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}`}

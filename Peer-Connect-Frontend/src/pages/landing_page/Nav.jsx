@@ -17,7 +17,7 @@ const Nav = () => {
   };
 
   return (
-    <div className="bg-black-2 px-25 flex h-fit min-h-[50px] w-full items-center justify-between gap-5 py-5 text-lg font-bold text-[#17A746]">
+    <div className="bg-black-2 px-25 z-999999 fixed flex h-fit min-h-[50px] w-full items-center justify-between gap-5 py-5 text-lg font-bold text-[#17A746]">
       <div className="flex items-center">
         <img src={peer} className="h-10" alt="Peer Connect Logo" />
         <p className="text-3xl">Peer Connect</p>

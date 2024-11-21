@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <div className="bg-black-2 h-screen w-full">
+    <div className="mt-34 h-screen w-full">
       <h1 className="px-22 pt-25 flex items-center justify-center text-4xl text-white">
         No more solo coding—join forces with passionate peers and take on the
         coding world together From hackathons to passion projects, find a coder

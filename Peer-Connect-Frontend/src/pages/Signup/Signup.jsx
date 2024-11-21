@@ -5,6 +5,7 @@ import ProjectModal from '../../Components/unitComponents/ProjectModal';
 import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import MyDropzone from '../../Components/unitComponents/DropzoneComponent';
 
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +21,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('');
   const [theme, setTheme] = useState(2);
+  const [profilePicture, setProfilePicture] = useState(''); // Add new state for profile picture
 
   const MAX_PROJECTS = 5;
 
@@ -65,6 +67,7 @@ const Signup = () => {
       projects: projects,
       gender: gender,
       bio: 'I am a software developer',
+      profilePicture: profilePicture, // Add profile picture URL
     };
     console.log(user);
     const response = await fetch('http://localhost:3000/api/v1/user/signup', {
@@ -105,6 +108,10 @@ const Signup = () => {
 
   const handleAddProject = (project) => {
     setProjects([...projects, project]);
+  };
+
+  const handleDrop = (data) => {
+    setProfilePicture(data.url || ''); // Set empty string if url is null
   };
 
   const skillNames = [
@@ -163,6 +170,8 @@ const Signup = () => {
               </button>
             </div>
           </div>
+
+          <MyDropzone onFileDrop={handleDrop} />
 
           <div className="pt-4 text-2xl">
             <h1>Choose your card theme</h1>
@@ -458,6 +467,7 @@ const Signup = () => {
               gender={gender}
               skills={skillsArray}
               theme={theme}
+              profilePicture={profilePicture} // Add profile picture prop
             />
           </div>
         </div>

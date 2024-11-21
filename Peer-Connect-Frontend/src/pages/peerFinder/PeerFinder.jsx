@@ -71,6 +71,7 @@ const PeerFinder = () => {
       );
 
       const data = await response.json();
+      console.log(data);
       if (response.status === 401) {
         alert('Please login to continue');
         window.location.href = '/login';

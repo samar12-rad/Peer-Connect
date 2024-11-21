@@ -13,6 +13,7 @@ const UserCard = ({ userData, onConnect, onNextUser }) => {
     email,
     projects,
     bio,
+    profilePicture,
     skills = [],
   } = userData || {};
 
@@ -36,6 +37,7 @@ const UserCard = ({ userData, onConnect, onNextUser }) => {
         gender="female"
         skills={skills}
         onConnect={onConnect}
+        profilePicture={profilePicture}
         onNextUser={onNextUser}
       />
       <div className="py-19 flex h-full w-[60%] flex-col items-center gap-0">

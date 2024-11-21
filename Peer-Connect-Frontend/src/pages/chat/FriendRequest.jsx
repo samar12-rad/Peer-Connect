@@ -8,6 +8,7 @@ const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
   const [showModal, setShowModal] = useState(false);
   const [selectedPeer, setSelectedPeer] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { getUserInfo } = useGetUserInfo(); // Use the hook
   useEffect(() => {
     getUserInfo(); // Call the function
@@ -27,6 +28,35 @@ const FriendRequest = () => {
     };
     getData();
   }, []);
+
+  const handleMakeFriend = async (userId) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/user/makeFriend/${userId}`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.ok) {
+        getUserInfo();
+        setShowModal(false);
+        // Add delay before reload
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    } catch (error) {
+      console.error('Error making friend:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -52,11 +82,10 @@ const FriendRequest = () => {
       </div>
 
       {showModal && selectedPeer && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          <div className="fixed inset-0" onClick={() => setShowModal(false)} />
-          <div className="relative z-[101] h-fit w-fit overflow-auto rounded-lg">
+        <div className="fixed inset-0 z-[101] flex items-center justify-center bg-opacity-50">
+          <div className="relative h-fit w-fit rounded-lg p-8">
             <button
-              className="absolute right-4 top-4 z-[102] text-5xl text-gray-200 hover:text-white"
+              className="absolute right-12 top-10 z-[102] text-5xl text-gray-200 hover:text-white"
               onClick={() => setShowModal(false)}
             >
               ×
@@ -64,12 +93,11 @@ const FriendRequest = () => {
             <UserCardModal
               userData={selectedPeer}
               onClose={() => setShowModal(false)}
-              onConnect={() => {
-                /* handle connect */
-              }}
+              onConnect={() => handleMakeFriend(selectedPeer._id)}
               onNextUser={() => {
                 /* handle next */
               }}
+              isLoading={isLoading}
             />
           </div>
         </div>

@@ -154,9 +154,13 @@ async function updateData(req, res) {
       ...arrayOperations,
     };
 
-    const userData = await User.findOneAndUpdate({ _id: userId }, updateQuery, {
-      new: true,
-    });
+    const userData = await User.findOneAndUpdate(
+      { _id: userId || user },
+      updateQuery,
+      {
+        new: true,
+      }
+    );
 
     if (!userData) {
       return res.status(404).json({ error: 'User not found' });
