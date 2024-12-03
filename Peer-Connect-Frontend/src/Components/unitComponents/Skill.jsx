@@ -76,8 +76,4 @@ Skill.propTypes = {
   className: PropTypes.string,
 };
 
-Skill.defaultProps = {
-  onClick: () => {},
-};
-
 export default Skill;
