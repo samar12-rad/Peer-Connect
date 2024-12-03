@@ -3,7 +3,7 @@ import axios from 'axios';
 import UserCardModal from '../../Components/unitComponents/UserCardModal';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
 import { useNavigate } from 'react-router-dom';
-import Requestbar from './Requestbar';
+import Requestbar from './RequestBar';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
