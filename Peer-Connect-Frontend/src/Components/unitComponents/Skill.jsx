@@ -17,7 +17,7 @@ import Ruby from '../../assets/skillsLogo/ruby.png';
 import Mongo from '../../assets/skillsLogo/mongo.png';
 import SQL from '../../assets/skillsLogo/sql.png';
 import PostgreSQL from '../../assets/skillsLogo/postgresql.png';
-import SpringBoot from '../../assets/skillsLogo/springBoot.png';
+import SpringBoot from '../../assets/skillsLogo/springboot.png';
 import Next from '../../assets/skillsLogo/next.png';
 import Rust from '../../assets/skillsLogo/rust.png';
 import Golang from '../../assets/skillsLogo/golang.png';
