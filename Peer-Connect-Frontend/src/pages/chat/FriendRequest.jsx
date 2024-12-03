@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import UserCardModal from '../../Components/unitComponents/UserCardModal';
 import Requestbar from './Requestbar';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
+import { useNavigate } from 'react-router-dom';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
@@ -10,19 +12,25 @@ const FriendRequest = () => {
   const [selectedPeer, setSelectedPeer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { getUserInfo } = useGetUserInfo(); // Use the hook
+  const navigate = useNavigate();
   useEffect(() => {
-    getUserInfo(); // Call the function
+    getUserInfo();
+
+    // Call the function
   }, []);
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch('http://localhost:3000/api/v1/user/data', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'https://peer-connect-production.up.railway.app/api/v1/user/data',
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const data = await response.json();
       setFriendRequests(data.data.friendRequests);
     };
@@ -33,7 +41,7 @@ const FriendRequest = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/user/makeFriend/${userId}`,
+        `https://peer-connect-production.up.railway.app/api/v1/user/makeFriend/${userId}`,
         {
           method: 'POST',
           credentials: 'include',
@@ -46,6 +54,7 @@ const FriendRequest = () => {
       if (response.ok) {
         getUserInfo();
         setShowModal(false);
+        alert('You made a friend!');
         // Add delay before reload
         setTimeout(() => {
           window.location.reload();
@@ -55,6 +64,25 @@ const FriendRequest = () => {
       console.error('Error making friend:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleRemoveFriend = async (userId) => {
+    try {
+      const response = await axios.post(
+        `https://peer-connect-production.up.railway.app/api/v1/user/removeFriend/${userId}`
+      );
+      if (response.status === 200) {
+        getUserInfo();
+        setShowModal(false);
+        alert('Friend request removed!');
+        // Add delay before reload
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    } catch (error) {
+      console.error('Error removing friend:', error);
     }
   };
 
@@ -77,7 +105,12 @@ const FriendRequest = () => {
             />
           ))
         ) : (
-          <p>No friend requests available</p>
+          <div className="m-0 ml-2 flex h-full items-center justify-center pl-5">
+            <h1 className="-mt-30 text-5xl">
+              No <span className="text-green-400">friend requests</span>{' '}
+              available
+            </h1>
+          </div>
         )}
       </div>
 
@@ -95,7 +128,8 @@ const FriendRequest = () => {
               onClose={() => setShowModal(false)}
               onConnect={() => handleMakeFriend(selectedPeer._id)}
               onNextUser={() => {
-                /* handle next */
+                handleRemoveFriend(selectedPeer._id);
+                // handle next user logic here
               }}
               isLoading={isLoading}
             />

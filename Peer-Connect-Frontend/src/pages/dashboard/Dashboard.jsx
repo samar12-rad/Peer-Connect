@@ -18,13 +18,16 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/user/data', {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const response = await fetch(
+          'https://peer-connect-production.up.railway.app/api/v1/user/data',
+          {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
         if (!response.ok) {
           navigate('/login');
         }

@@ -265,14 +265,17 @@ const EditModal = ({ isOpen, onClose, userInfo, onUpdate, section }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/user/update', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        'https://peer-connect-production.up.railway.app/api/v1/user/update',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         onUpdate(formData); // This will trigger getUserInfo() in parent

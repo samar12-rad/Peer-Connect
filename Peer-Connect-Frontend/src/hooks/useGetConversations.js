@@ -7,7 +7,7 @@ const useGetConversations = () => {
     const getConversations = async () => {
       try {
         const response = await fetch(
-          'http://localhost:3000/api/v1/user/users',
+          'https://peer-connect-production.up.railway.app/api/v1/user/users',
           {
             method: 'GET',
             credentials: 'include',

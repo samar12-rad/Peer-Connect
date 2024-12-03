@@ -26,7 +26,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
   const checkFriendStatus = async (userId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/user/checkFriend/${userId}`,
+        `https://peer-connect-production.up.railway.app/api/v1/user/checkFriend/${userId}`,
         {
           credentials: 'include',
         }
@@ -67,14 +67,17 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
         return;
       }
 
-      const response = await fetch('http://localhost:3000/api/v1/user/update', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId, friendRequests: 'self' }),
-      });
+      const response = await fetch(
+        'https://peer-connect-production.up.railway.app/api/v1/user/update',
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId, friendRequests: 'self' }),
+        }
+      );
 
       if (response.ok) {
         alert('Friend request sent!');

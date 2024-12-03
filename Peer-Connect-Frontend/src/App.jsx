@@ -6,32 +6,14 @@ import Signup from './pages/Signup/Signup';
 import ChatPage from './pages/chat/ChatPage';
 import PeerFinder from './pages/peerFinder/PeerFinder';
 import Landing from './pages/landing_page/Landing';
-// import { useEffect } from 'react';
-// import LocomotiveScroll from 'locomotive-scroll';
+import Navbar from './Components/Navbar';
 
 const App = () => {
-  // useEffect(() => {
-  //   const scroll = new LocomotiveScroll({
-  //     el: document.querySelector('[data-scroll-container]'),
-  //     smooth: true,
-  //     multiplier: 0.5,
-  //     lerp: 0.08,
-  //     smartphone: {
-  //       smooth: true,
-  //     },
-  //     tablet: {
-  //       smooth: true,
-  //     },
-  //   });
-
-  //   return () => scroll.destroy();
-  // }, []);
-
   return (
     <Router>
-      {/* <main data-scroll-container> */}
+      <Navbar />
       <div className="bg-black-2 flex">
-        <div className="shadow-inner-fat-blue bg-black-2 h-fit min-h-screen w-screen overflow-hidden">
+        <div className="shadow-inner-fat-blue bg-black-2 mt-10 h-fit min-h-screen w-screen overflow-hidden">
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Dashboard />} />
@@ -39,7 +21,6 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/find" element={<PeerFinder />} />
             <Route path="/landing" element={<Landing />} />
-
             <Route
               path="*"
               element={
@@ -55,7 +36,6 @@ const App = () => {
           </Routes>
         </div>
       </div>
-      {/* </main> */}
     </Router>
   );
 };

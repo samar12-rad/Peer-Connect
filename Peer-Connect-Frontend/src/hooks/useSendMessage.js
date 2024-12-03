@@ -9,7 +9,7 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/message/send`,
+        `https://peer-connect-production.up.railway.app/api/v1/message/send`,
         {
           method: 'POST',
           headers: {

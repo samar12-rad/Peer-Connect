@@ -252,9 +252,59 @@ async function makeFriend(req, res) {
   }
 }
 
+async function removeFriendRequest(req, res) {
+  try {
+    const currentUserId = req.session.userId;
+    const { targetUserId } = req.params;
+
+    User.findByIdAndUpdate(currentUserId);
+
+    if (!currentUser || !targetUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: 'Friend added successfully',
+      friend: targetUser,
+    });
+  } catch (error) {
+    console.error('Make friend error:', error);
+    res.status(500).json({ error: 'Error making friend connection' });
+  }
+}
+
+async function removeFriend(req, res) {
+  try {
+    const currentUserId = req.session.userId;
+    const { targetUserId } = req.params;
+    console.log('Current user:', targetUserId);
+    const currentUser = await User.findByIdAndUpdate(
+      currentUserId,
+      { $pull: { friendRequests: targetUserId } },
+      { new: true }
+    );
+
+    if (!currentUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: 'Friend request removed successfully',
+      friend: targetUserId,
+    });
+  } catch (error) {
+    console.error('Remove friend error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 async function getPeerData(req, res) {
   try {
     const { userId } = req.params;
+
+    if (!userId || userId === 'null') {
+      return res.status(400).json({ error: 'Invalid user ID' });
+    }
 
     const userData = await User.findById(userId)
       .select(
@@ -289,4 +339,5 @@ module.exports = {
   checkFriendStatus,
   makeFriend,
   getPeerData,
+  removeFriend,
 };

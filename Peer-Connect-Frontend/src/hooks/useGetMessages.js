@@ -15,7 +15,7 @@ const useGetMessages = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/api/v1/message/getMessages`,
+          `https://peer-connect-production.up.railway.app/api/v1/message/getMessages`,
           {
             method: 'POST',
             headers: {

@@ -22,10 +22,13 @@ function MyDropzone({ onFileDrop }) {
         setIsUploading(true); // Set uploading state to true
 
         // API call to the backend
-        fetch('http://localhost:3000/api/v1/user/upload', {
-          method: 'POST',
-          body: formData,
-        })
+        fetch(
+          'https://peer-connect-production.up.railway.app/api/v1/user/upload',
+          {
+            method: 'POST',
+            body: formData,
+          }
+        )
           .then((response) => {
             if (!response.ok) {
               throw new Error('File upload failed');
@@ -53,7 +56,7 @@ function MyDropzone({ onFileDrop }) {
     if (uploadedFile) {
       try {
         const response = await fetch(
-          'http://localhost:3000/api/v1/user/remove-file',
+          'https://peer-connect-production.up.railway.app/api/v1/user/remove-file',
           {
             method: 'POST',
             body: JSON.stringify({ public_id: uploadedFile.public_id }),

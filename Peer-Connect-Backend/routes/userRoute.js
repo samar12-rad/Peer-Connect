@@ -34,6 +34,13 @@ router.post(
   checkSession,
   userController.makeFriend
 );
+
+router.post(
+  '/removeFriend/:targetUserId',
+  checkSession,
+  userController.removeFriend
+);
+
 router.post('/upload', upload.single('file'), Upload);
 router.post('/remove-file', removeFile);
 

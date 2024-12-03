@@ -9,7 +9,7 @@ const Requestbar = ({ peerkey, onViewPeer }) => {
       if (!peerkey) return;
 
       console.log(peerkey);
-      const url = `http://localhost:3000/api/v1/user/peerData/${peerkey}`;
+      const url = `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${peerkey}`;
       console.log(url);
       const response = await fetch(url, {
         method: 'GET',

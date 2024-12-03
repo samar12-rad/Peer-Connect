@@ -57,7 +57,7 @@ const PeerFinder = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        'http://localhost:3000/api/v1/user/fetchUsers',
+        'https://peer-connect-production.up.railway.app/api/v1/user/fetchUsers',
         {
           method: 'POST',
           headers: {

@@ -21,7 +21,7 @@ const MessageContainer = () => {
     const fetchPeerData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/v1/user/peerData/${selectedConversation}`
+          `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${selectedConversation}`
         );
         const data = await response.json();
         if (data.data) {

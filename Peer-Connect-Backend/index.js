@@ -4,11 +4,12 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser'); // Add this line
+const { app, server } = require('./socket/socket');
 require('dotenv').config();
 
-const app = express();
 const port = process.env.PORT || 5000;
-const clientPath = process.env.CLIENT_PATH || 'http://localhost:3000';
+const clientPath =
+  process.env.CLIENT_PATH || 'https://peer-connect-production.up.railway.app';
 
 // Enable CORS with credentials
 app.use(
@@ -59,6 +60,6 @@ app.use(
 app.use('/api/v1', require('./routes/index'));
 
 // Start the server
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
