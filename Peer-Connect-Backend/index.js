@@ -12,12 +12,20 @@ const clientPath =
   process.env.CLIENT_PATH || 'https://peer-connect-production.up.railway.app';
 
 // Enable CORS with credentials
+// app.use(
+//   cors({
+//     origin: '*', // Frontend URL
+//     credentials: true, // Enable credentials
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+//     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // Allowed headers
+//   })
+// );
 app.use(
   cors({
-    origin: '*', // Frontend URL
-    credentials: true, // Enable credentials
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // Allowed headers
+    origin: function (origin, callback) {
+      callback(null, true); // Allow all origins
+    },
+    credentials: true, // Allow cookies to be sent
   })
 );
 
