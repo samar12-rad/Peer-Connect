@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 import Backend from '../../assets/skillsLogo/Backend.png';
 import Fullstack from '../../assets/skillsLogo/Fullstack.png';
 import DSA from '../../assets/skillsLogo/DSA.png';
@@ -22,8 +24,6 @@ import Golang from '../../assets/skillsLogo/Golang.png';
 import GIT from '../../assets/skillsLogo/GIT.png';
 import CPP from '../../assets/skillsLogo/CPP.png';
 import Node from '../../assets/skillsLogo/Node.png';
-import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
 
 const skillImages = {
   Frontend,
