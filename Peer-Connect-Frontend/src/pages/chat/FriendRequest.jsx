@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import UserCardModal from '../../Components/unitComponents/UserCardModal';
-import Requestbar from './RequestBar';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
 import { useNavigate } from 'react-router-dom';
+import RequestBar from './RequestBar';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
