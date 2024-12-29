@@ -13,6 +13,9 @@ const useGetUserInfo = () => {
         {
           method: 'GET',
           credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
 
