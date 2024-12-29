@@ -12,8 +12,13 @@ const port = process.env.PORT || 5000;
 const clientPath =
   process.env.CLIENT_PATH || 'https://peer-connect-samar-projects.vercel.app';
 
-// Enable CORS to allow all origins
-app.use(cors());
+// Enable CORS with credentials
+app.use(
+  cors({
+    origin: '', // Frontend URLs
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
+  })
+);
 
 // Parse cookies
 app.use(cookieParser()); // Add this line to use cookie-parser
