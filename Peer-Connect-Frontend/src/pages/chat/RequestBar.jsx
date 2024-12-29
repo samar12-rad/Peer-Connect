@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
-const Requestbar = ({ peerkey, onViewPeer }) => {
+const RequestBar = ({ peerkey, onViewPeer }) => {
   const [peerData, setPeerData] = useState({});
 
   useEffect(() => {
@@ -52,9 +52,9 @@ const Requestbar = ({ peerkey, onViewPeer }) => {
   );
 };
 
-Requestbar.propTypes = {
+RequestBar.propTypes = {
   peerkey: PropTypes.string.isRequired,
   onViewPeer: PropTypes.func.isRequired,
 };
 
-export default Requestbar;
+export default RequestBar;
