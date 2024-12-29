@@ -70,13 +70,16 @@ const Signup = () => {
       profilePicture: profilePicture, // Add profile picture URL
     };
     console.log(user);
-    const response = await fetch('http://localhost:3000/api/v1/user/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    const response = await fetch(
+      'https://peer-connect-production.up.railway.app/api/v1/user/signup',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);

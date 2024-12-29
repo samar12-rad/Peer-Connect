@@ -21,13 +21,16 @@ const FriendRequest = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch('http://localhost:3000/api/v1/user/data', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'https://peer-connect-production.up.railway.app/api/v1/user/data',
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const data = await response.json();
       setFriendRequests(data.data.friendRequests);
     };
@@ -38,7 +41,7 @@ const FriendRequest = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/user/makeFriend/${userId}`,
+        `https://peer-connect-production.up.railway.app/api/v1/user/makeFriend/${userId}`,
         {
           method: 'POST',
           credentials: 'include',
@@ -67,7 +70,7 @@ const FriendRequest = () => {
   const handleRemoveFriend = async (userId) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/v1/user/removeFriend/${userId}`
+        `https://peer-connect-production.up.railway.app/api/v1/user/removeFriend/${userId}`
       );
       if (response.status === 200) {
         getUserInfo();
