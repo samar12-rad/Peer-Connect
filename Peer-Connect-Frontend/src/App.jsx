@@ -13,7 +13,7 @@ const App = () => {
     <Router>
       <Navbar />
       <div className="bg-black-2 flex">
-        <div className="bg-black-2 mt-10 h-fit min-h-screen w-screen overflow-hidden">
+        <div className="bg-black-2 mt-20 h-fit min-h-screen w-screen overflow-hidden">
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Dashboard />} />

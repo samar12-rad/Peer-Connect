@@ -46,7 +46,7 @@ app.use(
       ttl: 60 * 60 * 6,
     }), // 6 hours
     cookie: {
-      secure: false, // Set to true in production with HTTPS
+      secure: true, // Set to true in production with HTTPS
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
       // expires: new Date(Date.now() + 1000 * 60 * 60).toUTCString()
