@@ -1,0 +1,203 @@
+@import 'locomotive-scroll/dist/locomotive-scroll.css';
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------Dont change anything here ------------------- */
+
+html.has-scroll-smooth {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+[data-scroll-container] {
+  perspective: 1px;
+}
+
+.c-scrollbar {
+  transform: scaleX(1);
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pc-button {
+  width: 180px;
+  height: 50px;
+  background: linear-gradient(
+    144deg,
+    #db9e39,
+    #d4cb50,
+    #3db8d2,
+    #a83dd2,
+    #d23d8a
+  );
+  background-size: 1000% 1000%;
+  -webkit-animation: AnimationName 11s ease infinite;
+  -moz-animation: AnimationName 11s ease infinite;
+  animation: AnimationName 11s ease infinite;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-size: large;
+  font-weight: 500;
+  letter-spacing: 2px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 35px;
+  cursor: pointer;
+}
+
+.gradient-text {
+  font-weight: 700;
+  background: linear-gradient(
+    144deg,
+    #db9e39,
+    #d4cb50,
+    #3db8d2,
+    #a83dd2,
+    #d23d8a
+  );
+  background-size: 1000% 1000%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: AnimationName 11s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 77%;
+  }
+  50% {
+    background-position: 100% 24%;
+  }
+  100% {
+    background-position: 0% 77%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 77%;
+  }
+  50% {
+    background-position: 100% 24%;
+  }
+  100% {
+    background-position: 0% 77%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 77%;
+  }
+  50% {
+    background-position: 100% 24%;
+  }
+  100% {
+    background-position: 0% 77%;
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 15px currentColor,
+      0 0 20px currentColor,
+      0 0 25px currentColor,
+      inset 0 0 15px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 25px currentColor,
+      0 0 30px currentColor,
+      0 0 35px currentColor,
+      inset 0 0 25px currentColor;
+    transform: scale(1.01);
+  }
+  100% {
+    box-shadow:
+      0 0 15px #fff,
+      0 0 25px #fff,
+      0 0 35px currentColor,
+      0 0 40px currentColor,
+      0 0 45px currentColor,
+      inset 0 0 35px currentColor;
+    transform: scale(1);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+.tag {
+  background-color: #db9e39;
+  display: inline-block; /* Ensures the tag fits its content */
+  padding: 8px 16px; /* Adds padding for height and width */
+  color: #333; /* Text color */
+  border-radius: 50px; /* Gives it a pill shape */
+  font-size: 14px; /* Adjusts the font size */
+  font-weight: 500; /* Adjusts the font weight */
+  text-align: center; /* Centers the text */
+  cursor: default; /* Sets the cursor style */
+  white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+.tag:hover {
+  background-color: #e0e0e0;
+  color: black; /* Changes background on hover */
+}
+
+/* For custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
