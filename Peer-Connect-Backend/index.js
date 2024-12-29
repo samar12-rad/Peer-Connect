@@ -15,7 +15,7 @@ const clientPath =
 // Enable CORS with credentials
 app.use(
   cors({
-    origin: [clientPath, 'http://localhost:5173'], // Frontend URLs
+    origin: '', // Frontend URLs
     credentials: true, // Enable credentials
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // Allowed headers
