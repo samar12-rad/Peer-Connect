@@ -15,7 +15,7 @@ const clientPath =
 // Enable CORS with credentials
 app.use(
   cors({
-    origin: '', // Frontend URLs
+    origin: '*', // Allow all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
   })
 );
