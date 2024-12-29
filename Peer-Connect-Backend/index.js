@@ -4,8 +4,9 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const cookieParser = require('cookie-parser'); // Add this line
-const { app, server } = require('./socket/socket');
 require('dotenv').config();
+
+const app = express();
 
 const port = process.env.PORT || 5000;
 const clientPath =
