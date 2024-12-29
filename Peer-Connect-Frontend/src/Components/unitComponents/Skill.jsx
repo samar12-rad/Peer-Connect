@@ -17,11 +17,11 @@ import SQL from '../../assets/skillsLogo/sql.png';
 import PostgreSQL from '../../assets/skillsLogo/postgresql.png';
 import SpringBoot from '../../assets/skillsLogo/springboot.png';
 import Next from '../../assets/skillsLogo/next.png';
-import Rust from '../../assets/skillsLogo/Rust.png';
-import Golang from '../../assets/skillsLogo/Golang.png';
-import GIT from '../../assets/skillsLogo/GIT.png';
-import CPP from '../../assets/skillsLogo/CPP.png';
-import Node from '../../assets/skillsLogo/Node.png';
+import Rust from '../../assets/skillsLogo/rust.png';
+import Golang from '../../assets/skillsLogo/golang.png';
+import GIT from '../../assets/skillsLogo/git.png';
+import CPP from '../../assets/skillsLogo/cpp.png';
+import Node from '../../assets/skillsLogo/node.png';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 
