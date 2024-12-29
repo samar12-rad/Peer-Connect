@@ -9,15 +9,13 @@ require('dotenv').config();
 const app = express();
 
 const port = process.env.PORT || 5000;
-const clientPath =
-  process.env.CLIENT_PATH || 'https://peer-connect-samar-projects.vercel.app';
 
-// Enable CORS with credentials
+const allowedOrigin = 'https://peer-connect-samar-projects.vercel.app';
+
 app.use(
   cors({
-    origin: '*', // Frontend URLs
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-    allowedHeaders: '*', // Allowed headers
+    origin: allowedOrigin,
+    credentials: true, // Allow cookies
   })
 );
 

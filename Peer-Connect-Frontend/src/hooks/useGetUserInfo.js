@@ -12,14 +12,16 @@ const useGetUserInfo = () => {
         `https://peer-connect-production.up.railway.app/api/v1/user/data`,
         {
           method: 'GET',
-          credentials: 'omit',
+          credentials: 'include', // Include cookies for authentication
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':
-              'https://peer-connect-samar-projects.vercel.app/', // Add this header
           },
         }
       );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
 
       const data = await response.json();
 
