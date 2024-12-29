@@ -10,7 +10,7 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 const clientPath =
-  process.env.CLIENT_PATH || 'https://peer-connect-production.up.railway.app';
+  process.env.CLIENT_PATH || 'https://peer-connect-samar-projects.vercel.app';
 
 // Enable CORS with credentials
 app.use(
