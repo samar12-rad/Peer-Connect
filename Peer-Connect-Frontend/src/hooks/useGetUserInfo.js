@@ -12,7 +12,7 @@ const useGetUserInfo = () => {
         `https://peer-connect-production.up.railway.app/api/v1/user/data`,
         {
           method: 'GET',
-          credentials: 'omit',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
