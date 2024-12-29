@@ -8,10 +8,13 @@ const useGetUserInfo = () => {
     console.log('Getting user info...');
 
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/user/data`, {
-        method: 'GET',
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `https://peer-connect-production.up.railway.app/api/v1/user/data`,
+        {
+          method: 'GET',
+          credentials: 'include',
+        }
+      );
 
       const data = await response.json();
 
