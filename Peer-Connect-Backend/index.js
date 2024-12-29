@@ -15,14 +15,9 @@ const clientPath =
 // Enable CORS with credentials
 app.use(
   cors({
-    origin: 'https://peer-connect-samar-projects.vercel.app/', // Frontend URLs
+    origin: '*', // Frontend URLs
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Cookie',
-      'Access-Control-Allow-Origin',
-    ], // Allowed headers
+    allowedHeaders: '*', // Allowed headers
   })
 );
 
