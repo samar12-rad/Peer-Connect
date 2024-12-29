@@ -15,7 +15,8 @@ const useGetUserInfo = () => {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*', // Add this header
+            'Access-Control-Allow-Origin':
+              'https://peer-connect-samar-projects.vercel.app/', // Add this header
           },
         }
       );
