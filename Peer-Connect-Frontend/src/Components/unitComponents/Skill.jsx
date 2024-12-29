@@ -1,4 +1,4 @@
-import Frontend from '../../assets/skillsLogo/Frontend.png';
+import Frontend from '../../assets/skillsLogo/frontend.png';
 import Backend from '../../assets/skillsLogo/Backend.png';
 import Fullstack from '../../assets/skillsLogo/Fullstack.png';
 import DSA from '../../assets/skillsLogo/DSA.png';
