@@ -15,6 +15,7 @@ const useGetUserInfo = () => {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*', // Add this header
           },
         }
       );
@@ -23,10 +24,9 @@ const useGetUserInfo = () => {
 
       if (data) {
         setUserInfo(data);
-        console.log('User info:', data);
       }
     } catch (error) {
-      console.error('Error getting user info:', error);
+      console.error('Error fetching user info:', error);
     }
   };
 
