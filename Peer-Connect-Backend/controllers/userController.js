@@ -7,7 +7,7 @@ async function getData(req, res) {
     const userData = await User.findOne({ _id: user_id }); // Use await for async DB query
 
     if (!userData) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(200).json({ error: 'User not found' });
     }
     req.userId = userData._id; // Store user ID in the request object for
     res.status(200).json({ data: userData });

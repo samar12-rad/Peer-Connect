@@ -94,7 +94,7 @@ const FriendRequest = () => {
         </h1>
         {Array.isArray(friendRequests) && friendRequests.length > 0 ? (
           friendRequests.map((request) => (
-            <Requestbar
+            <RequestBar
               key={request}
               peerkey={request}
               request={request}
