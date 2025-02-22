@@ -26,6 +26,9 @@ const Login = () => {
         {
           email,
           password,
+        },
+        {
+          withCredentials: true, // Important for session cookie
         }
       );
 
@@ -46,14 +49,13 @@ const Login = () => {
         // Session cookie will be automatically handled by the browser
         // Store any additional user info if needed
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        navigate('/dashboard');
+        navigate('/');
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
-    navigate('/');
   };
 
   return (
