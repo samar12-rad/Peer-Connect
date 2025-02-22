@@ -2,19 +2,21 @@ import { CgProfile } from 'react-icons/cg';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import useConversation from '../../../zustand/useConversation';
+import axios from 'axios';
 
 const Conversation = ({ conversation }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation === conversation;
   const [peerData, setPeerData] = useState(null);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchPeerData = async () => {
       try {
-        const response = await fetch(
-          `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${conversation}`
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/peerData/${conversation}`
         );
-        const data = await response.json();
+        const data = response.data;
         if (data.data) {
           setPeerData(data.data);
         } else {

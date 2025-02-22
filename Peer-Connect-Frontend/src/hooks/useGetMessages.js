@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import useConversation from '../zustand/useConversation';
+import axios from 'axios';
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
@@ -14,18 +15,17 @@ const useGetMessages = () => {
     const getMessages = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `https://peer-connect-production.up.railway.app/api/v1/message/getMessages`,
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/message/getMessages`,
+          { Id: selectedConversation },
           {
-            method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ Id: selectedConversation }),
-            credentials: 'include',
+            withCredentials: true,
           }
         );
-        const data = await response.json();
+        const data = response.data;
         if (data.error) {
           throw new Error(data.error);
         }

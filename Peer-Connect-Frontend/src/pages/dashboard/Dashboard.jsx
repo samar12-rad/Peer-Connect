@@ -7,6 +7,7 @@ import profileHover from '../../assets/dashboardLogo/profile_copy.png';
 import msgHover from '../../assets/dashboardLogo/chat.png';
 import find from '../../assets/dashboardLogo/find.png';
 import LoadingScreen from '../../Components/unitComponents/LoadingScreen';
+import axios from 'axios';
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -14,24 +15,36 @@ export const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
+  const BACKEND_URI = import.meta.env.VITE_BACKEND_URI;
 
   useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        const response = await fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/data',
-          {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
+      // Check if the 'connect.sid' cookie is present
+      if (document.cookie === '') {
+        console.warn('No cookies found, skipping user info request.');
+        setLoading(false);
+        return;
+      }
+      const cookies = document.cookie.split(';').map((cookie) => cookie.trim());
+      const connectSidCookie = cookies.find((cookie) =>
+        cookie.startsWith('connect.sid=')
+      );
+
+      if (!connectSidCookie) {
+        console.warn(
+          'No connect.sid cookie found, skipping user info request.'
         );
-        if (!response.ok) {
+        return;
+      }
+      try {
+        console.log(BACKEND_URI);
+        const response = await axios.get(`${BACKEND_URI}/api/v1/user/data`, {
+          withCredentials: true,
+        });
+        if (response.status !== 200) {
           navigate('/login');
         }
-        const data = await response.json();
+        const data = response.data;
         setUserData(data);
         setLoading(false);
       } catch (error) {
@@ -41,7 +54,7 @@ export const Dashboard = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [navigate]);
 
   if (loading) return <LoadingScreen message="Loading Dashboard..." />;
   if (error) return <div>Error: {error}</div>;

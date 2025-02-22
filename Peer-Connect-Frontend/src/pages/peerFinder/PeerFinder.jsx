@@ -1,11 +1,14 @@
+import { useState, useRef } from 'react';
 import Header from './Header';
 import SkillSelector from './SkillSelector';
-import { useState } from 'react';
 import UserCardWrapper from './UserCardWrapper';
+import axios from 'axios';
 
 const PeerFinder = () => {
   const [skillsArray, setSkillsArray] = useState([]);
   const [peerData, setPeerData] = useState(null);
+  const userCardWrapperRef = useRef(null); // Create a ref for UserCardWrapper
+
   const skillNames = [
     'Frontend',
     'Backend',
@@ -56,27 +59,26 @@ const PeerFinder = () => {
   const fetchPeers = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/fetchUsers',
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/fetchUsers`,
         {
-          method: 'POST',
+          skills: skillsArray.map((skill) => skill.name), // Extract skill names
+        },
+        {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            skills: skillsArray.map((skill) => skill.name), // Extract skill names
-          }),
-          credentials: 'include', // Important for session cookie
+          withCredentials: true, // Important for session cookie
         }
       );
 
-      const data = await response.json();
-      console.log(data);
+      const data = response.data;
       if (response.status === 401) {
         alert('Please login to continue');
         window.location.href = '/login';
       } else {
         setPeerData(data);
+        userCardWrapperRef.current.scrollIntoView({ behavior: 'smooth' }); // Scroll to UserCardWrapper
       }
     } catch (error) {
       console.error('Error fetching peers:', error);
@@ -91,14 +93,11 @@ const PeerFinder = () => {
         onSkillSelect={selectSkill}
         onFindPeers={fetchPeers}
       />
-      <UserCardWrapper peerData={peerData} />
+      <div className="w-full" ref={userCardWrapperRef}>
+        <UserCardWrapper peerData={peerData} />
+      </div>
     </div>
   );
 };
 
 export default PeerFinder;
-
-{
-  /* This is the code for the cards wrapper that will be displayed */
-  /* <div className="flex h-[80vh] w-[89%] items-center justify-center rounded-2xl bg-slate-700 px-10"></div> */
-}

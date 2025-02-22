@@ -4,6 +4,7 @@ import Skill from './Skill';
 import ProjectModal from './ProjectModal';
 import { LinkPreview } from './LinkPreview';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
 const EditSections = {
   BASIC_INFO: 'basicInfo',
@@ -265,19 +266,18 @@ const EditModal = ({ isOpen, onClose, userInfo, onUpdate, section }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/update',
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/update`,
+        formData,
         {
-          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include',
-          body: JSON.stringify(formData),
+          withCredentials: true,
         }
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         onUpdate(formData); // This will trigger getUserInfo() in parent
         onClose();
 
@@ -285,7 +285,7 @@ const EditModal = ({ isOpen, onClose, userInfo, onUpdate, section }) => {
         window.location.reload();
       } else {
         alert('Update failed. Please try again.');
-        console.error('Update failed:', await response.text());
+        console.error('Update failed:', response.data);
       }
     } catch (error) {
       alert('Error updating profile. Please try again.');

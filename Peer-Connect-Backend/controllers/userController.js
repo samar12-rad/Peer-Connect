@@ -94,7 +94,8 @@ async function loginUser(req, res) {
     req.session.sessionID = req.sessionID; // Optionally store the session ID
 
     res.cookie('connect.sid', req.sessionID, {
-      secure: true,
+      sameSite: 'none',
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
     });

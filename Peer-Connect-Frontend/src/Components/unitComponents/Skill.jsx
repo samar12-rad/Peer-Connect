@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 import Frontend from '../../assets/skillsLogo/frontend.png';
 import Backend from '../../assets/skillsLogo/backend.png';
 import Fullstack from '../../assets/skillsLogo/fullstack.png';
@@ -8,7 +10,6 @@ import AIML from '../../assets/skillsLogo/aiml.png';
 import HTML from '../../assets/skillsLogo/html.png';
 import CSS from '../../assets/skillsLogo/css.png';
 import JS from '../../assets/skillsLogo/js.png';
-import React from '../../assets/skillsLogo/react.png';
 import Java from '../../assets/skillsLogo/java.png';
 import Angular from '../../assets/skillsLogo/angular.png';
 import Ruby from '../../assets/skillsLogo/ruby.png';
@@ -22,8 +23,7 @@ import Golang from '../../assets/skillsLogo/golang.png';
 import GIT from '../../assets/skillsLogo/git.png';
 import CPP from '../../assets/skillsLogo/cpp.png';
 import Node from '../../assets/skillsLogo/node.png';
-import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
+import React from 'react';
 
 const skillImages = {
   Frontend,
@@ -52,7 +52,7 @@ const skillImages = {
   CPP,
 };
 
-const Skill = ({ name, onClick, className }) => {
+const Skill = ({ name, onClick = () => {}, className = '' }) => {
   return (
     <div>
       <motion.button
@@ -74,10 +74,6 @@ Skill.propTypes = {
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   className: PropTypes.string,
-};
-
-Skill.defaultProps = {
-  onClick: () => {},
 };
 
 export default Skill;

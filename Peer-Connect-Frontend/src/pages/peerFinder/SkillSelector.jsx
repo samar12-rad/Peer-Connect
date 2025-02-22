@@ -5,7 +5,7 @@ import Skill from '../../Components/unitComponents/Skill';
 
 const SkillSelector = ({ skillNames, onSkillSelect, onFindPeers }) => {
   return (
-    <div className="mt-[20vh] flex h-fit w-fit flex-col items-center justify-center px-10">
+    <div className="mt-[10vh] flex h-fit w-fit flex-col items-center justify-center px-10">
       <h1 className="tracking-normal">
         Just tell us the skills you&apos;re looking for in your partner and we
         will find them for you :)

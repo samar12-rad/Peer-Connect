@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 function MyDropzone({ onFileDrop }) {
   const [uploadedFile, setUploadedFile] = useState(null); // State to store uploaded file
@@ -22,18 +23,16 @@ function MyDropzone({ onFileDrop }) {
         setIsUploading(true); // Set uploading state to true
 
         // API call to the backend
-        fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/upload',
-          {
-            method: 'POST',
-            body: formData,
-          }
-        )
+        axios
+          .post(
+            `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/upload`,
+            formData
+          )
           .then((response) => {
-            if (!response.ok) {
+            if (response.status !== 200) {
               throw new Error('File upload failed');
             }
-            return response.json();
+            return response.data;
           })
           .then((data) => {
             console.log('Response from server:', data);
@@ -55,15 +54,12 @@ function MyDropzone({ onFileDrop }) {
   const cancelUpload = async () => {
     if (uploadedFile) {
       try {
-        const response = await fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/remove-file',
-          {
-            method: 'POST',
-            body: JSON.stringify({ public_id: uploadedFile.public_id }),
-            headers: { 'Content-Type': 'application/json' },
-          }
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/remove-file`,
+          { public_id: uploadedFile.public_id },
+          { headers: { 'Content-Type': 'application/json' } }
         );
-        const result = await response.json();
+        const result = response.data;
         console.log('File removed:', result);
 
         // Reset states

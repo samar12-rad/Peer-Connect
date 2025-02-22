@@ -1,6 +1,7 @@
 import UserCard from './UserCard';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import axios from 'axios';
 
 const dummyData = {
   filteredUsers: [
@@ -25,13 +26,13 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
 
   const checkFriendStatus = async (userId) => {
     try {
-      const response = await fetch(
-        `https://peer-connect-production.up.railway.app/api/v1/user/checkFriend/${userId}`,
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/checkFriend/${userId}`,
         {
-          credentials: 'include',
+          withCredentials: true,
         }
       );
-      const data = await response.json();
+      const data = response.data;
       console.log('Friend status:', data);
       return data;
     } catch (err) {
@@ -67,23 +68,20 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
         return;
       }
 
-      const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/update',
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/update`,
+        { userId, friendRequests: 'self' },
         {
-          method: 'POST',
-          credentials: 'include',
+          withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ userId, friendRequests: 'self' }),
         }
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert('Friend request sent!');
-      }
-
-      if (!response.ok) {
+      } else {
         throw new Error('Failed to send friend request');
       }
     } catch (err) {

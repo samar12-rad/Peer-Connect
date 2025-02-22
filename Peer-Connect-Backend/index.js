@@ -10,12 +10,13 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
-const allowedOrigin = 'https://peer-connect-samar-projects.vercel.app';
+const origin = process.env.FRONTEND_URL;
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: origin,
     credentials: true, // Allow cookies
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   })
 );
 
@@ -46,11 +47,8 @@ app.use(
       ttl: 60 * 60 * 6,
     }), // 6 hours
     cookie: {
-      secure: true, // Set to true in production with HTTPS
-      httpOnly: true,
-      sameSite: 'none',
+      httpOnly: false,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
-      // expires: new Date(Date.now() + 1000 * 60 * 60).toUTCString()
     },
   })
 );

@@ -6,6 +6,7 @@ import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import MyDropzone from '../../Components/unitComponents/DropzoneComponent';
+import axios from 'axios';
 
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,24 +71,20 @@ const Signup = () => {
       profilePicture: profilePicture, // Add profile picture URL
     };
     console.log(user);
-    const response = await fetch(
-      'https://peer-connect-production.up.railway.app/api/v1/user/signup',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    console.log(response);
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/signup`,
+        user,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('Success:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
 
     // Redirect to login page
     navigate('/login');
@@ -101,11 +98,11 @@ const Signup = () => {
     if (!isSelected) {
       skill.classList.remove('bg-transparent');
       skill.classList.add('bg-green-500');
-      setSkillsArray((prev) => [...prev, [skillName]]); // Wrap skill in array
+      setSkillsArray((prev) => [...prev, { name: skillName }]);
     } else {
       skill.classList.remove('bg-green-500');
       skill.classList.add('bg-transparent');
-      setSkillsArray((prev) => prev.filter((s) => s[0] !== skillName));
+      setSkillsArray((prev) => prev.filter((s) => s.name !== skillName));
     }
   };
 

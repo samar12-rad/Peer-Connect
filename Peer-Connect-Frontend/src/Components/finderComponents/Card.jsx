@@ -8,13 +8,13 @@ const Card = ({
   firstName,
   lastName,
   city,
-  github,
-  linkedin,
-  email,
+  github = '',
+  linkedin = '',
+  email = '',
   gender,
-  skills,
+  skills = [],
   theme = 1,
-  profilePicture, // Add profilePicture prop
+  profilePicture = '', // Add profilePicture prop with default value
 }) => {
   const getBackgroundColor = (level) => {
     switch (level) {
@@ -111,16 +111,6 @@ Card.propTypes = {
   profilePicture: PropTypes.string, // Add profilePicture prop type
 };
 
-Card.defaultProps = {
-  github: '',
-  linkedin: '',
-  email: '',
-  skills: [],
-  bio: '',
-  onClick: () => {},
-  profilePicture: '', // Add default empty string for profilePicture
-};
-
 export default Card;
 
 // Card use Example Snippet
@@ -136,6 +126,3 @@ export default Card;
 //    bio="Full stack developer passionate about web technologies"
 //    theme={theme}
 //  />;
-
-/* styles.css */
-/* Adjust the height a*/

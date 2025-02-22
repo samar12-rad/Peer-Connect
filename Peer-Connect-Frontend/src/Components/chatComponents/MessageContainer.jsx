@@ -11,6 +11,7 @@ import useGetUserInfo from '../../hooks/useGetUserInfo';
 const MessageContainer = () => {
   const { selectedConversation } = useConversation();
   const { getUserInfo, userInfo } = useGetUserInfo();
+  // const Backend_URL = process.env.VITE_BACKEND_URI;
 
   useEffect(() => {
     getUserInfo();
@@ -19,13 +20,20 @@ const MessageContainer = () => {
   const [peerData, setPeerData] = useState(null);
   useEffect(() => {
     const fetchPeerData = async () => {
+      if (!selectedConversation) return;
+
       try {
         const response = await fetch(
-          `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${selectedConversation}`
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/peerData/${selectedConversation}`
         );
         const data = await response.json();
         if (data.data) {
           setPeerData(data.data);
+          console.log('Peer data:', data.data);
+        }
+
+        if (data.error == 'Conversation not found') {
+          return;
         }
       } catch (error) {
         console.error('Error fetching peer data:', error);

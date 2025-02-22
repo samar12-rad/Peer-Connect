@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const RequestBar = ({ peerkey, onViewPeer }) => {
   const [peerData, setPeerData] = useState({});
@@ -9,17 +10,20 @@ const RequestBar = ({ peerkey, onViewPeer }) => {
       if (!peerkey) return;
 
       console.log(peerkey);
-      const url = `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${peerkey}`;
+      const url = `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/peerData/${peerkey}`;
       console.log(url);
-      const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      setPeerData(data.data);
+      try {
+        const response = await axios.get(url, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = response.data;
+        setPeerData(data.data);
+      } catch (error) {
+        console.error('Error fetching peer data:', error);
+      }
     };
     getPeerData();
   }, [peerkey]);

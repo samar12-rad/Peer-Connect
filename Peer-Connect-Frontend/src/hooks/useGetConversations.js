@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const useGetConversations = () => {
   const [conversations, setConversations] = useState([]);
@@ -6,18 +7,16 @@ const useGetConversations = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const response = await fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/users',
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/users`,
           {
-            method: 'GET',
-            credentials: 'include',
+            withCredentials: true,
             headers: {
               'Content-Type': 'application/json',
             },
           }
         );
-        const data = await response.json();
-        setConversations(data);
+        setConversations(response.data);
       } catch (error) {
         console.error('Error fetching conversations:', error);
       }
@@ -25,6 +24,7 @@ const useGetConversations = () => {
 
     getConversations();
   }, []);
+
   return conversations;
 };
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useConversation from '../zustand/useConversation';
+import axios from 'axios';
 
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
@@ -8,22 +9,21 @@ const useSendMessage = () => {
   const sendMessage = async (message) => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `https://peer-connect-production.up.railway.app/api/v1/message/send`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/message/send`,
         {
-          method: 'POST',
+          message,
+          Id: selectedConversation, // Add receiver ID from selected conversation
+        },
+        {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            message,
-            Id: selectedConversation, // Add receiver ID from selected conversation
-          }),
-          credentials: 'include',
+          withCredentials: true,
         }
       );
 
-      const data = await response.json();
+      const data = response.data;
 
       if (data.message) {
         setMessages([

@@ -13,26 +13,28 @@ const FriendRequest = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { getUserInfo } = useGetUserInfo(); // Use the hook
   const navigate = useNavigate();
+
   useEffect(() => {
     getUserInfo();
-
-    // Call the function
   }, []);
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/data',
-        {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const data = await response.json();
-      setFriendRequests(data.data.friendRequests);
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/data`,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const data = response.data;
+        setFriendRequests(data.friendRequests);
+      } catch (error) {
+        console.error('Error fetching friend requests:', error);
+      }
     };
     getData();
   }, []);
@@ -40,18 +42,18 @@ const FriendRequest = () => {
   const handleMakeFriend = async (userId) => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://peer-connect-production.up.railway.app/api/v1/user/makeFriend/${userId}`,
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/makeFriend/${userId}`,
+        {},
         {
-          method: 'POST',
-          credentials: 'include',
+          withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
           },
         }
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         getUserInfo();
         setShowModal(false);
         alert('You made a friend!');
@@ -70,7 +72,14 @@ const FriendRequest = () => {
   const handleRemoveFriend = async (userId) => {
     try {
       const response = await axios.post(
-        `https://peer-connect-production.up.railway.app/api/v1/user/removeFriend/${userId}`
+        `${import.meta.env.VITE_BACKEND_URI}/api/v1/user/removeFriend/${userId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
       if (response.status === 200) {
         getUserInfo();
