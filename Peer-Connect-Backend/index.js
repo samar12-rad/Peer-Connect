@@ -14,7 +14,7 @@ const origin = process.env.FRONTEND_URL;
 
 app.use(
   cors({
-    origin: origin,
+    origin: [origin, 'https://peer-connect-eight.vercel.app'],
     credentials: true, // Allow cookies
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   })
