@@ -21,10 +21,13 @@ const Login = () => {
 
     try {
       const BACKEND_URI = import.meta.env.VITE_BACKEND_URI;
-      const response = await axios.post(`${BACKEND_URI}/api/v1/user/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `https://peer-connect-production.up.railway.app/api/v1/user/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.status !== 200) {
         throw new Error(`Error: ${response.status}`);
