@@ -47,6 +47,9 @@ app.use(
       ttl: 60 * 60 * 6,
     }), // 6 hours
     cookie: {
+      sameSite: 'none',
+      secure: process.env.NODE_ENV === 'production',
+      partitioned: true,
       httpOnly: false,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
     },

@@ -95,6 +95,7 @@ async function loginUser(req, res) {
 
     res.cookie('connect.sid', req.sessionID, {
       sameSite: 'none',
+      Partitioned: true,
       secure: process.env.NODE_ENV === 'production', // Set to true in production
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
