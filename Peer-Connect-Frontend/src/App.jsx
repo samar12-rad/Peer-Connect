@@ -17,6 +17,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/grid" element={<GridBackgroundDemo />} />
+            <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </div>
       </div>
