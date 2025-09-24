@@ -86,6 +86,7 @@ app.use(
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-origin in production
+      // Don't set domain for cross-origin cookies - let browser handle it
       // expires: new Date(Date.now() + 1000 * 60 * 60).toUTCString()
     },
   })
