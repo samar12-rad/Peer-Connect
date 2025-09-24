@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useConversation from '../zustand/useConversation';
 import { useSocketContext } from '../context/SocketContext';
 import useGetUserInfo from './useGetUserInfo';
-import { buildApiUrl } from '../utils/environment';
+import { apiPost } from '../utils/api';
 
 const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
@@ -14,18 +14,9 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       // Send via HTTP to save to database
-      const apiUrl = buildApiUrl('/message/send');
-      
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message,
-          Id: selectedConversation, // Add receiver ID from selected conversation
-        }),
-        credentials: 'include',
+      const response = await apiPost('/message/send', {
+        message,
+        Id: selectedConversation, // Add receiver ID from selected conversation
       });
 
       const data = await response.json();

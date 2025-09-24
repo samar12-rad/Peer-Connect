@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import useConversation from '../zustand/useConversation';
 import { useSocketContext } from '../context/SocketContext';
-import { buildApiUrl } from '../utils/environment';
+import { apiPost } from '../utils/api';
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
@@ -18,16 +18,7 @@ const useGetMessages = () => {
     const getMessages = async () => {
       setLoading(true);
       try {
-        const apiUrl = buildApiUrl('/message/getMessages');
-        
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ Id: selectedConversation }),
-          credentials: 'include',
-        });
+        const response = await apiPost('/message/getMessages', { Id: selectedConversation });
         const data = await response.json();
         if (data.error) {
           throw new Error(data.error);

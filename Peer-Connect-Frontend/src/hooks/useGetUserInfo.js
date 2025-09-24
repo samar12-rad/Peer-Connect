@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useUserData from '../zustand/useUserData';
-import { buildApiUrl } from '../utils/environment';
+import { apiGet } from '../utils/api';
 
 // Add state to track if we're currently fetching
 let isFetching = false;
@@ -25,14 +25,7 @@ const useGetUserInfo = () => {
     isFetching = true;
 
     try {
-      const apiUrl = buildApiUrl('/user/data');
-      console.log('🌐 Fetching user info from:', apiUrl);
-      
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        credentials: 'include',
-      });
-
+      const response = await apiGet('/user/data');
       const data = await response.json();
       
       console.log('📡 API Response status:', response.status);

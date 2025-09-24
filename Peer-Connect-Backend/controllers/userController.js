@@ -23,7 +23,9 @@ async function getData(req, res) {
     
     console.log('✅ getData controller - User found:', userData._id);
     req.userId = userData._id; // Store user ID in the request object for
+    console.log('📤 getData controller - Sending success response with user data');
     res.status(200).json({ data: userData });
+    console.log('✅ getData controller - Response sent successfully');
   } catch (error) {
     console.error('❌ getData controller error:', error);
     res.status(500).json({ error: 'Error fetching user data' });

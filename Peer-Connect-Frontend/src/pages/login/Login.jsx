@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import peer from '../../assets/Peerlist.png';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { buildApiUrl } from '../../utils/environment';
+import { apiPost } from '../../utils/api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext.jsx';
 
@@ -14,54 +13,57 @@ const Login = () => {
   const navigate = useNavigate();
   const { refreshAuth, setIsAuthenticated } = useAuth();
 
-  // Configure axios defaults
-  axios.defaults.withCredentials = true;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const loginUrl = buildApiUrl('/user/login');
-      console.log('🔑 Login URL:', loginUrl);
-      
-      const response = await axios.post(loginUrl, {
+      const response = await apiPost('/user/login', {
         email,
         password,
       });
 
       console.log('🔑 Login response received:', response);
       console.log('🔑 Login response status:', response.status);
-      console.log('🔑 Login response data:', response.data);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('🔑 Login response data:', data);
 
-      if (response.status === 200 && response.data && (response.data.message === 'Login successful' || response.data.sessionId)) {
-        // Session cookie will be automatically handled by the browser
-        // Store any additional user info if needed
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        
-        // Store auth token as fallback for cross-origin cookie issues
-        if (response.data.authToken) {
-          localStorage.setItem('authToken', response.data.authToken);
-          console.log('🔑 Stored auth token:', response.data.authToken);
+        if (data && (data.message === 'Login successful' || data.sessionId)) {
+          // Session cookie will be automatically handled by the browser
+          // Store any additional user info if needed
+          localStorage.setItem('user', JSON.stringify(data.user));
+          
+          // Store auth token as fallback for cross-origin cookie issues
+          if (data.authToken) {
+            localStorage.setItem('authToken', data.authToken);
+            console.log('🔑 Stored auth token:', data.authToken);
+          }
+          
+          toast.success('Login successful! Welcome back!', {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          
+          console.log('🔑 Login successful, setting auth state and navigating...');
+          
+          // Immediately set authentication to true since login was successful
+          setIsAuthenticated(true);
+          
+          // Navigate using React Router
+          navigate('/dashboard');
+        } else {
+          console.log('❌ Login response condition not met');
+          console.log('❌ Response status:', response.status);
+          console.log('❌ Response data:', data);
+          toast.error('Login response was unexpected. Please try again.');
         }
-        toast.success('Login successful! Welcome back!', {
-          position: "top-right",
-          autoClose: 3000,
-        });
-        
-        console.log('🔑 Login successful, setting auth state and navigating...');
-        
-        // Immediately set authentication to true since login was successful
-        setIsAuthenticated(true);
-        
-        // Navigate using React Router
-        navigate('/dashboard');
       } else {
-        console.log('❌ Login response condition not met');
-        console.log('❌ Response status:', response.status);
-        console.log('❌ Response data:', response.data);
-        toast.error('Login response was unexpected. Please try again.');
+        const errorData = await response.json();
+        console.log('❌ Login failed:', errorData);
+        toast.error(errorData.error || 'Login failed. Please try again.');
       }
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed';

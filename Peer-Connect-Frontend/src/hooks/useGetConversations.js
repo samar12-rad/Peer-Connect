@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import useConversation from '../zustand/useConversation';
-import { buildApiUrl } from '../utils/environment';
+import { apiGet } from '../utils/api';
 
 const useGetConversations = () => {
   const [conversations, setConversations] = useState([]);
@@ -8,13 +8,7 @@ const useGetConversations = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const response = await fetch(buildApiUrl('/user/users'), {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const response = await apiGet('/user/users');
         const data = await response.json();
         setConversations(data);
       } catch (error) {

@@ -6,7 +6,7 @@ import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import MyDropzone from '../../Components/unitComponents/DropzoneComponent';
-import { buildApiUrl } from '../../utils/environment';
+import { apiPost } from '../../utils/api';
 import { toast } from 'react-toastify';
 
 const Signup = () => {
@@ -85,14 +85,7 @@ const Signup = () => {
     };
     
     try {
-      const response = await fetch(buildApiUrl('/user/signup'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-
+      const response = await apiPost('/user/signup', user);
       const data = await response.json();
       
       if (response.ok) {

@@ -2,7 +2,7 @@ import Header from './Header';
 import SkillSelector from './SkillSelector';
 import { useState } from 'react';
 import UserCardWrapper from './UserCardWrapper';
-import { buildApiUrl } from '../../utils/environment';
+import { apiPost } from '../../utils/api';
 
 const PeerFinder = () => {
   const [skillsArray, setSkillsArray] = useState([]);
@@ -57,19 +57,9 @@ const PeerFinder = () => {
   const fetchPeers = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        buildApiUrl('/user/fetchUsers'),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            skills: skillsArray.map((skill) => skill.name), // Extract skill names
-          }),
-          credentials: 'include', // Important for session cookie
-        }
-      );
+      const response = await apiPost('/user/fetchUsers', {
+        skills: skillsArray.map((skill) => skill.name), // Extract skill names
+      });
 
       const data = await response.json();
       console.log(data);
