@@ -20,32 +20,50 @@ const clientPath =
 //     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // Allowed headers
 //   })
 // );
-// Configure CORS based on environment
-const allowedOrigins = process.env.CORS_ORIGINS 
+// Configure CORS with robust origin checking
+const envOrigins = process.env.CORS_ORIGINS 
   ? process.env.CORS_ORIGINS.split(',') 
-  : ['http://localhost:5173', 'http://localhost:3000'];
+  : [];
+
+const baseAllowedOrigins = [
+  'http://localhost:5173', 
+  'http://localhost:3000',
+  'https://peer-connect-eight.vercel.app', // Current Vercel deployment
+  'https://peer-connect-frontend.vercel.app' // Legacy Vercel URL
+];
+
+// Combine environment origins with base origins
+const allAllowedOrigins = [...new Set([...envOrigins, ...baseAllowedOrigins])];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
+      console.log('🌐 CORS Check - Origin:', origin);
       
-      // Check if origin is in allowed origins
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) {
+        console.log('✅ CORS - Allowing request with no origin');
+        return callback(null, true);
+      }
+      
+      // Check if origin is in allowed origins list
+      if (allAllowedOrigins.includes(origin)) {
+        console.log('✅ CORS - Allowing origin from allowed list:', origin);
         callback(null, true);
       } 
-      // Allow any Vercel deployment for peer-connect
+      // Allow any Vercel deployment for peer-connect (fallback)
       else if (origin && origin.includes('peer-connect') && origin.includes('vercel.app')) {
-        console.log('Allowing Vercel deployment:', origin);
+        console.log('✅ CORS - Allowing Vercel peer-connect deployment:', origin);
         callback(null, true);
       }
       // Allow localhost for development
       else if (origin && (origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+        console.log('✅ CORS - Allowing localhost:', origin);
         callback(null, true);
       }
       else {
-        console.log('Blocked by CORS:', origin);
+        console.log('❌ CORS - Blocked origin:', origin);
+        console.log('🔍 CORS - Allowed origins:', allAllowedOrigins);
         callback(new Error('Not allowed by CORS'));
       }
     },
