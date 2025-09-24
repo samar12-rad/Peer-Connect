@@ -52,12 +52,9 @@ const checkSession = async (req, res, next) => {
     const sessionData = JSON.parse(session.session);
     console.log('🔑 Session data found:', sessionData);
     
-    // Attach session data to request object
-    req.session = {
-      userId: sessionData.userId,
-      sessionID: sessionId,
-      ...sessionData
-    };
+    // Add userId to existing session object (don't replace the entire session)
+    req.session.userId = sessionData.userId;
+    req.session.sessionID = sessionId;
     
     console.log('🔑 Attached userId to request:', req.session.userId);
 
