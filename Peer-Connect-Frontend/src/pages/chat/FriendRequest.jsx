@@ -4,7 +4,7 @@ import UserCardModal from '../../Components/unitComponents/UserCardModal';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
 import { useNavigate } from 'react-router-dom';
 import Requestbar from './RequestBar';
-import { buildApiUrl } from '../../utils/environment';
+import { apiGet } from '../../utils/api';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
@@ -42,16 +42,15 @@ const FriendRequest = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(buildApiUrl('/user/data'), {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      try {
+        const response = await apiGet('/data');
+        if (response.ok) {
+          const data = await response.json();
+          setFriendRequests(data.data.friendRequests);
         }
-      );
-      const data = await response.json();
-      setFriendRequests(data.data.friendRequests);
+      } catch (error) {
+        console.error('❌ Failed to fetch user data:', error);
+      }
     };
     getData();
   }, []);

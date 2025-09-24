@@ -87,7 +87,7 @@ const Navbar = () => {
         try {
           console.log('🔄 Navbar - Making direct auth check...');
           
-          const response = await apiGet('/user/data');
+          const response = await apiGet('/data');
           
           if (response.ok) {
             const data = await response.json();

@@ -19,7 +19,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await apiGet('/user/data');
+        const response = await apiGet('/data');
         if (!response.ok) {
           navigate('/login');
         }
