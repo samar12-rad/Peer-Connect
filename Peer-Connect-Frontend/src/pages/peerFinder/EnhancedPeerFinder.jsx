@@ -3,6 +3,7 @@ import SkillSelector from './SkillSelector';
 import { useState, useEffect, useRef } from 'react';
 import EnhancedUserCardWrapper from './EnhancedUserCardWrapper';
 import { buildApiUrl } from '../../utils/environment';
+import { toast } from 'react-toastify';
 
 const EnhancedPeerFinder = () => {
   const [skillsArray, setSkillsArray] = useState([]);
@@ -61,7 +62,7 @@ const EnhancedPeerFinder = () => {
     e?.preventDefault();
     
     if (skillsArray.length === 0) {
-      alert('Please select at least one skill to find peers!');
+      toast.error('Please select at least one skill to find peers!');
       return;
     }
 
@@ -87,7 +88,7 @@ const EnhancedPeerFinder = () => {
       const data = await response.json();
       
       if (response.status === 401) {
-        alert('Please login to continue');
+        toast.error('Please login to continue');
         window.location.href = '/login';
         return;
       }
@@ -97,6 +98,7 @@ const EnhancedPeerFinder = () => {
         if (data.filteredUsers.length === 0) {
           setError('No peers found with the selected skills. Try different skills or check back later!');
         } else {
+          toast.success(`Found ${data.totalMatches} peers! Showing set ${data.setNumber} of ${data.totalSets}`);
           // Scroll to cards section after successful peer finding
           setTimeout(() => {
             if (cardsRef.current) {
@@ -112,7 +114,9 @@ const EnhancedPeerFinder = () => {
       }
     } catch (error) {
       console.error('Error fetching peers:', error);
-      setError('Failed to fetch peers. Please try again.');
+      const errorMessage = 'Failed to fetch peers. Please try again.';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }

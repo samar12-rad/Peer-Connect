@@ -2,6 +2,7 @@ import UserCard from './UserCard';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { buildApiUrl } from '../../utils/environment';
+import { toast } from 'react-toastify';
 
 const dummyData = {
   filteredUsers: [
@@ -86,13 +87,16 @@ const EnhancedUserCardWrapper = ({
             onLoadNewSet(data);
           }
         } else {
-          setError(data.message || 'No more users in this set');
+          const message = data.message || 'No more users in this set';
+          setError(message);
+          toast.info(message);
         }
       } else {
         throw new Error(data.error || 'Failed to load new set');
       }
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
       console.error('Error loading new set:', err);
     } finally {
       setLoading(false);
@@ -152,14 +156,16 @@ const EnhancedUserCardWrapper = ({
       const { isFriend, hasPendingRequest } = await checkFriendStatus(userId);
       
       if (isFriend) {
-        setError('This user is already your friend!');
-        alert('This user is already your friend!');
+        const message = 'This user is already your friend!';
+        setError(message);
+        toast.info(message);
         return;
       }
 
       if (hasPendingRequest) {
-        setError('Friend request already sent!');
-        alert('Friend request already sent!');
+        const message = 'Friend request already sent!';
+        setError(message);
+        toast.info(message);
         return;
       }
 
@@ -176,13 +182,14 @@ const EnhancedUserCardWrapper = ({
       );
 
       if (response.ok) {
-        alert('Friend request sent!');
+        toast.success('Friend request sent successfully!');
         handleNextUser();
       } else {
         throw new Error('Failed to send friend request');
       }
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
       console.error('Error sending friend request:', err);
     }
   };

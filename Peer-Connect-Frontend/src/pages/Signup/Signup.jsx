@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import MyDropzone from '../../Components/unitComponents/DropzoneComponent';
 import { buildApiUrl } from '../../utils/environment';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,6 +55,18 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validation
+    if (!firstName || !lastName || !email || !password) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    if (skillsArray.length === 0) {
+      toast.error('Please select at least one skill');
+      return;
+    }
+
     console.log(skillsArray);
     const user = {
       username: username,
@@ -70,28 +83,30 @@ const Signup = () => {
       bio: 'I am a software developer',
       profilePicture: profilePicture, // Add profile picture URL
     };
-    console.log(user);
-    const response = await fetch(
-      buildApiUrl('/user/signup'),
-      {
+    
+    try {
+      const response = await fetch(buildApiUrl('/user/signup'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
       });
-    console.log(response);
 
-    // Redirect to login page
-    navigate('/login');
+      const data = await response.json();
+      
+      if (response.ok) {
+        toast.success('Account created successfully! Please login.');
+        console.log('Success:', data);
+        // Redirect to login page
+        navigate('/login');
+      } else {
+        toast.error(data.message || 'Signup failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Network error. Please try again.');
+    }
   };
 
   const selectSkill = (e) => {

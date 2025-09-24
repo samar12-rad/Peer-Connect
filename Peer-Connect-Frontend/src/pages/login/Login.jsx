@@ -3,6 +3,7 @@ import peer from '../../assets/Peerlist.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { buildApiUrl } from '../../utils/environment';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -32,14 +33,22 @@ const Login = () => {
         // Session cookie will be automatically handled by the browser
         // Store any additional user info if needed
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        toast.success('Login successful! Welcome back!', {
+          position: "top-right",
+          autoClose: 3000,
+        });
         navigate('/dashboard');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      const errorMessage = err.response?.data?.message || 'Login failed';
+      setError(errorMessage);
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 4000,
+      });
     } finally {
       setLoading(false);
     }
-    navigate('/');
   };
 
   return (

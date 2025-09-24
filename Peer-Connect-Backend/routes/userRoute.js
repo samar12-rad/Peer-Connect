@@ -18,7 +18,11 @@ router.post('/login', userController.loginUser);
 // Logout Route
 router.post('/logout', userController.logoutUser);
 // Get User Data Route
-router.get('/data', userController.getData);
+router.get('/data', checkSession, userController.getData);
+// Auth verification route
+router.get('/verify', checkSession, (req, res) => {
+  res.json({ authenticated: true, userId: req.session.userId });
+});
 // Fetch Users Route
 router.post('/fetchUsers', checkSession, fetchUser);
 // Enhanced Fetch Users Route (with pagination and diverse algorithms)

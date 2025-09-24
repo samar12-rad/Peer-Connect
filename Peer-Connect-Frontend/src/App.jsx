@@ -8,6 +8,9 @@ import PeerFinder from './pages/peerFinder/PeerFinder';
 import EnhancedPeerFinder from './pages/peerFinder/EnhancedPeerFinder';
 import Landing from './pages/landing_page/Landing';
 import Navbar from './Components/Navbar';
+import { ProtectedRoute } from './hooks/useAuth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -16,13 +19,42 @@ const App = () => {
       <div className="bg-black-2 flex">
         <div className="shadow-inner-fat-blue bg-black-2 h-fit min-h-screen w-screen overflow-hidden">
           <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Landing />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/find" element={<EnhancedPeerFinder />} />
-            <Route path="/find-basic" element={<PeerFinder />} />
+            
+            {/* Protected Routes */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/chat" element={
+              <ProtectedRoute>
+                <ChatPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/find" element={
+              <ProtectedRoute>
+                <EnhancedPeerFinder />
+              </ProtectedRoute>
+            } />
+            <Route path="/find-basic" element={
+              <ProtectedRoute>
+                <PeerFinder />
+              </ProtectedRoute>
+            } />
+            
+            {/* Legacy route redirect */}
             <Route path="/landing" element={<Landing />} />
+            
+            {/* 404 Route */}
             <Route
               path="*"
               element={
@@ -34,10 +66,24 @@ const App = () => {
                 </div>
               }
             />
-            <Route path="/chat" element={<ChatPage />} />
           </Routes>
         </div>
       </div>
+      
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        style={{ zIndex: 9999 }}
+      />
     </Router>
   );
 };
