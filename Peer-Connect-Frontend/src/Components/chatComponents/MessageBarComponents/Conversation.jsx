@@ -2,7 +2,7 @@ import { CgProfile } from 'react-icons/cg';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import useConversation from '../../../zustand/useConversation';
-import { buildApiUrl } from '../../../utils/environment';
+import { apiGet } from '../../../utils/api';
 
 const Conversation = ({ conversation }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -18,9 +18,7 @@ const Conversation = ({ conversation }) => {
       }
 
       try {
-        const response = await fetch(
-          buildApiUrl(`/user/peerData/${conversation}`)
-        );
+        const response = await apiGet(`/user/peerData/${conversation}`);
         const data = await response.json();
         if (data.data) {
           setPeerData(data.data);

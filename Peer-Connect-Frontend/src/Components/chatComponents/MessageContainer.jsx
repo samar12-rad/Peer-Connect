@@ -7,7 +7,7 @@ import useSendMessage from '../../hooks/useSendMessage';
 import useGetMessages from '../../hooks/useGetMessages';
 import LoadingScreen from '../unitComponents/LoadingScreen';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
-import { buildApiUrl } from '../../utils/environment';
+import { apiGet } from '../../utils/api';
 
 const MessageContainer = () => {
   const { selectedConversation } = useConversation();
@@ -23,9 +23,7 @@ const MessageContainer = () => {
       }
 
       try {
-        const response = await fetch(
-        buildApiUrl(`/user/peerData/${selectedConversation}`)
-      );
+        const response = await apiGet(`/user/peerData/${selectedConversation}`);
         const data = await response.json();
         if (data.data) {
           setPeerData(data.data);

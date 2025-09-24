@@ -7,11 +7,35 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: [
-      'http://localhost:5173',
-      'http://localhost:3000', 
-      'https://peer-connect-frontend.vercel.app'
-    ],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps)
+      if (!origin) return callback(null, true);
+      
+      // Define allowed origins
+      const allowedOrigins = [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'https://peer-connect-frontend.vercel.app',
+        'https://peer-connect-eight.vercel.app' // Current Vercel deployment
+      ];
+      
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      }
+      // Allow any Vercel deployment for peer-connect
+      else if (origin && origin.includes('peer-connect') && origin.includes('vercel.app')) {
+        console.log('🔌 Socket.IO - Allowing Vercel deployment:', origin);
+        callback(null, true);
+      }
+      // Allow localhost for development
+      else if (origin && (origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+        callback(null, true);
+      }
+      else {
+        console.log('🚫 Socket.IO - Blocked by CORS:', origin);
+        callback(new Error('Not allowed by Socket.IO CORS'));
+      }
+    },
     methods: ['GET', 'POST'],
     credentials: true,
   },
