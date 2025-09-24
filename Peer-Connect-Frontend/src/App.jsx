@@ -8,17 +8,19 @@ import PeerFinder from './pages/peerFinder/PeerFinder';
 import EnhancedPeerFinder from './pages/peerFinder/EnhancedPeerFinder';
 import Landing from './pages/landing_page/Landing';
 import Navbar from './Components/Navbar';
-import { ProtectedRoute } from './hooks/useAuth';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { ProtectedRoute } from './Components/ProtectedRoute.jsx';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <div className="bg-black-2 flex">
-        <div className="shadow-inner-fat-blue bg-black-2 h-fit min-h-screen w-screen overflow-hidden">
-          <Routes>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <div className="bg-black-2 flex">
+          <div className="shadow-inner-fat-blue bg-black-2 h-fit min-h-screen w-screen overflow-hidden">
+            <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Landing />} />
             <Route path="/signup" element={<Signup />} />
@@ -84,7 +86,8 @@ const App = () => {
         theme="dark"
         style={{ zIndex: 9999 }}
       />
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 };
 

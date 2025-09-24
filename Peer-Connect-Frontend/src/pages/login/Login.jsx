@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { buildApiUrl } from '../../utils/environment';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { refreshAuth, setIsAuthenticated } = useAuth();
 
   // Configure axios defaults
   axios.defaults.withCredentials = true;
@@ -29,7 +31,11 @@ const Login = () => {
         password,
       });
 
-      if (response.data.sessionId) {
+      console.log('🔑 Login response received:', response);
+      console.log('🔑 Login response status:', response.status);
+      console.log('🔑 Login response data:', response.data);
+
+      if (response.status === 200 && response.data && response.data.message === 'Login successful') {
         // Session cookie will be automatically handled by the browser
         // Store any additional user info if needed
         localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -37,7 +43,19 @@ const Login = () => {
           position: "top-right",
           autoClose: 3000,
         });
+        
+        console.log('🔑 Login successful, setting auth state and navigating...');
+        
+        // Immediately set authentication to true since login was successful
+        setIsAuthenticated(true);
+        
+        // Navigate using React Router
         navigate('/dashboard');
+      } else {
+        console.log('❌ Login response condition not met');
+        console.log('❌ Response status:', response.status);
+        console.log('❌ Response data:', response.data);
+        toast.error('Login response was unexpected. Please try again.');
       }
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed';
