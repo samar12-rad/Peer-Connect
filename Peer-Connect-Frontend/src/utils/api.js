@@ -4,7 +4,7 @@ import { buildApiUrl } from './environment';
 const getCurrentPageSource = () => {
   const currentPath = window.location.pathname;
   const pageMapping = {
-    '/': 'homepage',
+    '/': 'login', // Root redirects to login when not authenticated
     '/dashboard': 'dashboard',
     '/chat': 'chat',
     '/peerFinder': 'peer-finder',

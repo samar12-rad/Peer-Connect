@@ -115,6 +115,14 @@ app.use((req, res, next) => {
 // Middleware to parse JSON requests
 app.use(express.json());
 
+// Debug middleware to log all requests reaching the routes
+app.use('/api/v1', (req, res, next) => {
+  console.log(`🔥 Route hit: ${req.method} ${req.path}`);
+  console.log(`🔥 Request body:`, req.body);
+  console.log(`🔥 Content-Type:`, req.get('Content-Type'));
+  next();
+});
+
 mongoose
   .connect(process.env.DB_URI)
   .then(() => {

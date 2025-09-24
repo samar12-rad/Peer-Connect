@@ -83,27 +83,43 @@ async function createUser(req, res) {
 }
 
 async function loginUser(req, res) {
+  console.log('🔐 loginUser controller called');
+  console.log('🔐 Request body:', req.body);
+  console.log('🔐 Request headers:', req.headers);
+  
   const { email, password } = req.body;
 
   // Basic validation
   if (!email || !password) {
+    console.log('❌ loginUser - Missing email or password');
+    console.log('❌ loginUser - Email:', email, 'Password:', password ? '[PROVIDED]' : '[MISSING]');
     return res.status(400).json({ error: 'Email and password are required' });
   }
+  
+  console.log('✅ loginUser - Email and password provided, proceeding with authentication');
 
   try {
+    console.log('🔍 loginUser - Searching for user with email:', email);
     // Find the user by email
     const user = await User.findOne({ email });
 
     if (!user) {
+      console.log('❌ loginUser - User not found with email:', email);
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
+    console.log('✅ loginUser - User found:', user.username, user._id);
+    
     // Compare the provided password with the hashed password in the database
+    console.log('🔐 loginUser - Comparing passwords...');
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
+      console.log('❌ loginUser - Password does not match for user:', email);
       return res.status(401).json({ error: 'Invalid email or password' });
     }
+    
+    console.log('✅ loginUser - Password matches! Proceeding with session creation...');
 
     // Create a session for the user
     req.session.userId = user._id; // Store user ID in the session
@@ -124,7 +140,12 @@ async function loginUser(req, res) {
       authToken: req.sessionID, // Include as auth token for frontend storage
     });
   } catch (error) {
-    console.error(error); // Log error details for debugging
+    console.error('❌ loginUser - Unexpected error:', error);
+    console.error('❌ loginUser - Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     res.status(500).json({ error: 'Error logging in' });
   }
 }
