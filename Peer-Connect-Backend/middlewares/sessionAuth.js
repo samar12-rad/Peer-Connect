@@ -5,11 +5,17 @@ const Session = mongoose.connection.collection('sessions');
 
 const checkSession = async (req, res, next) => {
   try {
+    console.log('🍪 Session check - All cookies:', req.cookies);
+    console.log('🍪 Session check - Headers:', req.headers.cookie);
+    
     var sessionId = req.cookies['connect.sid']; // Extract session ID from cookie
 
     if (!sessionId) {
+      console.log('❌ No session ID found in cookies');
       return res.status(401).json({ error: 'No session ID found' });
     }
+
+    console.log('🔑 Found session ID:', sessionId);
 
     // Remove the 's:' prefix and everything after the dot (the signing part)
     sessionId = sessionId.split('.')[0].substring(2);

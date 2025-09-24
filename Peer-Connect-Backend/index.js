@@ -31,9 +31,20 @@ app.use(
       // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
       
+      // Check if origin is in allowed origins
       if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
-      } else {
+      } 
+      // Allow any Vercel deployment for peer-connect
+      else if (origin && origin.includes('peer-connect') && origin.includes('vercel.app')) {
+        console.log('Allowing Vercel deployment:', origin);
+        callback(null, true);
+      }
+      // Allow localhost for development
+      else if (origin && (origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+        callback(null, true);
+      }
+      else {
         console.log('Blocked by CORS:', origin);
         callback(new Error('Not allowed by CORS'));
       }
@@ -71,9 +82,10 @@ app.use(
       ttl: 60 * 60 * 6,
     }), // 6 hours
     cookie: {
-      secure: false, // Set to true in production with HTTPS
+      secure: process.env.NODE_ENV === 'production', // true in production with HTTPS
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 6, // 6 hours
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-origin in production
       // expires: new Date(Date.now() + 1000 * 60 * 60).toUTCString()
     },
   })

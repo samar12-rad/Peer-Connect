@@ -93,9 +93,15 @@ async function loginUser(req, res) {
     req.session.userId = user._id; // Store user ID in the session
     req.session.sessionID = req.sessionID; // Optionally store the session ID
 
+    console.log('🔑 Login successful - Session created:');
+    console.log('🔑 Session ID:', req.sessionID);
+    console.log('🔑 User ID stored in session:', req.session.userId);
+    console.log('🔑 Session cookie settings:', req.session.cookie);
+
     res.status(200).json({
       message: 'Login successful',
       user: { username: user.username, email: user.email },
+      sessionId: req.sessionID, // Include session ID in response for debugging
     });
   } catch (error) {
     console.error(error); // Log error details for debugging

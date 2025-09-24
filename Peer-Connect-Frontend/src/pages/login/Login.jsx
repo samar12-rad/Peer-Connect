@@ -35,7 +35,7 @@ const Login = () => {
       console.log('🔑 Login response status:', response.status);
       console.log('🔑 Login response data:', response.data);
 
-      if (response.status === 200 && response.data && response.data.message === 'Login successful') {
+      if (response.status === 200 && response.data && (response.data.message === 'Login successful' || response.data.sessionId)) {
         // Session cookie will be automatically handled by the browser
         // Store any additional user info if needed
         localStorage.setItem('user', JSON.stringify(response.data.user));
