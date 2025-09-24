@@ -73,6 +73,7 @@ mongoose
 // Configure session store
 app.use(
   session({
+    name: 'peer.connect.session', // Custom session cookie name
     secret: process.env.SESSION_SECRET || 'secret',
     saveUninitialized: false,
     resave: false,

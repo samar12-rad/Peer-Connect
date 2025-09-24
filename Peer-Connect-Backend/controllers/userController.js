@@ -98,10 +98,14 @@ async function loginUser(req, res) {
     console.log('🔑 User ID stored in session:', req.session.userId);
     console.log('🔑 Session cookie settings:', req.session.cookie);
 
+    // Set a custom header with session ID as fallback for cross-origin issues
+    res.setHeader('X-Session-ID', req.sessionID);
+
     res.status(200).json({
       message: 'Login successful',
       user: { username: user.username, email: user.email },
       sessionId: req.sessionID, // Include session ID in response for debugging
+      authToken: req.sessionID, // Include as auth token for frontend storage
     });
   } catch (error) {
     console.error(error); // Log error details for debugging

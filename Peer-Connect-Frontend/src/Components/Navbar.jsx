@@ -85,9 +85,22 @@ const Navbar = () => {
       if (!userInfo && !authChecking) {
         try {
           console.log('🔄 Navbar - Making direct auth check...');
+          
+          // Get auth token from localStorage as fallback
+          const authToken = localStorage.getItem('authToken');
+          const headers = {
+            'Content-Type': 'application/json',
+          };
+          
+          if (authToken) {
+            headers['Authorization'] = `Bearer ${authToken}`;
+            console.log('🔑 Navbar - Using stored auth token');
+          }
+          
           const response = await fetch(buildApiUrl('/user/data'), {
             method: 'GET',
             credentials: 'include',
+            headers,
           });
           
           if (response.ok) {

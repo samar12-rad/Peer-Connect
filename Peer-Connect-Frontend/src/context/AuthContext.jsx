@@ -20,9 +20,21 @@ export const AuthProvider = ({ children }) => {
       console.log('🔍 AuthContext - Auth check URL:', verifyUrl);
       console.log('🔍 AuthContext - Current auth state:', isAuthenticated);
       
+      // Get auth token from localStorage as fallback
+      const authToken = localStorage.getItem('authToken');
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      
+      if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
+        console.log('🔑 AuthContext - Using stored auth token');
+      }
+      
       const response = await fetch(verifyUrl, {
         method: 'GET',
         credentials: 'include',
+        headers,
       });
 
       console.log('🔍 AuthContext - Auth check response status:', response.status);

@@ -7,11 +7,23 @@ const checkSession = async (req, res, next) => {
   try {
     console.log('🍪 Session check - All cookies:', req.cookies);
     console.log('🍪 Session check - Headers:', req.headers.cookie);
+    console.log('🔑 Session check - Auth header:', req.headers.authorization);
     
-    var sessionId = req.cookies['connect.sid']; // Extract session ID from cookie
+    // Try both the new custom name and the default connect.sid
+    var sessionId = req.cookies['peer.connect.session'] || req.cookies['connect.sid'];
+    
+    // If no cookie session, try authorization header as fallback
+    if (!sessionId && req.headers.authorization) {
+      const authHeader = req.headers.authorization;
+      if (authHeader.startsWith('Bearer ')) {
+        sessionId = authHeader.substring(7); // Remove 'Bearer ' prefix
+        console.log('🔑 Using session ID from Authorization header:', sessionId);
+      }
+    }
 
     if (!sessionId) {
-      console.log('❌ No session ID found in cookies');
+      console.log('❌ No session ID found in cookies or headers');
+      console.log('❌ Looking for: peer.connect.session, connect.sid, or Authorization header');
       return res.status(401).json({ error: 'No session ID found' });
     }
 

@@ -39,6 +39,12 @@ const Login = () => {
         // Session cookie will be automatically handled by the browser
         // Store any additional user info if needed
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // Store auth token as fallback for cross-origin cookie issues
+        if (response.data.authToken) {
+          localStorage.setItem('authToken', response.data.authToken);
+          console.log('🔑 Stored auth token:', response.data.authToken);
+        }
         toast.success('Login successful! Welcome back!', {
           position: "top-right",
           autoClose: 3000,
