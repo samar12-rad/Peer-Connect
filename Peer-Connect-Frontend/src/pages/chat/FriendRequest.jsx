@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import UserCardModal from '../../Components/unitComponents/UserCardModal';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
 import { useNavigate } from 'react-router-dom';
 import Requestbar from './RequestBar';
+import { buildApiUrl } from '../../utils/environment';
 
 const FriendRequest = () => {
   const [friendRequests, setFriendRequests] = useState(['']);
@@ -12,6 +13,27 @@ const FriendRequest = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { getUserInfo } = useGetUserInfo(); // Use the hook
   const navigate = useNavigate();
+  const scrollContainerRef = useRef(null);
+
+  // Handle nested scroll behavior
+  const handleWheel = (e) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    const isAtTop = scrollTop === 0;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+    // If scrolling up and at top, or scrolling down and at bottom,
+    // let the parent page handle the scroll
+    if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
+      // Don't prevent default - let parent scroll
+      return;
+    }
+
+    // Otherwise, handle scroll within this container
+    e.stopPropagation();
+  };
   useEffect(() => {
     getUserInfo();
 
@@ -20,14 +42,12 @@ const FriendRequest = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/data',
-        {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const response = await fetch(buildApiUrl('/user/data'), {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         }
       );
       const data = await response.json();
@@ -40,7 +60,7 @@ const FriendRequest = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://peer-connect-production.up.railway.app/api/v1/user/makeFriend/${userId}`,
+        buildApiUrl(`/user/makeFriend/${userId}`),
         {
           method: 'POST',
           credentials: 'include',
@@ -69,7 +89,7 @@ const FriendRequest = () => {
   const handleRemoveFriend = async (userId) => {
     try {
       const response = await axios.post(
-        `https://peer-connect-production.up.railway.app/api/v1/user/removeFriend/${userId}`
+        buildApiUrl(`/user/removeFriend/${userId}`)
       );
       if (response.status === 200) {
         getUserInfo();
@@ -87,7 +107,11 @@ const FriendRequest = () => {
 
   return (
     <>
-      <div className="shadow-3d-effect relative h-[80vh] w-full flex-col overflow-y-scroll rounded-2xl border border-white/5 px-2 py-10 shadow-white backdrop-blur-[7.4px]">
+      <div 
+        ref={scrollContainerRef}
+        onWheel={handleWheel}
+        className="shadow-3d-effect relative w-full flex-col rounded-2xl border border-white/5 px-2 py-10 shadow-white backdrop-blur-[7.4px] max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-track-gray-800 scrollbar-thumb-green-500"
+      >
         <h1 className="px-5 pb-7 text-7xl font-bold text-green-500">
           Friend Requests
         </h1>
@@ -104,8 +128,8 @@ const FriendRequest = () => {
             />
           ))
         ) : (
-          <div className="m-0 ml-2 flex h-full items-center justify-center pl-5">
-            <h1 className="-mt-30 text-5xl">
+          <div className="m-0 ml-2 flex items-center justify-center pl-5 py-8">
+            <h1 className="text-3xl text-center">
               No <span className="text-green-400">friend requests</span>{' '}
               available
             </h1>

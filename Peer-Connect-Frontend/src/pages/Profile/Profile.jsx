@@ -20,7 +20,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-fit relative flex w-full flex-col gap-4 overflow-hidden pb-9 shadow-xl">
+    <div className="max-fit relative flex w-full flex-col gap-4 overflow-hidden pb-9 shadow-xl pt-20">
       <div className="flex justify-evenly text-2xl">
         <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
           <span className="text-green-500"> PROFILE</span>

@@ -7,7 +7,10 @@ const useConversation = create((set) => ({
       selectedConversation: conversation,
     })), // Updates selected conversation
   messages: [], // Stores messages array
-  setMessages: (messages) => set(() => ({ messages })), // Updates messages list
+  setMessages: (messages) => set((state) => {
+    const newMessages = typeof messages === 'function' ? messages(state.messages) : messages;
+    return { messages: Array.isArray(newMessages) ? newMessages : [] };
+  }), // Updates messages list, handles both direct values and callback functions, ensures array
 }));
 
 export default useConversation;

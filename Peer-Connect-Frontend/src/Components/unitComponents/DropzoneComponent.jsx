@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
+import { buildApiUrl } from '../../utils/environment';
 
 function MyDropzone({ onFileDrop }) {
   const [uploadedFile, setUploadedFile] = useState(null); // State to store uploaded file
@@ -23,7 +24,7 @@ function MyDropzone({ onFileDrop }) {
 
         // API call to the backend
         fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/upload',
+          buildApiUrl('/user/upload'),
           {
             method: 'POST',
             body: formData,
@@ -56,7 +57,7 @@ function MyDropzone({ onFileDrop }) {
     if (uploadedFile) {
       try {
         const response = await fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/remove-file',
+          buildApiUrl('/user/remove-file'),
           {
             method: 'POST',
             body: JSON.stringify({ public_id: uploadedFile.public_id }),

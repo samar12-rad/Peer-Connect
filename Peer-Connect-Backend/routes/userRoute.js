@@ -4,6 +4,7 @@ require('dotenv').config();
 const checkSession = require('../middlewares/sessionAuth');
 const userController = require('../controllers/userController');
 const { fetchUser } = require('../v1(small scale)/Fetch-User');
+const { enhancedFetchUsers } = require('../v1(small scale)/Enhanced-Fetch-User');
 const multer = require('multer');
 const { Upload, removeFile } = require('../controllers/CloudinaryController');
 const upload = multer({ storage: multer.memoryStorage() });
@@ -14,10 +15,14 @@ router.get('/peerData/:userId', userController.getPeerData);
 router.post('/signup', userController.createUser);
 // Login Route
 router.post('/login', userController.loginUser);
+// Logout Route
+router.post('/logout', userController.logoutUser);
 // Get User Data Route
 router.get('/data', userController.getData);
 // Fetch Users Route
 router.post('/fetchUsers', checkSession, fetchUser);
+// Enhanced Fetch Users Route (with pagination and diverse algorithms)
+router.post('/fetchUsersEnhanced', checkSession, enhancedFetchUsers);
 // Update User Data Route
 router.post('/update', userController.updateData);
 // Get Users for Sidebar Route

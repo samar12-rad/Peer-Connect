@@ -4,7 +4,7 @@ import FriendRequest from './FriendRequest';
 
 const ChatPage = () => {
   return (
-    <div className="p-30 flex h-fit w-full flex-col items-center justify-start gap-4 pt-5">
+    <div className="p-30 flex h-fit w-full flex-col items-center justify-start gap-4 pt-24">
       <FriendRequest />
 
       <h1 className="pb-5 text-center text-7xl font-bold">

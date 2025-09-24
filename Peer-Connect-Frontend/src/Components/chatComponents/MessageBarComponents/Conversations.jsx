@@ -18,9 +18,11 @@ const Conversations = () => {
 
   return (
     <div className="scroll-container flex h-full w-full flex-col overflow-y-scroll px-4 pb-3">
-      {conversationsList.map((conversation) => (
-        <Conversation key={conversation} conversation={conversation} />
-      ))}
+      {conversationsList
+        .filter((conversation) => conversation && conversation !== 'null' && conversation !== 'undefined')
+        .map((conversation) => (
+          <Conversation key={conversation} conversation={conversation} />
+        ))}
     </div>
   );
 };

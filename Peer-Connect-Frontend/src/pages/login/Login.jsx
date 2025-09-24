@@ -2,6 +2,7 @@ import { useState } from 'react';
 import peer from '../../assets/Peerlist.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { buildApiUrl } from '../../utils/environment';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,13 +20,13 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await axios.post(
-        'https://peer-connect-production.up.railway.app/api/v1/user/login',
-        {
-          email,
-          password,
-        }
-      );
+      const loginUrl = buildApiUrl('/user/login');
+      console.log('🔑 Login URL:', loginUrl);
+      
+      const response = await axios.post(loginUrl, {
+        email,
+        password,
+      });
 
       if (response.data.sessionId) {
         // Session cookie will be automatically handled by the browser

@@ -2,6 +2,7 @@ import Header from './Header';
 import SkillSelector from './SkillSelector';
 import { useState } from 'react';
 import UserCardWrapper from './UserCardWrapper';
+import { buildApiUrl } from '../../utils/environment';
 
 const PeerFinder = () => {
   const [skillsArray, setSkillsArray] = useState([]);
@@ -57,7 +58,7 @@ const PeerFinder = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/fetchUsers',
+        buildApiUrl('/user/fetchUsers'),
         {
           method: 'POST',
           headers: {
@@ -84,7 +85,7 @@ const PeerFinder = () => {
   };
 
   return (
-    <div className="flex h-fit w-full flex-col items-center p-10">
+    <div className="flex h-fit w-full flex-col items-center p-10 pt-20">
       <Header />
       <SkillSelector
         skillNames={skillNames}

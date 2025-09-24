@@ -1,6 +1,7 @@
 import UserCard from './UserCard';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { buildApiUrl } from '../../utils/environment';
 
 const dummyData = {
   filteredUsers: [
@@ -26,7 +27,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
   const checkFriendStatus = async (userId) => {
     try {
       const response = await fetch(
-        `https://peer-connect-production.up.railway.app/api/v1/user/checkFriend/${userId}`,
+        buildApiUrl(`/user/checkFriend/${userId}`),
         {
           credentials: 'include',
         }
@@ -68,7 +69,7 @@ const UserCardWrapper = ({ peerData = dummyData }) => {
       }
 
       const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/update',
+        buildApiUrl('/user/update'),
         {
           method: 'POST',
           credentials: 'include',

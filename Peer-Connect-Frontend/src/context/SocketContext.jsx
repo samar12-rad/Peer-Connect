@@ -1,8 +1,13 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
 import { io } from 'socket.io-client'; // Add this import
 import useGetUserInfo from '../hooks/useGetUserInfo';
+import { getSocketUrl } from '../utils/environment';
 
 export const SocketContext = createContext();
+
+export const useSocketContext = () => {
+  return useContext(SocketContext);
+};
 
 const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
@@ -10,32 +15,46 @@ const SocketContextProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
-    // Initialize socket connection
-    const socket = io('https://peer-connect-production.up.railway.app', {
-      withCredentials: true,
-      query: {
-        userId: userInfo?.data._id,
-      },
-    });
+    if (userInfo?.data?._id) {
+      // Initialize socket connection with environment-aware URL
+      const socketUrl = getSocketUrl();
+      console.log('🔌 Connecting to socket:', socketUrl);
+      
+      const newSocket = io(socketUrl, {
+        withCredentials: true,
+        query: {
+          userId: userInfo.data._id,
+        },
+      });
 
-    // Set socket in state
-    setSocket(socket);
+      // Set socket in state
+      setSocket(newSocket);
 
-    // Listen for onlineUsers event
-    socket.on('onlineUsers', (users) => {
-      setOnlineUsers(users);
-    });
+      // Listen for onlineUsers event
+      newSocket.on('onlineUsers', (users) => {
+        setOnlineUsers(users);
+      });
 
-    // Cleanup on unmount
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
-  }, []);
+      // Cleanup on unmount
+      return () => {
+        if (newSocket) {
+          newSocket.disconnect();
+        }
+      };
+    } else {
+      // Clear socket if no user
+      setSocket(null);
+    }
+  }, [userInfo?.data?._id]);
+
+  const sendMessage = (messageData) => {
+    if (socket) {
+      socket.emit('sendMessage', messageData);
+    }
+  };
 
   return (
-    <SocketContext.Provider value={{ socket, onlineUsers }}>
+    <SocketContext.Provider value={{ socket, onlineUsers, sendMessage }}>
       {children}
     </SocketContext.Provider>
   );

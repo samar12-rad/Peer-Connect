@@ -4,6 +4,7 @@ import Skill from './Skill';
 import ProjectModal from './ProjectModal';
 import { LinkPreview } from './LinkPreview';
 import { motion } from 'framer-motion';
+import { buildApiUrl } from '../../utils/environment';
 
 const EditSections = {
   BASIC_INFO: 'basicInfo',
@@ -266,7 +267,7 @@ const EditModal = ({ isOpen, onClose, userInfo, onUpdate, section }) => {
 
     try {
       const response = await fetch(
-        'https://peer-connect-production.up.railway.app/api/v1/user/update',
+        buildApiUrl('/user/update'),
         {
           method: 'POST',
           headers: {

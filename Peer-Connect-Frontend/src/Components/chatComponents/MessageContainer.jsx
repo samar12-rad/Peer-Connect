@@ -2,27 +2,30 @@ import { CgProfile } from 'react-icons/cg';
 import { ImCross } from 'react-icons/im';
 import { FaLocationArrow } from 'react-icons/fa';
 import useConversation from '../../zustand/useConversation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import useSendMessage from '../../hooks/useSendMessage';
 import useGetMessages from '../../hooks/useGetMessages';
 import LoadingScreen from '../unitComponents/LoadingScreen';
 import useGetUserInfo from '../../hooks/useGetUserInfo';
+import { buildApiUrl } from '../../utils/environment';
 
 const MessageContainer = () => {
   const { selectedConversation } = useConversation();
-  const { getUserInfo, userInfo } = useGetUserInfo();
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
+  const { userInfo } = useGetUserInfo(); // Remove getUserInfo call from here since it's already called in the hook
 
   const [peerData, setPeerData] = useState(null);
   useEffect(() => {
     const fetchPeerData = async () => {
+      // Don't fetch if no selectedConversation or if it's invalid
+      if (!selectedConversation || selectedConversation === 'null' || selectedConversation === 'undefined') {
+        setPeerData(null);
+        return;
+      }
+
       try {
         const response = await fetch(
-          `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${selectedConversation}`
-        );
+        buildApiUrl(`/user/peerData/${selectedConversation}`)
+      );
         const data = await response.json();
         if (data.data) {
           setPeerData(data.data);
@@ -38,6 +41,15 @@ const MessageContainer = () => {
   const { loading: sendingLoading, sendMessage } = useSendMessage();
   const { messages, loading: messagesLoading } = useGetMessages();
   const [message, setMessage] = useState('');
+  const messagesEndRef = useRef(null);
+
+  // Safety check - ensure messages is always an array
+  const safeMessages = Array.isArray(messages) ? messages : [];
+
+  // Auto-scroll to bottom when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [safeMessages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +80,7 @@ const MessageContainer = () => {
         ) : selectedConversation ? (
           <>
             <div className="my-4 flex flex-col gap-4 overflow-y-auto p-4">
-              {messages?.map((msg, index) => (
+              {safeMessages.map((msg, index) => (
                 <div
                   className={`chat ${msg.sender === userInfo.data._id ? 'chat-end' : 'chat-start'}`}
                   key={index}
@@ -84,6 +96,7 @@ const MessageContainer = () => {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
 
             <div className="flex h-[10%] w-full items-center justify-between border border-white px-3">

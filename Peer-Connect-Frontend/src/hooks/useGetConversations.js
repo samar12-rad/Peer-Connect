@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import useConversation from '../zustand/useConversation';
+import { buildApiUrl } from '../utils/environment';
 
 const useGetConversations = () => {
   const [conversations, setConversations] = useState([]);
@@ -6,16 +8,13 @@ const useGetConversations = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const response = await fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/users',
-          {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        const response = await fetch(buildApiUrl('/user/users'), {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         const data = await response.json();
         setConversations(data);
       } catch (error) {

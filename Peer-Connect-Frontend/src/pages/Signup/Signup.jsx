@@ -6,6 +6,7 @@ import { LinkPreview } from '../../Components/unitComponents/LinkPreview';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import MyDropzone from '../../Components/unitComponents/DropzoneComponent';
+import { buildApiUrl } from '../../utils/environment';
 
 const Signup = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +72,7 @@ const Signup = () => {
     };
     console.log(user);
     const response = await fetch(
-      'https://peer-connect-production.up.railway.app/api/v1/user/signup',
+      buildApiUrl('/user/signup'),
       {
         method: 'POST',
         headers: {
@@ -150,7 +151,7 @@ const Signup = () => {
   ];
 
   return (
-    <div className="flex h-fit w-full flex-col items-center px-5 pb-10 pt-2">
+    <div className="flex h-fit w-full flex-col items-center px-5 pb-10 pt-18">
       <h1 className="bg-gradient-to-b from-neutral-200 to-neutral-100 bg-clip-text pb-5 text-center text-7xl font-bold text-transparent">
         Create your<span className="text-green-500"> Profile</span>
       </h1>

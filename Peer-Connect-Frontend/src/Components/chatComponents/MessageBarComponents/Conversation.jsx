@@ -2,6 +2,7 @@ import { CgProfile } from 'react-icons/cg';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import useConversation from '../../../zustand/useConversation';
+import { buildApiUrl } from '../../../utils/environment';
 
 const Conversation = ({ conversation }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
@@ -10,9 +11,15 @@ const Conversation = ({ conversation }) => {
   const [error, setError] = useState(null);
   useEffect(() => {
     const fetchPeerData = async () => {
+      // Don't fetch if conversation is null, undefined, or invalid
+      if (!conversation || conversation === 'null' || conversation === 'undefined') {
+        setError('Invalid conversation ID');
+        return;
+      }
+
       try {
         const response = await fetch(
-          `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${conversation}`
+          buildApiUrl(`/user/peerData/${conversation}`)
         );
         const data = await response.json();
         if (data.data) {
@@ -55,9 +62,7 @@ const Conversation = ({ conversation }) => {
 };
 
 Conversation.propTypes = {
-  conversation: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
-  }).isRequired,
+  conversation: PropTypes.string.isRequired, // conversation is actually a string (userId)
 };
 
 export default Conversation;

@@ -5,6 +5,7 @@ import Login from './pages/login/Login';
 import Signup from './pages/Signup/Signup';
 import ChatPage from './pages/chat/ChatPage';
 import PeerFinder from './pages/peerFinder/PeerFinder';
+import EnhancedPeerFinder from './pages/peerFinder/EnhancedPeerFinder';
 import Landing from './pages/landing_page/Landing';
 import Navbar from './Components/Navbar';
 
@@ -13,13 +14,14 @@ const App = () => {
     <Router>
       <Navbar />
       <div className="bg-black-2 flex">
-        <div className="shadow-inner-fat-blue bg-black-2 mt-10 h-fit min-h-screen w-screen overflow-hidden">
+        <div className="shadow-inner-fat-blue bg-black-2 h-fit min-h-screen w-screen overflow-hidden">
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/find" element={<PeerFinder />} />
+            <Route path="/find" element={<EnhancedPeerFinder />} />
+            <Route path="/find-basic" element={<PeerFinder />} />
             <Route path="/landing" element={<Landing />} />
             <Route
               path="*"

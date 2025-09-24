@@ -7,6 +7,7 @@ import profileHover from '../../assets/dashboardLogo/profile_copy.png';
 import msgHover from '../../assets/dashboardLogo/chat.png';
 import find from '../../assets/dashboardLogo/find.png';
 import LoadingScreen from '../../Components/unitComponents/LoadingScreen';
+import { buildApiUrl } from '../../utils/environment';
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -18,16 +19,13 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          'https://peer-connect-production.up.railway.app/api/v1/user/data',
-          {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        const response = await fetch(buildApiUrl('/user/data'), {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         if (!response.ok) {
           navigate('/login');
         }
@@ -35,7 +33,8 @@ export const Dashboard = () => {
         setUserData(data);
         setLoading(false);
       } catch (error) {
-        setError(error);
+        console.error('Dashboard fetch error:', error);
+        setError(error.message || 'Failed to fetch user data');
         setLoading(false);
       }
     };
@@ -44,10 +43,23 @@ export const Dashboard = () => {
   }, []);
 
   if (loading) return <LoadingScreen message="Loading Dashboard..." />;
-  if (error) return <div>Error: {error}</div>;
+  if (error) {
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center text-center">
+        <div className="text-red-500 text-2xl mb-4">Error</div>
+        <div className="text-white">{error}</div>
+        <button 
+          onClick={() => window.location.reload()} 
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex h-fit w-full flex-col items-center justify-start gap-2 overflow-hidden">
+    <div className="flex h-fit w-full flex-col items-center justify-start gap-2 overflow-hidden pt-16">
       <div className="HEADER flex w-fit flex-col items-center justify-center pt-20">
         <div className="flex flex-col items-center gap-2">
           <h1 className="items-center justify-center text-6xl">Hey!</h1>

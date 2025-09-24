@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { buildApiUrl } from '../../utils/environment';
 
 const Requestbar = ({ peerkey, onViewPeer }) => {
   const [peerData, setPeerData] = useState({});
@@ -9,7 +10,7 @@ const Requestbar = ({ peerkey, onViewPeer }) => {
       if (!peerkey) return;
 
       console.log(peerkey);
-      const url = `https://peer-connect-production.up.railway.app/api/v1/user/peerData/${peerkey}`;
+      const url = buildApiUrl(`/user/peerData/${peerkey}`);
       console.log(url);
       const response = await fetch(url, {
         method: 'GET',
