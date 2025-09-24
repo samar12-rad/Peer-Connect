@@ -43,7 +43,7 @@ const FriendRequest = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await apiGet('/data');
+        const response = await apiGet('/user/data');
         if (response.ok) {
           const data = await response.json();
           setFriendRequests(data.data.friendRequests);

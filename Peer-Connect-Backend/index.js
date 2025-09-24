@@ -96,7 +96,45 @@ app.use(
 // Use root router for API routes
 app.use('/api/v1', require('./routes/index'));
 
+// Function to log all available endpoints
+const logEndpoints = () => {
+  console.log('\n🚀 ================== SERVER ENDPOINTS ==================');
+  console.log('📍 Base URL: /api/v1');
+  console.log('');
+  
+  // User endpoints
+  console.log('👤 USER ENDPOINTS:');
+  console.log('   📝 POST   /api/v1/user/signup           - Create new user');
+  console.log('   🔐 POST   /api/v1/user/login            - User login');
+  console.log('   🚪 POST   /api/v1/user/logout           - User logout');
+  console.log('   📊 GET    /api/v1/user/data             - Get user data (auth required)');
+  console.log('   ✅ GET    /api/v1/user/verify           - Verify authentication (auth required)');
+  console.log('   🔍 POST   /api/v1/user/fetchUsers       - Fetch users (auth required)');
+  console.log('   🔍 POST   /api/v1/user/fetchUsersEnhanced - Enhanced fetch users (auth required)');
+  console.log('   ✏️  POST   /api/v1/user/update           - Update user data');
+  console.log('   👥 GET    /api/v1/user/users            - Get users for sidebar (auth required)');
+  console.log('   🔗 GET    /api/v1/user/peerData/:userId - Get peer data');
+  console.log('   👋 GET    /api/v1/user/checkFriend/:targetUserId - Check friend status (auth required)');
+  console.log('   ➕ POST   /api/v1/user/makeFriend/:targetUserId  - Make friend (auth required)');
+  console.log('   ➖ POST   /api/v1/user/removeFriend/:targetUserId - Remove friend (auth required)');
+  console.log('   📁 POST   /api/v1/user/upload           - Upload file (multipart/form-data)');
+  console.log('   🗑️  POST   /api/v1/user/remove-file      - Remove file');
+  console.log('');
+  
+  // Message endpoints
+  console.log('💬 MESSAGE ENDPOINTS:');
+  console.log('   📤 POST   /api/v1/message/send          - Send message (auth required)');
+  console.log('   📥 POST   /api/v1/message/getMessages   - Get messages (auth required)');
+  console.log('');
+  
+  console.log('🔐 Auth Required: These endpoints need session cookie or Authorization header');
+  console.log('📝 Environment: ' + (process.env.NODE_ENV || 'development'));
+  console.log('🌐 CORS Origins: ' + (process.env.CORS_ORIGINS || 'localhost development'));
+  console.log('========================================================\n');
+};
+
 // Start the server
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  logEndpoints();
 });
