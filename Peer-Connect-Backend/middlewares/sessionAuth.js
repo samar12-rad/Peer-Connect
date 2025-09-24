@@ -29,8 +29,15 @@ const checkSession = async (req, res, next) => {
 
     console.log('🔑 Found session ID:', sessionId);
 
-    // Remove the 's:' prefix and everything after the dot (the signing part)
-    sessionId = sessionId.split('.')[0].substring(2);
+    // Handle session ID format based on source
+    if (sessionId.startsWith('s:')) {
+      // Cookie format - remove the 's:' prefix and everything after the dot (the signing part)
+      sessionId = sessionId.split('.')[0].substring(2);
+      console.log('🔑 Processed cookie session ID:', sessionId);
+    } else {
+      // Authorization header format - use as is
+      console.log('🔑 Using header session ID:', sessionId);
+    }
 
     // Find the session in the MongoDB collection
     const session = await Session.findOne({ _id: sessionId });

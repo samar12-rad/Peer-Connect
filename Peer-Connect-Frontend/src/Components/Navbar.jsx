@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import peer from '../assets/Peerlist.png';
 import useGetUserInfo from '../hooks/useGetUserInfo';
-import { buildApiUrl } from '../utils/environment';
+import { apiGet, apiPost } from '../utils/api';
 
 const Navbar = () => {
   const location = useLocation();
@@ -65,16 +65,17 @@ const Navbar = () => {
   const handleSignOut = async () => {
     try {
       // Call logout API
-      await fetch(buildApiUrl('/user/logout'), {
-        method: 'POST',
-        credentials: 'include',
-      });
-      // Clear user info and redirect
+      await apiPost('/user/logout');
+      // Clear user info, auth token, and redirect
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
       setIsLoggedIn(false);
       window.location.href = '/landing';
     } catch (error) {
       console.error('Error signing out:', error);
-      // Even if logout fails, redirect to landing page
+      // Even if logout fails, clear local data and redirect
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
       window.location.href = '/landing';
     }
   };
@@ -86,22 +87,7 @@ const Navbar = () => {
         try {
           console.log('🔄 Navbar - Making direct auth check...');
           
-          // Get auth token from localStorage as fallback
-          const authToken = localStorage.getItem('authToken');
-          const headers = {
-            'Content-Type': 'application/json',
-          };
-          
-          if (authToken) {
-            headers['Authorization'] = `Bearer ${authToken}`;
-            console.log('🔑 Navbar - Using stored auth token');
-          }
-          
-          const response = await fetch(buildApiUrl('/user/data'), {
-            method: 'GET',
-            credentials: 'include',
-            headers,
-          });
+          const response = await apiGet('/user/data');
           
           if (response.ok) {
             const data = await response.json();

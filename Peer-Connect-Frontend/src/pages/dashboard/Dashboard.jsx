@@ -7,7 +7,7 @@ import profileHover from '../../assets/dashboardLogo/profile_copy.png';
 import msgHover from '../../assets/dashboardLogo/chat.png';
 import find from '../../assets/dashboardLogo/find.png';
 import LoadingScreen from '../../Components/unitComponents/LoadingScreen';
-import { buildApiUrl } from '../../utils/environment';
+import { apiGet } from '../../utils/api';
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -19,13 +19,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(buildApiUrl('/user/data'), {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const response = await apiGet('/user/data');
         if (!response.ok) {
           navigate('/login');
         }
