@@ -3,15 +3,29 @@ const User = require('../models/userModel');
 
 async function getData(req, res) {
   try {
+    console.log('📊 getData controller - req.session:', req.session);
+    console.log('📊 getData controller - req.session.userId:', req.session?.userId);
+    
     const user_id = req.session.userId; // Access userId from sessionData
+    
+    if (!user_id) {
+      console.log('❌ getData controller - No userId found in session');
+      return res.status(401).json({ error: 'No user ID in session' });
+    }
+    
+    console.log('🔍 getData controller - Looking for user:', user_id);
     const userData = await User.findOne({ _id: user_id }); // Use await for async DB query
 
     if (!userData) {
+      console.log('❌ getData controller - User not found in database:', user_id);
       return res.status(404).json({ error: 'User not found' });
     }
+    
+    console.log('✅ getData controller - User found:', userData._id);
     req.userId = userData._id; // Store user ID in the request object for
     res.status(200).json({ data: userData });
   } catch (error) {
+    console.error('❌ getData controller error:', error);
     res.status(500).json({ error: 'Error fetching user data' });
   }
 }

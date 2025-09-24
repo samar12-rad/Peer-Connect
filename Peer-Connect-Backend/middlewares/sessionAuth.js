@@ -42,13 +42,24 @@ const checkSession = async (req, res, next) => {
     // Find the session in the MongoDB collection
     const session = await Session.findOne({ _id: sessionId });
 
-    // Attach userId to req.sessionData for access in routes
-
     if (!session) {
       return res
         .status(401)
         .json({ error: 'Invalid session', req: req.cookies });
     }
+
+    // Parse session data and attach to request
+    const sessionData = JSON.parse(session.session);
+    console.log('🔑 Session data found:', sessionData);
+    
+    // Attach session data to request object
+    req.session = {
+      userId: sessionData.userId,
+      sessionID: sessionId,
+      ...sessionData
+    };
+    
+    console.log('🔑 Attached userId to request:', req.session.userId);
 
     // Session is valid
     next(); // Pass control to the next middleware or route handler
