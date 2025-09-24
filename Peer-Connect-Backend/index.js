@@ -114,6 +114,22 @@ app.use((req, res, next) => {
 
 // Middleware to parse JSON requests
 app.use(express.json());
+// Also parse text/plain as JSON (temporary fix for CORS preflight issues)
+app.use(express.text({ type: 'text/plain' }));
+
+// Middleware to handle text/plain requests (convert to JSON)
+app.use('/api/v1', (req, res, next) => {
+  if (req.get('Content-Type') === 'text/plain;charset=UTF-8' && typeof req.body === 'string') {
+    try {
+      console.log('🔄 Converting text/plain to JSON:', req.body);
+      req.body = JSON.parse(req.body);
+      console.log('✅ Converted body:', req.body);
+    } catch (error) {
+      console.log('❌ Failed to parse text/plain as JSON:', error.message);
+    }
+  }
+  next();
+});
 
 // Debug middleware to log all requests reaching the routes
 app.use('/api/v1', (req, res, next) => {

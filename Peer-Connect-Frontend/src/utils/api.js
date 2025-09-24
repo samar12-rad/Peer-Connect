@@ -74,31 +74,51 @@ export const apiRequest = async (endpoint, options = {}) => {
 
 // Enhanced convenience methods with component tracking
 export const apiGet = (endpoint, componentName = null, options = {}) => {
-  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
-  return apiRequest(endpoint, { method: 'GET', ...options, headers });
+  const extraHeaders = componentName ? { 'X-Component': componentName } : {};
+  return apiRequest(endpoint, { 
+    method: 'GET', 
+    ...options, 
+    headers: {
+      ...extraHeaders,
+      ...options.headers
+    }
+  });
 };
 
 export const apiPost = (endpoint, data, componentName = null, options = {}) => {
-  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
+  const extraHeaders = componentName ? { 'X-Component': componentName } : {};
   return apiRequest(endpoint, { 
     method: 'POST', 
     body: JSON.stringify(data),
     ...options,
-    headers
+    headers: {
+      ...extraHeaders,
+      ...options.headers // This should come after to allow overriding
+    }
   });
 };
 
 export const apiPut = (endpoint, data, componentName = null, options = {}) => {
-  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
+  const extraHeaders = componentName ? { 'X-Component': componentName } : {};
   return apiRequest(endpoint, { 
     method: 'PUT', 
     body: JSON.stringify(data),
     ...options,
-    headers 
+    headers: {
+      ...extraHeaders,
+      ...options.headers
+    }
   });
 };
 
 export const apiDelete = (endpoint, componentName = null, options = {}) => {
-  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
-  return apiRequest(endpoint, { method: 'DELETE', ...options, headers });
+  const extraHeaders = componentName ? { 'X-Component': componentName } : {};
+  return apiRequest(endpoint, { 
+    method: 'DELETE', 
+    ...options, 
+    headers: {
+      ...extraHeaders,
+      ...options.headers
+    }
+  });
 };
