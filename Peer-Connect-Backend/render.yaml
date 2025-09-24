@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: peer-connect-backend
+    env: node
+    buildCommand: npm ci --only=production
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true

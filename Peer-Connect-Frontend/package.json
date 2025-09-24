@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
+    "build": "rm -rf dist .vite && vite build",
+    "build:ci": "npm ci && vite build",
+    "build:fresh": "npm run clean && vite build",
+    "clean": "rm -rf dist .vite node_modules/.vite",
+    "install:ci": "npm ci",
     "preview": "vite preview",
     "format": "prettier --write 'src/**/*.{js,jsx,css,scss}'"
   },

@@ -1,15 +1,47 @@
 import { buildApiUrl } from './environment';
 
-// Centralized API utility that automatically includes auth headers
+// Auto-detect current page for source tracking
+const getCurrentPageSource = () => {
+  const currentPath = window.location.pathname;
+  const pageMapping = {
+    '/': 'homepage',
+    '/dashboard': 'dashboard',
+    '/chat': 'chat',
+    '/peerFinder': 'peer-finder',
+    '/login': 'login',
+    '/signup': 'signup'
+  };
+  
+  // Check for exact matches first
+  if (pageMapping[currentPath]) {
+    return pageMapping[currentPath];
+  }
+  
+  // Check for partial matches
+  if (currentPath.startsWith('/peerFinder')) return 'peer-finder';
+  if (currentPath.startsWith('/chat')) return 'chat';
+  if (currentPath.startsWith('/dashboard')) return 'dashboard';
+  
+  return 'unknown';
+};
+
+// Centralized API utility that automatically includes auth headers and source tracking
 export const apiRequest = async (endpoint, options = {}) => {
   const url = buildApiUrl(endpoint);
   
   // Get auth token from localStorage
   const authToken = localStorage.getItem('authToken');
   
-  // Prepare headers
+  // Auto-detect current page and component info
+  const currentPage = getCurrentPageSource();
+  const currentPath = window.location.pathname;
+  
+  // Prepare headers with source tracking
   const headers = {
     'Content-Type': 'application/json',
+    'X-Page-Source': currentPage,
+    'X-Current-Path': currentPath,
+    'X-Endpoint': endpoint,
     ...options.headers,
   };
   
@@ -27,32 +59,46 @@ export const apiRequest = async (endpoint, options = {}) => {
   };
   
   try {
-    console.log('🌐 API Request:', url, config.method || 'GET');
+    console.log(`🌐 API Request: ${url} ${config.method || 'GET'} | From: ${currentPage} (${currentPath})`);
     const response = await fetch(url, config);
+    
+    // Log response status for debugging
+    console.log(`📡 API Response: ${endpoint} | Status: ${response.status} | From: ${currentPage}`);
+    
     return response;
   } catch (error) {
-    console.error('❌ API Request failed:', endpoint, error);
+    console.error(`❌ API Request failed: ${endpoint} | From: ${currentPage} | Error:`, error);
     throw error;
   }
 };
 
-// Convenience methods
-export const apiGet = (endpoint, options = {}) => 
-  apiRequest(endpoint, { method: 'GET', ...options });
+// Enhanced convenience methods with component tracking
+export const apiGet = (endpoint, componentName = null, options = {}) => {
+  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
+  return apiRequest(endpoint, { method: 'GET', ...options, headers });
+};
 
-export const apiPost = (endpoint, data, options = {}) => 
-  apiRequest(endpoint, { 
+export const apiPost = (endpoint, data, componentName = null, options = {}) => {
+  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
+  return apiRequest(endpoint, { 
     method: 'POST', 
     body: JSON.stringify(data),
-    ...options 
+    ...options,
+    headers
   });
+};
 
-export const apiPut = (endpoint, data, options = {}) => 
-  apiRequest(endpoint, { 
+export const apiPut = (endpoint, data, componentName = null, options = {}) => {
+  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
+  return apiRequest(endpoint, { 
     method: 'PUT', 
     body: JSON.stringify(data),
-    ...options 
+    ...options,
+    headers 
   });
+};
 
-export const apiDelete = (endpoint, options = {}) => 
-  apiRequest(endpoint, { method: 'DELETE', ...options });
+export const apiDelete = (endpoint, componentName = null, options = {}) => {
+  const headers = componentName ? { 'X-Component': componentName, ...options.headers } : options.headers;
+  return apiRequest(endpoint, { method: 'DELETE', ...options, headers });
+};

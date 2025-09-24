@@ -69,12 +69,48 @@ app.use(
     },
     credentials: true, // Allow cookies to be sent
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+    allowedHeaders: [
+      'Content-Type', 
+      'Authorization', 
+      'Cookie',
+      'X-Page-Source',
+      'X-Current-Path', 
+      'X-Endpoint',
+      'X-Component'
+    ],
   })
 );
 
 // Parse cookies
-app.use(cookieParser()); // Add this line to use cookie-parser
+app.use(cookieParser());
+
+// Source tracking middleware - log request origins
+app.use((req, res, next) => {
+  const pageSource = req.get('X-Page-Source');
+  const currentPath = req.get('X-Current-Path');
+  const endpoint = req.get('X-Endpoint');
+  const component = req.get('X-Component');
+  const referer = req.get('Referer');
+  const origin = req.get('Origin');
+  
+  // Create a clean log entry
+  const sourceInfo = pageSource || 'unknown';
+  const pathInfo = currentPath || (referer ? new URL(referer).pathname : 'unknown');
+  const endpointInfo = endpoint || req.path;
+  const componentInfo = component ? ` | Component: ${component}` : '';
+  
+  // Enhanced logging with emojis for easy identification
+  console.log(`📍 ${req.method} ${endpointInfo} | Source: ${sourceInfo} | Path: ${pathInfo}${componentInfo}`);
+  
+  // Optional: Add more detailed logging for debugging
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`   🌐 Origin: ${origin || 'none'}`);
+    console.log(`   📄 Referer: ${referer || 'none'}`);
+    console.log(`   🕐 Time: ${new Date().toISOString()}`);
+  }
+  
+  next();
+});
 
 // Middleware to parse JSON requests
 app.use(express.json());
