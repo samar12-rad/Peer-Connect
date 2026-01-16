@@ -19,7 +19,7 @@ const SocketContextProvider = ({ children }) => {
       // Initialize socket connection with environment-aware URL
       const socketUrl = getSocketUrl();
       console.log('🔌 Connecting to socket:', socketUrl);
-      
+
       const newSocket = io(socketUrl, {
         withCredentials: true,
         query: {
@@ -47,14 +47,15 @@ const SocketContextProvider = ({ children }) => {
     }
   }, [userInfo?.data?._id]);
 
-  const sendMessage = (messageData) => {
-    if (socket) {
-      socket.emit('sendMessage', messageData);
-    }
-  };
+  // sendMessage removed - usage replaced by API calls in hooks
+  // const sendMessage = (messageData) => {
+  //   if (socket) {
+  //     socket.emit('sendMessage', messageData);
+  //   }
+  // };
 
   return (
-    <SocketContext.Provider value={{ socket, onlineUsers, sendMessage }}>
+    <SocketContext.Provider value={{ socket, onlineUsers }}>
       {children}
     </SocketContext.Provider>
   );

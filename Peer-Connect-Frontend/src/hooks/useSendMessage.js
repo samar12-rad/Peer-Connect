@@ -27,17 +27,17 @@ const useSendMessage = () => {
           sender: data.senderId,
           message: data.message,
         };
-        
+
         setMessages([...messages, newMessage]);
 
-        // Also emit via socket for real-time delivery
-        if (socket) {
-          socket.emit('sendMessage', {
-            senderId: data.senderId,
-            receiverId: selectedConversation,
-            message: data.message,
-          });
-        }
+        // Socket emission is now handled by the backend controller
+        // if (socket) {
+        //   socket.emit('sendMessage', {
+        //     senderId: data.senderId, // Note: data.senderId might be undefined based on controller response structure
+        //     receiverId: selectedConversation,
+        //     message: data.message,
+        //   });
+        // }
       }
     } catch (error) {
       console.error('Error sending message:', error);

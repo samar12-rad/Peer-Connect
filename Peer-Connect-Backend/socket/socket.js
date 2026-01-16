@@ -10,28 +10,34 @@ const io = new Server(server, {
     origin: function (origin, callback) {
       // Allow requests with no origin (like mobile apps)
       if (!origin) return callback(null, true);
-      
+
       // Define allowed origins
       const allowedOrigins = [
         'http://localhost:5173',
         'http://localhost:3000',
         'https://peer-connect-frontend.vercel.app',
-        'https://peer-connect-eight.vercel.app' // Current Vercel deployment
+        'https://peer-connect-eight.vercel.app', // Current Vercel deployment
       ];
-      
+
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
       }
       // Allow any Vercel deployment for peer-connect
-      else if (origin && origin.includes('peer-connect') && origin.includes('vercel.app')) {
+      else if (
+        origin &&
+        origin.includes('peer-connect') &&
+        origin.includes('vercel.app')
+      ) {
         console.log('🔌 Socket.IO - Allowing Vercel deployment:', origin);
         callback(null, true);
       }
       // Allow localhost for development
-      else if (origin && (origin.includes('localhost') || origin.includes('127.0.0.1'))) {
+      else if (
+        origin &&
+        (origin.includes('localhost') || origin.includes('127.0.0.1'))
+      ) {
         callback(null, true);
-      }
-      else {
+      } else {
         console.log('🚫 Socket.IO - Blocked by CORS:', origin);
         callback(new Error('Not allowed by Socket.IO CORS'));
       }
@@ -58,20 +64,11 @@ io.on('connection', (socket) => {
   io.emit('onlineUsers', Object.keys(userSocketMap));
 
   // Listen for new messages
-  socket.on('sendMessage', (messageData) => {
-    const { receiverId, senderId, message } = messageData;
-    const receiverSocketId = getReceiverSocketId(receiverId);
-    
-    if (receiverSocketId) {
-      // Send message to specific receiver
-      io.to(receiverSocketId).emit('newMessage', {
-        senderId,
-        receiverId,
-        message,
-        timestamp: new Date()
-      });
-    }
-  });
+  // Listen for new messages
+  // socket.on('sendMessage', (messageData) => {
+  // Legacy support - we now use the HTTP API for sending messages to ensure persistence
+  // console.log('⚠️ client using socket.emit("sendMessage") - ignoring, should use API');
+  // });
 
   socket.on('disconnect', () => {
     console.log('A user disconnected');
