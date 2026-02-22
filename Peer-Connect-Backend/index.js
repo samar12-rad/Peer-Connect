@@ -41,7 +41,8 @@ app.use(
         !origin ||
         allAllowedOrigins.includes(origin) ||
         (origin.includes('peer-connect') && origin.includes('vercel.app')) ||
-        origin.includes('localhost')
+        origin.includes('localhost') ||
+        origin.includes('cloudfront.net') // Allow CloudFront distributions
       ) {
         callback(null, true);
       } else {
@@ -109,6 +110,16 @@ app.use(
     },
   })
 );
+
+// Health check endpoint (for load balancers and monitoring)
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development',
+  });
+});
 
 // Use root router for API routes
 app.use('/api/v1', require('./routes/index'));
