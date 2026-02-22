@@ -188,7 +188,6 @@ const logEndpoints = () => {
 };
 
 // Start the server
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-  logEndpoints();
+server.listen(PORT, '0.0.0.0', () => {
+  console.log('Server running');
 });
